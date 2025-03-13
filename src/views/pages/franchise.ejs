@@ -1,0 +1,87 @@
+<%- include("../../components/header") %>
+
+  <section class="form-query pt-5 pb-5">
+    <div class="container">
+      <div class="row">
+
+        <% console.log(message) %>
+          <div class="col-12">
+            <div class=" form-query-box ">
+              <form action="submit-franchise-detail?application=<%= application %>" method="post">
+                <div class=" form-query-head text-center mb-5">
+                  <div class="form-query-img">
+                    <img src="/image/LOGO.png" alt="">
+                  </div>
+                  <h1>BIHAR EARLY CHILDHOOD <br> CARE & EDUCATION</h1>
+                </div>
+                <div class="row form-query-inputs">
+                  <div class="col-12">
+                    <label for="">Center/institute/school name</label>
+                    <div class="input-group mb-4">
+                      <input type="text" class="form-control form_control_border" name="conter_name"
+                        placeholder="Center/institute/school name" aria-label="Username" aria-describedby="basic-addon1"
+                        required>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <label for="">Director name</label>
+                    <div class="input-group mb-4">
+                      <input type="text" class="form-control form_control_border" name="director_name"
+                        placeholder="Name" aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <label for="">Mobile </label>
+                    <div class="input-group mb-4">
+                      <input
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                        type="number" maxlength="10" class="form-control form_control_border" name="mobile"
+                        placeholder="Mobile" aria-label="" aria-describedby="basic-addon1" required>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <label for="">Email</label>
+                    <div class="input-group mb-4">
+                      <input type="email" class="form-control form_control_border" name="email" placeholder="email"
+                        aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <label for="">State</label>
+                    <div class="input-group mb-4">
+                      <input type="text" class="form-control form_control_border" name="state" placeholder="State"
+                        aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <label for="">District </label>
+                    <div class="input-group mb-4">
+                      <input type="text" class="form-control form_control_border" name="district" placeholder="District"
+                        aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <label for="">Block </label>
+                    <div class="input-group mb-4">
+                      <input type="text" class="form-control form_control_border" name="block" placeholder="Block"
+                        aria-label="Username" aria-describedby="basic-addon1" required>
+                    </div>
+                  </div>
+                  <div class=" form-query-submit-bttn">
+                    <button type="submit">SUBMIT</button>
+                    <p>
+                      <%= message.success %>
+                    </p>
+                    <p>
+                      <%= message.error %>
+                    </p>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <%- include("../../components/footer") %>

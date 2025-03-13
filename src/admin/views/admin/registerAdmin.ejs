@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="SIxgLipxeCoQ2a2YE57wiFi4vEXJD1jeFt0gI23N">
+
+    <title>BECCE</title>
+
+    <!-- Scripts -->
+    <script src="/js/app.js" defer></script>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <meta name="description" content="IMG Global Infotech" />
+    <meta name="author" content="IMG Global Infotech" />
+    <title>BECCE</title>
+
+    <link href="/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="/logo.png" />
+    <script data-search-pseudo-elements defer src="/js/all.min.js"></script>
+    <link href="/css/bijarniadream.min.css" rel="stylesheet" />
+    <link href="/css/bootstrap-select.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <link href="/css/theme1.css" rel="stylesheet" />
+    <link href="/css/jquery.datetimepicker.css" rel="stylesheet" />
+    <link rel='stylesheet' href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/r-2.2.1/datatables.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.3.6/dist/sweetalert2.all.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.3.6/dist/sweetalert2.css">
+
+    <style>
+        @import url(https://kit-pro.fontawesome.com/releases/v5.14.0/css/pro.min.css);
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&amp;display=swap');
+    </style>
+
+
+    <style>
+        :root {
+            --font-family: 'Poppins', sans-serif;
+
+
+
+            /*  Calculations Based on Lightness  */
+            --lightnessTransform: 10%;
+            --darknessTransform: 15%;
+            --contrastThreshold: 60%;
+
+
+
+            /*  primary  */
+            --primary-color-h: 230;
+            --primary-color-s: 38.5%;
+            --primary-color-l: 17.8%;
+
+
+            --primary-color-light-l: calc(var(--primary-color-l) + var(--lightnessTransform));
+            --primary-color-dark-l: calc(var(--primary-color-l) - var(--darknessTransform));
+            --color-primary: hsl(var(--primary-color-h), var(--primary-color-s), var(--primary-color-l));
+            --color-primary-dark: hsl(var(--primary-color-h), var(--primary-color-s), var(--primary-color-dark-l));
+            --color-primary-light: hsl(var(--primary-color-h), var(--primary-color-s), var(--primary-color-light-l));
+
+
+            /*  transparent  */
+            --transparent-color-h: 230;
+            --transparent-color-s: 38.5%;
+            --transparent-color-l: 17.8%;
+
+
+            --transparent-color-light-l: calc(var(--primary-color-l) + var(--lightnessTransform));
+            --transparent-color-dark-l: calc(var(--primary-color-l) - var(--darknessTransform));
+            --color-transparent: hsl(var(--primary-color-h)var(--primary-color-s)var(--primary-color-l) / 0%);
+            --color-transparent-dark: hsl(var(--primary-color-h)var(--primary-color-s)var(--primary-color-dark-l) / 0%);
+            --color-transparent-light: hsl(var(--primary-color-h)var(--primary-color-s)var(--primary-color-light-l) / 0%);
+
+
+
+            /*  secondary  */
+            --secondary-color-h: 217;
+            --secondary-color-s: 79.4%;
+            --secondary-color-l: 60%;
+
+
+            --secondary-color-light-l: calc(var(--secondary-color-l) + var(--lightnessTransform));
+            --secondary-color-dark-l: calc(var(--secondary-color-l) - var(--darknessTransform));
+            --color-secondary: hsl(var(--secondary-color-h), var(--secondary-color-s), var(--secondary-color-l));
+            --color-secondary-dark: hsl(var(--secondary-color-h), var(--secondary-color-s), var(--secondary-color-dark-l));
+            --color-secondary-light: hsl(var(--secondary-color-h), var(--secondary-color-s), var(--secondary-color-light-l));
+
+
+
+            /*  info  */
+            --info-color-h: 188;
+            --info-color-s: 78%;
+            --info-color-l: 41%;
+
+            --info-color-light-l: calc(var(--info-color-l) + var(--lightnessTransform));
+            --info-color-dark-l: calc(var(--info-color-l) - var(--darknessTransform));
+            --color-info: hsl(var(--info-color-h), var(--info-color-s), var(--info-color-l));
+            --color-info-dark: hsl(var(--info-color-h), var(--info-color-s), var(--info-color-dark-l));
+            --color-info-light: hsl(var(--info-color-h), var(--info-color-s), var(--info-color-light-l));
+
+
+
+            /*  success  */
+            --success-color-h: 134;
+            --success-color-s: 61%;
+            --success-color-l: 42%;
+
+            --success-color-light-l: calc(var(--success-color-l) + var(--lightnessTransform));
+            --success-color-dark-l: calc(var(--success-color-l) - var(--darknessTransform));
+            --color-success: hsl(var(--success-color-h), var(--success-color-s), var(--success-color-l));
+            --color-success-dark: hsl(var(--success-color-h), var(--success-color-s), var(--success-color-dark-l));
+            --color-success-light: hsl(var(--success-color-h), var(--success-color-s), var(--success-color-light-l));
+
+
+
+            /*  danger  */
+            --danger-color-h: 354;
+            --danger-color-s: 70%;
+            --danger-color-l: 53%;
+
+            --danger-color-light-l: calc(var(--danger-color-l) + var(--lightnessTransform));
+            --danger-color-dark-l: calc(var(--danger-color-l) - var(--darknessTransform));
+            --color-danger: hsl(var(--danger-color-h), var(--danger-color-s), var(--danger-color-l));
+            --color-danger-dark: hsl(var(--danger-color-h), var(--danger-color-s), var(--danger-color-dark-l));
+            --color-danger-light: hsl(var(--danger-color-h), var(--danger-color-s), var(--danger-color-light-l));
+
+
+
+            /*  warning  */
+            --warning-color-h: 45;
+            --warning-color-s: 100%;
+            --warning-color-l: 51%;
+
+            --warning-color-light-l: calc(var(--warning-color-l) + var(--lightnessTransform));
+            --warning-color-dark-l: calc(var(--warning-color-l) - var(--darknessTransform));
+            --color-warning: hsl(var(--warning-color-h), var(--warning-color-s), var(--warning-color-l));
+            --color-warning-dark: hsl(var(--warning-color-h), var(--warning-color-s), var(--warning-color-dark-l));
+            --color-warning-light: hsl(var(--warning-color-h), var(--warning-color-s), var(--warning-color-light-l));
+
+
+
+            /*  light  */
+            --light-color-h: 210;
+            --light-color-s: 16%;
+            --light-color-l: 97%;
+
+            --light-color-light-l: calc(var(--light-color-l) + var(--lightnessTransform));
+            --light-color-dark-l: calc(var(--light-color-l) - var(--darknessTransform));
+            --color-light: hsl(var(--light-color-h), var(--light-color-s), var(--light-color-l));
+            --color-light-dark: hsl(var(--light-color-h), var(--light-color-s), var(--light-color-dark-l));
+            --color-light-light: hsl(var(--light-color-h), var(--light-color-s), var(--light-color-light-l));
+
+
+
+            /*  dark  */
+            --dark-color-h: 210;
+            --dark-color-s: 10%;
+            --dark-color-l: 23%;
+
+            --dark-color-light-l: calc(var(--dark-color-l) + var(--lightnessTransform));
+            --dark-color-dark-l: calc(var(--dark-color-l) - var(--darknessTransform));
+            --color-dark: hsl(var(--dark-color-h), var(--dark-color-s), var(--dark-color-l));
+            --color-dark-dark: hsl(var(--dark-color-h), var(--dark-color-s), var(--dark-color-dark-l));
+            --color-dark-light: hsl(var(--dark-color-h), var(--dark-color-s), var(--dark-color-light-l));
+
+
+
+            /*  black  */
+            --black-color-h: 0;
+            --black-color-s: 0%;
+            --black-color-l: 0%;
+
+            --black-color-light-l: calc(var(--black-color-l) + var(--lightnessTransform));
+            --black-color-dark-l: calc(var(--black-color-l) - var(--darknessTransform));
+            --color-black: hsl(var(--black-color-h), var(--black-color-s), var(--black-color-l));
+            --color-black-dark: hsl(var(--black-color-h), var(--black-color-s), var(--black-color-dark-l));
+            --color-black-light: hsl(var(--black-color-h), var(--black-color-s), var(--black-color-light-l));
+
+
+
+            /*  white  */
+            --white-color-h: 0;
+            --white-color-s: 0%;
+            --white-color-l: 100%;
+
+            --white-color-light-l: calc(var(--white-color-l) + var(--lightnessTransform));
+            --white-color-dark-l: calc(var(--white-color-l) - var(--darknessTransform));
+            --color-white: hsl(var(--white-color-h), var(--white-color-s), var(--white-color-l));
+            --color-white-dark: hsl(var(--white-color-h), var(--white-color-s), var(--white-color-dark-l));
+            --color-white-light: hsl(var(--white-color-h), var(--white-color-s), var(--white-color-light-l));
+
+
+
+            /*  muted  */
+            --muted-color-h: 0;
+            --muted-color-s: 0%;
+            --muted-color-l: 87%;
+
+            --muted-color-light-l: calc(var(--muted-color-l) + var(--lightnessTransform));
+            --muted-color-dark-l: calc(var(--muted-color-l) - var(--darknessTransform));
+            --color-muted: hsl(var(--muted-color-h), var(--muted-color-s), var(--muted-color-l));
+            --color-muted-dark: hsl(var(--muted-color-h), var(--muted-color-s), var(--muted-color-dark-l));
+            --color-muted-light: hsl(var(--muted-color-h), var(--muted-color-s), var(--muted-color-light-l));
+
+
+
+            /*  blue  */
+            --blue-color-h: 210;
+            --blue-color-s: 100%;
+            --blue-color-l: 50%;
+
+            --blue-color-light-l: calc(var(--blue-color-l) + var(--lightnessTransform));
+            --blue-color-dark-l: calc(var(--blue-color-l) - var(--darknessTransform));
+            --color-blue: hsl(var(--blue-color-h), var(--blue-color-s), var(--blue-color-l));
+            --color-blue-dark: hsl(var(--blue-color-h), var(--blue-color-s), var(--blue-color-dark-l));
+            --color-blue-light: hsl(var(--blue-color-h), var(--blue-color-s), var(--blue-color-light-l));
+
+
+
+            /*  indigo  */
+            --indigo-color-h: 263;
+            --indigo-color-s: 90%;
+            --indigo-color-l: 50%;
+
+            --indigo-color-light-l: calc(var(--indigo-color-l) + var(--lightnessTransform));
+            --indigo-color-dark-l: calc(var(--indigo-color-l) - var(--darknessTransform));
+            --color-indigo: hsl(var(--indigo-color-h), var(--indigo-color-s), var(--indigo-color-l));
+            --color-indigo-dark: hsl(var(--indigo-color-h), var(--indigo-color-s), var(--indigo-color-dark-l));
+            --color-indigo-light: hsl(var(--indigo-color-h), var(--indigo-color-s), var(--indigo-color-light-l));
+
+
+
+            /*  purple  */
+            --purple-color-h: 268;
+            --purple-color-s: 68%;
+            --purple-color-l: 45%;
+
+            --purple-color-light-l: calc(var(--purple-color-l) + var(--lightnessTransform));
+            --purple-color-dark-l: calc(var(--purple-color-l) - var(--darknessTransform));
+            --color-purple: hsl(var(--purple-color-h), var(--purple-color-s), var(--purple-color-l));
+            --color-purple-dark: hsl(var(--purple-color-h), var(--purple-color-s), var(--purple-color-dark-l));
+            --color-purple-light: hsl(var(--purple-color-h), var(--purple-color-s), var(--purple-color-light-l));
+
+
+
+            /*  pink  */
+            --pink-color-h: 332;
+            --pink-color-s: 79%;
+            --pink-color-l: 57%;
+
+            --pink-color-light-l: calc(var(--pink-color-l) + var(--lightnessTransform));
+            --pink-color-dark-l: calc(var(--pink-color-l) - var(--darknessTransform));
+            --color-pink: hsl(var(--pink-color-h), var(--pink-color-s), var(--pink-color-l));
+            --color-pink-dark: hsl(var(--pink-color-h), var(--pink-color-s), var(--pink-color-dark-l));
+            --color-pink-light: hsl(var(--pink-color-h), var(--pink-color-s), var(--pink-color-light-l));
+
+
+
+            /*  red  */
+            --red-color-h: 354;
+            --red-color-s: 70%;
+            --red-color-l: 53%;
+
+            --red-color-light-l: calc(var(--red-color-l) + var(--lightnessTransform));
+            --red-color-dark-l: calc(var(--red-color-l) - var(--darknessTransform));
+            --color-red: hsl(var(--red-color-h), var(--red-color-s), var(--red-color-l));
+            --color-red-dark: hsl(var(--red-color-h), var(--red-color-s), var(--red-color-dark-l));
+            --color-red-light: hsl(var(--red-color-h), var(--red-color-s), var(--red-color-light-l));
+
+
+
+            /*  orange  */
+            --orange-color-h: 27;
+            --orange-color-s: 98%;
+            --orange-color-l: 53%;
+
+            --orange-color-light-l: calc(var(--orange-color-l) + var(--lightnessTransform));
+            --orange-color-dark-l: calc(var(--orange-color-l) - var(--darknessTransform));
+            --color-orange: hsl(var(--orange-color-h), var(--orange-color-s), var(--orange-color-l));
+            --color-orange-dark: hsl(var(--orange-color-h), var(--orange-color-s), var(--orange-color-dark-l));
+            --color-orange-light: hsl(var(--orange-color-h), var(--orange-color-s), var(--orange-color-light-l));
+
+
+
+            /*  yellow  */
+            --yellow-color-h: 45;
+            --yellow-color-s: 100%;
+            --yellow-color-l: 51%;
+
+            --yellow-color-light-l: calc(var(--yellow-color-l) + var(--lightnessTransform));
+            --yellow-color-dark-l: calc(var(--yellow-color-l) - var(--darknessTransform));
+            --color-yellow: hsl(var(--yellow-color-h), var(--yellow-color-s), var(--yellow-color-l));
+            --color-yellow-dark: hsl(var(--yellow-color-h), var(--yellow-color-s), var(--yellow-color-dark-l));
+            --color-yellow-light: hsl(var(--yellow-color-h), var(--yellow-color-s), var(--yellow-color-light-l));
+
+
+
+            /*  green  */
+            --green-color-h: 134;
+            --green-color-s: 61%;
+            --green-color-l: 40%;
+
+            --green-color-light-l: calc(var(--green-color-l) + var(--lightnessTransform));
+            --green-color-dark-l: calc(var(--green-color-l) - var(--darknessTransform));
+            --color-green: hsl(var(--green-color-h), var(--green-color-s), var(--green-color-l));
+            --color-green-dark: hsl(var(--green-color-h), var(--green-color-s), var(--green-color-dark-l));
+            --color-green-light: hsl(var(--green-color-h), var(--green-color-s), var(--green-color-light-l));
+
+
+
+            /*  teal  */
+            --teal-color-h: 162;
+            --teal-color-s: 72%;
+            --teal-color-l: 46%;
+
+            --teal-color-light-l: calc(var(--teal-color-l) + var(--lightnessTransform));
+            --teal-color-dark-l: calc(var(--teal-color-l) - var(--darknessTransform));
+            --color-teal: hsl(var(--teal-color-h), var(--teal-color-s), var(--teal-color-l));
+            --color-teal-dark: hsl(var(--teal-color-h), var(--teal-color-s), var(--teal-color-dark-l));
+            --color-teal-light: hsl(var(--teal-color-h), var(--teal-color-s), var(--teal-color-light-l));
+
+
+
+            /*  cyan  */
+            --cyan-color-h: 188;
+            --cyan-color-s: 78%;
+            --cyan-color-l: 40%;
+
+            --cyan-color-light-l: calc(var(--cyan-color-l) + var(--lightnessTransform));
+            --cyan-color-dark-l: calc(var(--cyan-color-l) - var(--darknessTransform));
+            --color-cyan: hsl(var(--cyan-color-h), var(--cyan-color-s), var(--cyan-color-l));
+            --color-cyan-dark: hsl(var(--cyan-color-h), var(--cyan-color-s), var(--cyan-color-dark-l));
+            --color-cyan-light: hsl(var(--cyan-color-h), var(--cyan-color-s), var(--cyan-color-light-l));
+
+
+
+            /*  gray  */
+            --gray-color-h: 208;
+            --gray-color-s: 7%;
+            --gray-color-l: 46%;
+
+            --gray-color-light-l: calc(var(--gray-color-l) + var(--lightnessTransform));
+            --gray-color-dark-l: calc(var(--gray-color-l) - var(--darknessTransform));
+            --color-gray: hsl(var(--gray-color-h), var(--gray-color-s), var(--gray-color-l));
+            --color-gray-dark: hsl(var(--gray-color-h), var(--gray-color-s), var(--gray-color-dark-l));
+            --color-gray-light: hsl(var(--gray-color-h), var(--gray-color-s), var(--gray-color-light-l));
+
+
+
+            /*  graydark  */
+            --graydark-color-h: 213;
+            --graydark-color-s: 10%;
+            --graydark-color-l: 17%;
+
+            --graydark-color-light-l: calc(var(--graydark-color-l) + var(--lightnessTransform));
+            --graydark-color-dark-l: calc(var(--graydark-color-l) - var(--darknessTransform));
+            --color-graydark: hsl(var(--graydark-color-h), var(--graydark-color-s), var(--graydark-color-l));
+            --color-graydark-dark: hsl(var(--graydark-color-h), var(--graydark-color-s), var(--graydark-color-dark-l));
+            --color-graydark-light: hsl(var(--graydark-color-h), var(--graydark-color-s), var(--graydark-color-light-l));
+
+        }
+
+
+
+
+
+        /*  Apply Color to Boxes */
+
+
+        .text-n-primary {
+            --switch: calc((var(--primary-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-primary-light {
+            --switch: calc((var(--primary-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-primary-dark {
+            --switch: calc((var(--primary-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+        .text-n-secondary {
+            --switch: calc((var(--secondary-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-secondary-light {
+            --switch: calc((var(--secondary-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-secondary-dark {
+            --switch: calc((var(--secondary-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-success {
+            --switch: calc((var(--success-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-success-light {
+            --switch: calc((var(--success-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-success-dark {
+            --switch: calc((var(--success-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-danger {
+            --switch: calc((var(--danger-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-danger-light {
+            --switch: calc((var(--danger-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-danger-dark {
+            --switch: calc((var(--danger-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-warning {
+            --switch: calc((var(--warning-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-warning-light {
+            --switch: calc((var(--warning-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-warning-dark {
+            --switch: calc((var(--warning-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-info {
+            --switch: calc((var(--info-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-info-light {
+            --switch: calc((var(--info-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-info-dark {
+            --switch: calc((var(--info-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-dark {
+            --switch: calc((var(--dark-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-dark-light {
+            --switch: calc((var(--dark-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-dark-dark {
+            --switch: calc((var(--dark-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-black {
+            --switch: calc((var(--black-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-black-light {
+            --switch: calc((var(--black-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-black-dark {
+            --switch: calc((var(--black-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-light {
+            --switch: calc((var(--light-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-light-light {
+            --switch: calc((var(--light-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-light-dark {
+            --switch: calc((var(--light-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-white {
+            --switch: calc((var(--white-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-white-light {
+            --switch: calc((var(--white-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-white-dark {
+            --switch: calc((var(--white-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-muted {
+            --switch: calc((var(--muted-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-muted-light {
+            --switch: calc((var(--muted-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-muted-dark {
+            --switch: calc((var(--muted-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-blue {
+            --switch: calc((var(--blue-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-blue-light {
+            --switch: calc((var(--blue-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-blue-dark {
+            --switch: calc((var(--blue-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-indigo {
+            --switch: calc((var(--indigo-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-indigo-light {
+            --switch: calc((var(--indigo-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-indigo-dark {
+            --switch: calc((var(--indigo-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-purple {
+            --switch: calc((var(--purple-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-purple-light {
+            --switch: calc((var(--purple-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-purple-dark {
+            --switch: calc((var(--purple-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-pink {
+            --switch: calc((var(--pink-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-pink-light {
+            --switch: calc((var(--pink-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-pink-dark {
+            --switch: calc((var(--pink-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-red {
+            --switch: calc((var(--red-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-red-light {
+            --switch: calc((var(--red-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-red-dark {
+            --switch: calc((var(--red-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-orange {
+            --switch: calc((var(--orange-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-orange-light {
+            --switch: calc((var(--orange-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-orange-dark {
+            --switch: calc((var(--orange-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-yellow {
+            --switch: calc((var(--yellow-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-yellow-light {
+            --switch: calc((var(--yellow-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-yellow-dark {
+            --switch: calc((var(--yellow-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-green {
+            --switch: calc((var(--green-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-green-light {
+            --switch: calc((var(--green-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-green-dark {
+            --switch: calc((var(--green-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-teal {
+            --switch: calc((var(--teal-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-teal-light {
+            --switch: calc((var(--teal-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-teal-dark {
+            --switch: calc((var(--teal-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-cyan {
+            --switch: calc((var(--cyan-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-cyan-light {
+            --switch: calc((var(--cyan-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-cyan-dark {
+            --switch: calc((var(--cyan-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-gray {
+            --switch: calc((var(--gray-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-gray-light {
+            --switch: calc((var(--gray-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-gray-dark {
+            --switch: calc((var(--gray-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+
+        .text-n-graydark {
+            --switch: calc((var(--graydark-color-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-graydark-light {
+            --switch: calc((var(--graydark-color-light-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+        .text-n-graydark-dark {
+            --switch: calc((var(--graydark-color-dark-l) - var(--contrastThreshold)) * -100);
+            color: hsl(0, 0%, var(--switch));
+        }
+
+
+        /*  Etc */
+        .box-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            justify-content: center;
+        }
+
+        .controls {
+            margin-top: 1rem;
+            padding: 1rem 2rem;
+            border-color: #bbb;
+            border-style: dashed;
+        }
+
+        .controls div {
+            width: 100px;
+            text-align: center;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body class="
+bg-primary
+">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-5 col-lg-6 col-md-8 col-sm-11">
+                            <div class="card my-5">
+                                <div class="card-body p-3 text-center">
+                                    <div class="h3 font-weight-light">Register Admin</div>
+                                </div>
+                                <hr class="my-0 border-light" />
+                                <div class="card-body p-4">
+                                    <form method="POST" action="/registerAdminData">
+                                        <!-- <input type="hidden" name="_token"
+                                            value="SIxgLipxeCoQ2a2YE57wiFi4vEXJD1jeFt0gI23N"> -->
+                                            <div class="form-group">
+                                                <label class="text-gray-600 small" for="NameExample">Name</label>
+                                                <input name="name" class="form-control form-control-solid   form-control form-control-solid-solid py-4"
+                                                    type="text" placeholder=" Enter Name" aria-describedby="NameExample"
+                                                    required />
+                                            </div>
+                                        <div class="form-group">
+                                            <label class="text-gray-600 small" for="emailExample">Email Address</label>
+                                            <input name="email"
+                                                class="form-control form-control-solid   form-control form-control-solid-solid py-4"
+                                                type="email" placeholder="Email Address" aria-describedby="emailExample"
+                                                required />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label type="password" class="text-gray-600 small"
+                                                for="passwordExample">Password</label>
+                                            <input class="form-control form-control-solid py-4 " type="password"
+                                                placeholder="Password" aria-describedby="passwordExample"
+                                                name="password" required autocomplete="current-password" />
+                                        </div>
+                                        <div class="form-group align-items-center justify-content-between mb-0">
+                                            <button type="submit" class="btn  btn-primary btn-block">Register</button>
+                                            <a href="/login-admin" class="btn  btn-secondary btn-block">Login</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div id="layoutAuthentication_footer">
+            <footer class="footer mt-auto footer-dark">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 small">Copyright &#xA9; Admin 2024</div>
+                        <div class="col-md-6 text-md-right small">
+                            <a href="javascript:void(0);">Privacy Policy</a>
+                            &#xB7;
+                            <a href="javascript:void(0);">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/r-2.2.1/datatables.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="/js/jquery.datetimepicker.full.js"></script>
+    <script src="/js/bootstrap-select.js"></script>
+    <script src="/js/Chart.min.js"></script>
+    <script src="/js/demo/chart-area-demo.js"></script>
+    <script src="/js/demo/chart-bar-demo.js"></script>
+    <script src="/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/js/demo/datatables-demo.js"></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+    <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+
+    <script>
+        // This is only for the Inputs to work dynamically
+
+        function setTheme(H, inputType) {
+            // Convert hex to RGB first
+            let r = 0, g = 0, b = 0;
+            if (H.length == 4) {
+                r = "0x" + H[1] + H[1];
+                g = "0x" + H[2] + H[2];
+                b = "0x" + H[3] + H[3];
+            } else if (H.length == 7) {
+                r = "0x" + H[1] + H[2];
+                g = "0x" + H[3] + H[4];
+                b = "0x" + H[5] + H[6];
+            }
+            // Then to HSL
+            r /= 255;
+            g /= 255;
+            b /= 255;
+            let cmin = Math.min(r, g, b),
+                cmax = Math.max(r, g, b),
+                delta = cmax - cmin,
+                h = 0,
+                s = 0,
+                l = 0;
+
+            if (delta == 0)
+                h = 0;
+            else if (cmax == r)
+                h = ((g - b) / delta) % 6;
+            else if (cmax == g)
+                h = (b - r) / delta + 2;
+            else
+                h = (r - g) / delta + 4;
+
+            h = Math.round(h * 60);
+
+            if (h < 0)
+                h += 360;
+
+            l = (cmax + cmin) / 2;
+            s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+            s = +(s * 100).toFixed(1);
+            l = +(l * 100).toFixed(1);
+
+            document.documentElement.style.setProperty(`--${inputType}-color-h`, h);
+            document.documentElement.style.setProperty(`--${inputType}-color-s`, s + '%');
+            document.documentElement.style.setProperty(`--${inputType}-color-l`, l + '%');
+
+            hsl = h + ' ' + s + ' ' + l + '';
+
+            //   $('#'+inputType+'-color-input').val( hsl );
+
+            $('input[name="input[' + inputType + '_hsl]"').val(hsl);
+        }
+
+        const inputs = ['primary', 'secondary', 'info', 'success', 'danger', 'warning', 'muted', 'dark', 'light', 'black', 'white', 'blue', 'indigo', 'purple', 'pink', 'red', 'orange', 'yellow', 'green', 'teal', 'cyan', 'gray', 'graydark'];
+
+        inputs.forEach((inputType) => {
+            document.querySelector(`#${inputType}-color-input`)
+                .addEventListener('change', (e) => {
+                    setTheme(e.target.value, inputType);
+
+                });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,317 @@
+<%- include("../../components/head") %>
+
+    <%- include("../../components/bodyStartWithNavBar/") %>
+        <%- include("../../components/sideNav") %>
+
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="page-header pb-10 page-header-dark bg-info">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <div class="page-header-content">
+                                        <h1 class="page-header-title fs-md-35 fs-20">
+                                            <div class="page-header-icon">
+                                                <i class="fad fa-at text-white"></i>
+                                            </div>
+                                            <span class="text-capitalize"> Course Manager </span>
+                                        </h1>
+                                        <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                            Add New Course
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-md-0 mb-3">
+                                    <a href="/view-all-product"
+                                        class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary float-right"><i
+                                            class="fad fa-eye"></i>&nbsp; View All Course</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card">
+                            <div class="card-header">Add New Item</div>
+                            <!-- id="demo-form2" -->
+                            <form action="/add_courses_data" method="post" class="card-body" autocomplete="off"
+                                id="subjectForm">
+                                <input type="hidden" name="typename" value="course" />
+
+
+                                <div class="sbp-preview">
+                                    <div class="sbp-preview-content">
+                                        <div class="row mx-0">
+
+                                            <!-- Name -->
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="name">Course Name*</label>
+                                                    <input class="form-control form-control-solid" id="name" type="text"
+                                                        placeholder="course Name" name="course_name" />
+                                                </div>
+                                            </div>
+
+                                            <!-- course Code -->
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="course_code">Course Code *</label>
+                                                    <input class="form-control form-control-solid" id="course_code"
+                                                        type="number" placeholder="course Code" name="course_code" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <div class="form-group my-3">
+                                                    <label for="type"> Duration*</label>
+                                                    <select required name="duration"
+                                                        class="form-control form-control-solid " data-container="body"
+                                                        data-live-search="true" title="Select Type"
+                                                        data-hide-disabled="true" required id="duration">
+                                                        <option value="" disabled selected>Select Duration</option>
+                                                        <option value="3">3 Months</option>
+                                                        <option value="6">6 Months</option>
+                                                        <option value="12">12 Months</option>
+                                                        <option value="24">2 Years</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- course Code -->
+                                            <div class="col-12" id="2nd_year" style="display: none;">
+                                                <div class="col-md-6">
+                                                    <div class="form-group my-3">
+                                                        <label for="2nd_year_fees">2nd Registration Fees*</label>
+                                                        <input class="form-control form-control-solid"
+                                                            id="2nd_year_fees" type="number"
+                                                            placeholder="2nd Registration Fees"
+                                                            name="second_year_fees" />
+                                                    </div>
+                                                </div>
+
+                                                <!-- course Code -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group my-3">
+                                                        <label for="2nd_year_exam_fees">2nd Exam Fees*</label>
+                                                        <input class="form-control form-control-solid"
+                                                            id="2nd_year_exam_fees" type="number"
+                                                            placeholder="2nd_year_exam_fees"
+                                                            name="second_year_exam_fees" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+                                            <!-- course Code -->
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="admission_fees">Admission Fees*</label>
+                                                    <input class="form-control form-control-solid" id="admission_fees"
+                                                        type="number" placeholder="Admission Fees"
+                                                        name="admission_fees" />
+                                                </div>
+                                            </div>
+
+                                            <!-- course Code -->
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="exam_fees">Exam Fees*</label>
+                                                    <input class="form-control form-control-solid" id="exam_fees"
+                                                        type="number" placeholder="Exam Fees" name="exam_fees" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <table class="table table-bordered" id="subjectTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>S No.</th>
+                                                            <th>Subject Name</th>
+                                                            <th>F.M.</th>
+                                                            <th>P.M.</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                            <input type="hidden" name="subjects" id="subjectData" value="" >
+                                            <div class="col-md-12">
+                                                <button class="btn btn-success btn-sm" id="addSubject">Add Subject</button>
+                                            </div>
+
+
+                                            <!-- Submit Button -->
+                                            <div class="col-md-12 text-right mt-4 mb-2">
+                                                <button class="btn btn-sm btn-success text-uppercase" type="submit">
+                                                    <i class="far fa-check-circle"></i>&nbsp;Submit
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </main>
+                <%- include("../../components/footer") %>
+
+                <script>
+                    $(document).ready(function () {
+                        let subjectCount = 0;
+                        $("#addSubject").click(function (e) {
+                            e.preventDefault();
+                            subjectCount++;
+                            $("#subjectTable tbody").append(`
+                                <tr>
+                                    <td>${subjectCount}</td>
+                                    <td><input type="text" class="form-control subject-name" placeholder="Subject Name"></td>
+                                    <td><input type="number" class="form-control subject-fm" placeholder="F.M."></td>
+                                    <td><input type="number" class="form-control subject-am" placeholder="P.M."></td>
+                                    <td><button class="btn btn-danger btn-sm removeSubject">Remove</button></td>
+                                </tr>
+                            `);
+                        });
+            
+                        $(document).on("click", ".removeSubject", function () {
+                            $(this).closest("tr").remove();
+                        });
+            
+                        $("#subjectForm").submit(function (e) {
+                            let subjects = [];
+                            $("#subjectTable tbody tr").each(function () {
+                                let subjectName = $(this).find(".subject-name").val();
+                                let fm = $(this).find(".subject-fm").val();
+                                let am = $(this).find(".subject-am").val();
+                                if (subjectName && fm && am) {
+                                    subjects.push({
+                                        subjectName: subjectName,
+                                        FM: fm,
+                                        PM: am
+                                    });
+                                }
+                            });
+                            $("#subjectData").val(JSON.stringify(subjects));
+
+                           
+                        });
+                    });
+                </script>
+                    <script>
+                        $(window).on("load", function () {
+                            $("#preloader_admin").hide();
+                        });
+                    </script>
+
+                    <script>
+                        const duration = document.getElementById("duration");
+                        duration.addEventListener("change", function () {
+                            const durationValue = this.value;
+                            if (durationValue == 24) {
+                                document.getElementById("2nd_year").style.display = "block";
+                            }
+                        })
+                    </script>
+
+                    <script>
+                        $(document).ready(function () {
+                            if ($("#accordionSidenavPages a").hasClass("active")) {
+                                $("#accordionSidenavPages a.active")
+                                    .parent()
+                                    .parent()
+                                    .prev("a")
+                                    .removeClass("collapsed");
+                                $("#accordionSidenavPages a.active").parent().parent().addClass("show");
+                                // console.log(id);
+                            } else {
+                                $("#takeonebar").addClass("slamdown");
+                            }
+                        });
+                    </script>
+
+                    <script type="text/javascript">
+                        $.datetimepicker.setLocale("en");
+                        $(".datetimepickerget").datetimepicker({
+                            lang: "en",
+                            formatDate: "d.m.Y",
+                            step: 5,
+                            startDate: new Date(),
+                        });
+                    </script>
+                    <script type="text/javascript">
+                        $(".datepicker").datepicker({
+                            lang: "en",
+                            formatDate: "d.m.Y",
+                            step: 5,
+                        });
+                    </script>
+
+                    <script>
+                        function validate(evt) {
+                            var theEvent = evt || window.event;
+
+                            // Handle paste
+                            if (theEvent.type === "paste") {
+                                key = event.clipboardData.getData("text/plain");
+                            } else {
+                                // Handle key press
+                                var key = theEvent.keyCode || theEvent.which;
+                                key = String.fromCharCode(key);
+                            }
+                            var regex = /[0-9]|\./;
+                            if (!regex.test(key)) {
+                                theEvent.returnValue = false;
+                                if (theEvent.preventDefault) theEvent.preventDefault();
+                            }
+                        }
+                    </script>
+                    <script>
+                        function readURL(input) {
+                            if (input.files && input.files[0]) {
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    $("#" + input.id + "-imagePreview").css(
+                                        "background-image",
+                                        "url(" + e.target.result + ")"
+                                    );
+                                    $("#" + input.id + "-imagePreview").hide();
+                                    $("#" + input.id + "-imagePreview").fadeIn(650);
+                                };
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }
+                        $(".imageUpload").change(function () {
+                            readURL(this);
+                        });
+                    </script>
+                    <script>
+                        function isNumberKey(evt) {
+                            onkeypress = "validate(event)"; //var e = evt || window.event;
+                            var charCode = evt.which ? evt.which : evt.keyCode;
+                            if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+                                return false;
+                            else {
+                                var itemdecimal = evt.srcElement.value.split(".");
+                                if (itemdecimal.length > 1 && charCode == 46) return false;
+
+                                return true;
+                            }
+                        }
+                    </script>
+
+                    <script>
+                        /*jslint browser:true*/
+                        /*global jQuery, document*/
+
+                        jQuery(document).ready(function () {
+                            "use strict";
+
+                            jQuery(
+                                "#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date"
+                            ).datetimepicker();
+                        });
+                    </script>
+            </div>

@@ -1,0 +1,391 @@
+<%- include("../../components/head") %>
+
+  <%- include("../../components/bodyStartWithNavBar/") %>
+    <%- include("../../components/sideNav") %>
+      <div id="layoutSidenav_content">
+        <main>
+
+          <div class="page-header pb-10 page-header-dark bg-info">
+            <div class="container-fluid">
+              <div class="row align-items-center">
+                <div class="col">
+                  <div class="page-header-content">
+                    <h1 class="page-header-title fs-md-35 fs-20">
+
+                      <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                      <span class=" text-capitalize">
+                        User Manager
+                      </span>
+                    </h1>
+                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                      View All Users
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto mb-md-0 mb-3">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid mt-n10">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card mb-3">
+                  <div class="card-heading p-3">
+                    <form method="get" action="/view_all_admission">
+                      <div class="sbp-preview position-relative">
+                        <div class="form-group">
+                          <div class="row mx-0 align-items-end">
+
+                            <div class="col-md-6">
+                              <div class="form-group my-3">
+                                <label for="Status" class="control-label text-bold ">Status</label>
+                                <% if(selectQuery || selectQuery2 || selectQuery3) {%>
+                                  <select class="form-control form-control-solid input-sm p-1 selectpicker show-tick"
+                                    data-container="body" data-live-search="true" title="Select Status"
+                                    data-hide-disabled="true" name="status" id="status">
+                                    <option value="">Select Status</option>
+                                    <option value="activated" <%=selectQuery=='activated' ? 'selected' : '' %>
+                                      >Activated</option>
+                                    <option value="blocked" <%=selectQuery=='blocked' ? 'selected' : '' %> >Block
+                                    </option>
+                                    <option value=4 <%=selectQuery2==4 ? 'selected' : '' %> >Not Uploaded Pan</option>
+                                    <option value=3 <%=selectQuery3==3 ? 'selected' : '' %> >Not Uploaded Bank</option>
+                                  </select>
+                                  <% } else{%>
+                                    <select class="form-control form-control-solid input-sm p-1 selectpicker show-tick"
+                                      data-container="body" data-live-search="true" title="Select Status"
+                                      data-hide-disabled="true" name="status" id="status">
+                                      <option value="">Select Status</option>
+                                      <option value="activated">Activated</option>
+                                      <option value="blocked">Block</option>
+                                      <option value=4>Not Uploaded Pan</option>
+                                      <option value=3>Not Uploaded Bank</option>
+                                    </select>
+                                    <% }%>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group my-3">
+                                <label for="Team Name" class="control-label text-bold input-sm">Team Name</label>
+                                <% if(teamName) {%>
+                                  <input value="<%=teamName %>" placeholder="Search By Team Name" id="name"
+                                    class="form-control form-control-solid" name="name" type="text">
+                                  <%}else{ %>
+                                    <input value="" placeholder="Search By Team Name" id="name"
+                                      class="form-control form-control-solid" name="name" type="text">
+                                    <% }%>
+                              </div>
+                            </div>
+                            <div class="col-md">
+                              <div class="form-group my-3">
+                                <label for="Email" class="control-label text-bold">Email</label>
+                                <% if(emailValue) {%>
+                                  <input value="<%=emailValue %>" placeholder="Search By Email" id="email"
+                                    class="form-control form-control-solid" name="email" type="text">
+                                  <%}else{ %>
+                                    <input value="" placeholder="Search By Email" id="email"
+                                      class="form-control form-control-solid" name="email" type="text">
+                                    <% }%>
+                              </div>
+                            </div>
+                            <div class="col-md">
+                              <div class="form-group my-3">
+                                <label for="Mobile" class="control-label text-bold">Mobile</label>
+
+                                <% if(mobileNo) {%>
+                                  <input value="<%=mobileNo %>" placeholder="Search By Mobile" id="mobile"
+                                    class="form-control form-control-solid" maxlength="10" name="mobile" type="number">
+                                  <%}else{ %>
+                                    <input value="" placeholder="Search By Mobile" id="mobile"
+                                      class="form-control form-control-solid" maxlength="10" name="mobile"
+                                      type="number">
+                                    <% }%>
+                              </div>
+                            </div>
+                            <div class="col-md-auto text-right mb-md-3">
+
+                              <button class="btn btn-sm btn-success text-uppercase"><i
+                                  class="far fa-check-circle"></i>&nbsp;Submit</button>
+                              <a href="/view_all_users" class="btn btn-sm btn-warning text-uppercase"><i
+                                  class="far fa-undo"></i>&nbsp; Reset</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card mb-4">
+              <div class="card-header">
+                <div class="row w-100 align-items-center mx-0">
+                  <div class="col-md col-12 mb-md-0 mb-2 text-md-left text-center">View All Users</div>
+                </div>
+              </div>
+              <div class="card-body">
+
+
+                <div class="datatable table-responsive">
+                  <table class="table table-bordered table-hover text-nowrap" id="view_users_datatable" width="100%"
+                    cellspacing="0">
+                    <thead>
+                      <tr>
+
+                        <th data-toggle="tooltip" title="User ID">S NO.</th>
+                        <th>student_name</th>
+                        <th>dob</th>
+                        <th>gender</th>
+                        <th>mobile</th>
+                        <th>branch_code</th>
+                        <th>branch_name</th>
+                        <th>course_code</th>
+                        <th>course_name</th>
+                        <th>duration</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th data-toggle="tooltip" title="User ID">S NO.</th>
+                        <th>student_name</th>
+                        <th>dob</th>
+                        <th>gender</th>
+                        <th>mobile</th>
+                        <th>branch_code</th>
+                        <th>branch_name</th>
+                        <th>course_code</th>
+                        <th>course_name</th>
+                        <th>duration</th>
+                        <th>Action</th>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+              <%- include("../../components/alertMsg") %>
+            </div>
+
+            <script type="text/javascript">
+              $(document).ready(function () {
+                $.fn.dataTable.ext.errMode = 'none';
+                var name = document.getElementById('name').value;
+                var email = document.getElementById('email').value;
+                var mobile = document.getElementById('mobile').value;
+                var status = document.getElementById('status').value;
+                $('#view_users_datatable').DataTable({
+                  searching: false,
+                  language: {
+                    zeroRecords: "No records to display"
+                  },
+                  ajax: {
+                    url: `/view_admission_datatable?&name=${name}&email=${email}&mobile=${mobile}&status=${status}`,
+                    type: "POST",
+                  },
+                  columns: [
+                    { data: "id" },
+                    { data: "student_name" },
+                    { data: "dob" },
+                    { data: "gender" },
+                    { data: "mobile" },
+                    { data: "branch_code" },
+                    { data: "branch_name" },
+                    { data: "course_code" },
+                    { data: "course_name" },
+                    { data: "duration" },
+
+                    { data: "action" },
+                  ]
+
+                });
+
+              });
+            </script>
+
+          </div>
+        </main>
+        <%- include("../../components/footer") %>
+
+          <script>
+
+            $(window).on('load', function () {
+
+              $('#preloader_admin').hide();
+
+            })
+          </script>
+
+          <script>
+            $(document).ready(function () {
+
+              if ($('#accordionSidenavPages a').hasClass('active')) {
+                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                // console.log(id);
+              } else {
+                $('#takeonebar').addClass('slamdown');
+              }
+            });
+          </script>
+
+
+          <script>
+            $('#b1').click(function () {
+              const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                  confirmButton: 'btn btn-sm btn-success',
+                  cancelButton: 'btn btn-sm btn-danger'
+                },
+                buttonsStyling: false
+              })
+
+              swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  )
+                } else if (
+                  /* Read more about handling dismissals below */
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your imaginary file is safe :)',
+                    'error'
+                  )
+                }
+              })
+            });
+          </script>
+
+          <script>
+
+            function isNumberKey(evt) {
+              //var e = evt || window.event;
+
+              var charCode = (evt.which) ? evt.which : evt.keyCode
+              if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+
+                return false;
+              else {
+                var itemdecimal = evt.srcElement.value.split('.');
+                if (itemdecimal.length > 1 && charCode == 46)
+                  return false;
+
+                return true;
+              }
+            }
+
+          </script>
+          <script>
+            /*jslint browser:true*/
+            /*global jQuery, document*/
+
+            jQuery(document).ready(function () {
+              'use strict';
+
+              jQuery('#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date').datetimepicker();
+            });
+          </script>
+          <script>
+            function delete_sweet_alert(url, msg) {
+              // sweet alert
+              const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                  confirmButton: 'btn btn-sm btn-success ml-2',
+                  cancelButton: 'btn btn-sm btn-danger'
+                },
+                buttonsStyling: false
+              })
+
+              swalWithBootstrapButtons.fire({
+                title: msg,
+                text: "You won't be able to revert this!",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                reverseButtons: true
+              }).then((result) => {
+                if (result.isConfirmed) {
+
+                  swalWithBootstrapButtons.fire(
+                    '',
+                    'Successfully Blocked',
+                    'success'
+                  );
+
+                  window.location.href = url;
+
+
+                } else if (
+                  /* Read more about handling dismissals below */
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Cancelled successfully :)',
+                    'error'
+                  );
+                  return false;
+                }
+              })
+            }
+          </script>
+          <script>
+            function save_sweet_alert(url, msg) {
+              const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                  confirmButton: 'btn btn-sm btn-success ml-2',
+                  cancelButton: 'btn btn-sm btn-danger'
+                },
+                buttonsStyling: false
+              })
+
+              swalWithBootstrapButtons.fire({
+                title: msg,
+                text: "You won't be able to revert this!",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                reverseButtons: true
+              }).then((result) => {
+                if (result.isConfirmed) {
+
+                  swalWithBootstrapButtons.fire(
+                    '',
+                    'Successfully Unblocked',
+                    'success'
+                  );
+
+                  window.location.href = url;
+                } else if (
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Cancelled successfully :)',
+                    'error'
+                  );
+                  return false;
+                }
+              })
+            }
+          </script>

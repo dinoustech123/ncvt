@@ -1,0 +1,85 @@
+<%- include("../../components/header") %>
+
+  <section class="ncvt-student-card-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="ncvt-student-card overflow-hidden">
+                 <div class="ncvt-student-card-logo p-2 pt-3">
+                    <img src="/image/ncvt-logo01.png" alt="">
+                 </div>
+                 <div class="ncvt-student-card-school-regd text-center">
+                     <p class=" mb-0">Regd. under sec-8 Ministry of corporate Affairs NCT Delhi Govt. Of India</p>
+                 </div>                  
+               <div class="ncvt-student-card-details">
+                <div class="ncvt-student-card-details-photo-sign ncvt-student-card-details-photo-sign-mobile mt-2 text-center">
+                  <ul class=" p-0">
+                           <li class="ncvt-student-photo">
+                               <img src="<%= `/${admission?.image}` %>" alt="studnet">
+                           </li>
+                           <li class="ncvt-student-sign">
+                             <img src="/image/sign.png" alt="sign">
+                           </li>
+                           <li><p><i>Auth. Signature</i></p></li>
+                  </ul>
+               </div>
+               <div class=" for-desktop-details">
+                <div class="ncvt-student-card-details-title">
+                  <ul class="p-0">
+                      <li>Regd. No.</li>
+                      <li>Name</li>
+                      <li>Course</li>
+                      <li>Date of Issue</li>
+                      <li>Mobile No.</li>
+                      <li>Auth. Center</li>
+                  </ul>
+              </div>
+              <div class="ncvt-student-card-details-inform">
+               <ul class="p-0">
+                 <li><b><%= admission?.admission_number %></b></li>
+                 <li><%= admission?.student_name %></li>
+                 <li><b><%= admission?.course_name %></b></li>
+                 <li><%= admission?.admission_date %></li>
+                 <li><%= admission?.mobile %></li>
+                 <li><b><%= admission?.branch_name.toUpperCase() %></b></li>
+             </ul>
+              </div>
+               <div class="ncvt-student-card-details-photo-sign mt-2">
+                    <ul class=" p-0">
+                             <li class="ncvt-student-photo">
+                                 <img src="<%= `/${admission?.image}` %>" alt="">
+                             </li>
+                             <li class="ncvt-student-sign">
+                               <img src="/image/sign.png" alt="">
+                             </li>
+                             <li><p><i>Auth. Signature</i></p></li>
+                    </ul>
+               </div>
+               </div>
+                 </div>
+          </div>
+
+          <div class="ncvt-student-card overflow-hidden mt-4">
+                     <div class="card-instructions">
+                        <p class="text-instruction">INSTRUCTIONS</p>
+                        <ol>
+                          <li>For security and identification purposes, this card must be carried at all times by the student.</li>
+                          <li>No student will be allowed inside the classroom & lab room without an identity card.</li>
+                          <li>A duplicate identity card will be issued by paying Rs. 25/- at your study centre.</li>
+                          <li>Students are requested to produce the I-card at the time of issuing course materials, installment payment & in the exam hall.</li>
+                        </ol>
+                        <span># The validity of this card is for a period equivalent to the duration of the course from the date of issue.</span>
+                        <p class="text-generatedby">This is a computer-generated ID card. From https://ncvtindia.com/</p>
+                      </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ncvt-student-card-bttn text-center mt-4">
+    <a href="student-id-card-print">DOWNLOAD ID CARD</a>
+ </div>
+
+
+  <%- include("../../components/footer") %>

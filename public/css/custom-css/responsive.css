@@ -1,0 +1,382 @@
+@media (min-width:992.99px) and (max-width:1199px){
+
+    .navbar-brand img{
+        height: 70px;
+        width: 70px;
+    }
+    .login-or-register a{
+        font-size: 12px;
+        padding: 9px;
+    }
+    .logo_name span{
+        font-size: 17px;
+    }
+    .desktop-nav-links ul li {
+        padding: 6px;
+    }
+    .desktop-nav-links ul li a{
+        padding: 6px;
+        font-size: 12px;
+    }
+  
+}
+
+
+
+
+@media (min-width:768.99px) and (max-width:992px){
+    .container{
+        max-width: 900px; 
+    }
+    .navbar-expand-lg {
+        width: 100%;
+    }
+    .login-or-register-mobile{
+        display: flex !important;
+    }
+    .navbar-brand img {
+        height: 60px;
+        width: 60px;
+    }
+    .logo_name span{
+        font-size: 16px;
+    }
+    .dropdown-button{
+        padding: 9px;
+        font-size: 14px;
+    }
+    .login-or-register-mobile a{
+        padding: 6px;
+        font-size: 13px;
+    }
+    /* .desktop-nav-links{
+        display: none;
+    } */
+    .desktop_login_or_register{
+        display: none !important;
+    }
+    .navbar-toggler {
+        border: none;
+        outline: none;
+        color: white;
+        padding: 5px;
+    }
+    .navbar-nav{
+        display: block;
+    }
+    .footer-disclaimer-text{
+        width: 100%;
+}
+.admsn-form,
+    .form-query-box{
+    width: 750px ;
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width:768px){
+.ncvt-registration-receipt{
+    max-width: 600px;
+    height: 900px;
+}
+    /* .mid-logo-img-section{
+        display: none;
+    } */
+    .firm-logo-img img{
+        width: 80%;
+    }
+    .logo_name{
+          display: block;
+    }
+header{
+    background: #fff;
+}
+.nav-link{
+    color: #fff;
+}
+    .container{
+        max-width: 850px; 
+    }
+    .navbar-expand-lg {
+        width: 100%;
+    }
+    .navbar-nav{
+        display: block;
+    }
+    .navbar-brand img {
+        height: 60px;
+        width: 60px;
+    }
+    .logo_name span{
+        font-size: 16px;
+    }
+    .dropdown-button{
+        padding: 9px;
+        font-size: 14px;
+    }
+    .login-or-register-mobile a{
+        padding: 6px;
+        font-size: 13px;
+    }
+    /* .desktop-nav-links{
+        display: none;
+    } */
+    .login-or-register-mobile{
+        display: flex !important;
+    }
+    .desktop_login_or_register{
+        display: none !important;
+    }
+    .profile_status{
+        margin-bottom: 30px;
+    }
+    .topbar_btn a,
+    .login a,
+    .signup a{
+        background: none;
+    }
+    .navbar-toggler{
+        border: none;
+        outline: none ;
+        color: white;
+        padding: 5px;
+    }
+    .navbar-toggler:focus{
+        box-shadow: none;
+    }
+  .latest-updates{
+    margin-bottom: 10px;
+  }
+
+.footer-disclaimer-text{
+    width: 100% !important;
+}
+.bh-accordian{
+    padding: 0px;
+}
+.contact-us-head{
+    padding: 20px !important;
+}
+.get-in-touch-section-span{
+    width: 100% !important;
+}
+.admsn-form,
+    .form-query-box{
+    width: 700px ;
+}
+}
+@media (min-width:699.99px) and (max-width:767.98px){
+    .contact-us-map{
+        margin-top: 40px;
+    }
+    .admsn-form,
+    .form-query-box{
+        width: 650px;
+        padding: 10px;
+    }
+}
+@media (min-width:575.99px) and (max-width:699px){
+    .logo_name span {
+        font-size: 14px;
+    }
+    .logo_name span{
+        display: none;
+    }
+    .admsn-form,
+    .form-query-box{
+        width: 550px;
+        padding: 10px;
+    }
+}
+
+
+@media (max-width:575px){
+    /* .ncvt-registration-receipt{
+           max-width: 100%;
+    } */
+
+    .ncvt-student-card-details-photo-sign{
+        display: none;
+    }
+    .ncvt-student-card-details-photo-sign-mobile{
+        display: block !important;
+        width: 100%;
+    }
+    .ncvt-student-card-details-title{
+        width: 30% !important;
+    }
+    .ncvt-student-card-details-inform{
+        width: 70% !important;
+    }
+.ncvt-student-card-details-title ul li,
+.ncvt-student-card-details-inform ul li{
+    font-size: 14px;
+}
+
+    .ncvt-partner-tab{
+        flex-wrap: wrap;
+        /* flex-direction: column; */
+    }
+    .firm-info{
+        display: none;
+    }
+    .contact-us-map{
+        margin-top: 40px;
+    }
+    .navbar-expand-lg {
+        width: 100%;
+    }
+    .navbar-nav{
+        display: block;
+    }
+    .navbar-brand img {
+        height: 60px;
+        width: 60px;
+    }
+    .dropdown-button{
+        padding: 6px;
+        font-size: 11px;
+    }
+    .login-or-register-mobile a{
+        padding: 6px;
+        font-size: 13px;
+    }
+    .logo_name span{
+        display: none;
+    }
+    .login-or-register-mobile{
+        display: flex !important;
+    }
+    .desktop_login_or_register{
+        display: none;
+    }
+    .hero_content{
+        max-width: 100%;
+    }
+    .profile_status{
+        margin-bottom: 30px;
+    }
+    .major-initiatives .row-cols-5 .col {
+        width: 50%;
+    }
+    .footer-disclaimer-text{
+        width: 100% !important;
+} 
+
+
+.franchisee-heading-logo p{
+    padding-left: 2px;
+}
+.franchisee-heading-logo img{
+    margin-right: 2px;
+}
+.franchisee-images{
+       height: auto;
+}
+.admsn-form,
+.form-query-box{
+    width: 460px;
+    padding: 10px;
+}
+.ncvt-registration-receipt{
+    max-width: 550px;
+    height: 840px;
+    padding: 210px 10px 10px 10px;
+}
+ .ncvt-student-details ul{
+    padding: 0px;
+ }
+ .certifiate-form{
+    width: 100% !important;
+ }
+ .certificate-head{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+ }
+ .certificate-full-logo-img{
+    width: 280px;
+ }
+}
+@media (min-width:400.98px) and (max-width:500px){
+    .admsn-form,
+    .form-query-box{
+        width: 440px;
+        padding: 10px;
+    }
+}
+@media (min-width:300px) and (max-width:400px){
+    .navbar-brand img {
+        height: 60px;
+        width: 60px;
+    }
+    .logo_name span{
+        display: none;
+    }
+    .navbar-nav{
+        display: block;
+    }
+    .dropdown-button{
+        padding: 6px;
+        font-size: 11px;
+    }
+    .desktop_login_or_register{
+        display: none;
+    }
+    .login-or-register-mobile a{
+        padding: 5px;
+    }
+    .major-initiatives .row-cols-5 .col{
+        width: 50% ;
+    }
+
+    .footer-disclaimer-text{
+             width: 100% !important;
+    }
+
+    .franchisee-heading-logo p{
+        padding-left: 2px;
+    }
+    .franchisee-heading-logo img{
+        margin-right: 2px;
+    }
+    .franchisee-images{
+           height: auto;
+    }
+    .login_form{
+        padding: 15px 6px;
+    }
+    .admsn-form,
+    .form-query-box{
+        width: 300px;
+        padding: 10px;
+    }
+    .form-query-head h1{
+        font-size: 20px;
+    }
+}
+
+
+.admsn-name{
+    width: 100% !important;
+}
+.registr-form-control{
+    width: 100% !important;
+}
+.registration-field-photo input{
+    width: 100%;
+}
+.registration-inputs .input-group{
+    margin-bottom: 30px !important;
+}

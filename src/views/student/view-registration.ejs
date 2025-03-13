@@ -1,0 +1,107 @@
+<%- include("../../components/header") %>
+
+    <section class="ncvt-student-view-registration pt-5 pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="ncvt-student-receipt-details">
+                        <div class="ncvt-student-receipt-imgs">
+                            <img src="/image/receipt-header.png" alt="">
+                        </div>
+                        <div style="display: flex;">
+                            <div class="ncvt-student-details mt-3">
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>Enrollment Number</li>
+                                    <li><%= admission?.admission_number %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>Date of Registration</li>
+                                    <li><%= admission?.admission_date %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>Auth. Study Center</li>
+                                    <li><%= admission?.branch_name.toUpperCase() %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>Center Code</li>
+                                    <li><%= admission?.branch_code.toUpperCase() %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>Course Name</li>
+                                    <li><%= admission?.course_name.toUpperCase() %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>Course Duration</li>
+                                    <li><%= admission?.course_duration.toUpperCase() %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>Student Name</li>
+                                    <li><%= admission?.student_name.toUpperCase() %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>Father's Name</li>
+                                    <li><%= admission?.father_name.toUpperCase() %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>Mother's Name</li>
+                                    <li><%= admission?.mother_name.toUpperCase() %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>Date of Birth</li>
+                                    <li><%= admission?.dob.toUpperCase() %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>Gender</li>
+                                    <li><%= admission?.gender.toUpperCase() %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>Qualification</li>
+                                    <li><%= admission?.qualification.toUpperCase() %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>Nationality</li>
+                                    <li><%= admission?.nationality.toUpperCase() %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>State</li>
+                                    <li><%= admission?.state.toUpperCase() %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>District</li>
+                                    <li><%= admission?.dist.toUpperCase() %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>Address</li>
+                                    <li><%= admission?.address.toUpperCase() %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>PIN</li>
+                                    <li><%= admission?.pincode %></li>
+                                </ul>
+                                <ul class="d-flex align-items-center gap-3">
+                                    <li>Mobile Number</li>
+                                    <li><%= admission?.mobile %></li>
+                                </ul>
+                            </div>
+                            <div class="ncvt-student-photo mb-3 mt-3">
+                                <img src="<%= `/${admission?.image}` %>" alt="Student Photo">
+                            </div>
+                        </div>
+                        <div class="ncvt-student-note mt-4 text-center">
+                            <p><span>Note</span> :- This card is valid up to the course duration from the date of
+                                joining.</p>
+                            <p><strong>Congrats! Your Registration is Successful.</strong></p>
+                        </div>
+                        <div class="ncvt-student-receipt-imgs">
+                            <img src="/image/receipt-footer.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="ncvt-student-card-bttn text-center mt-4">
+        <a href="student-recipt">DOWNLOAD RECEIPT</a>
+     </div>
+
+    <%- include("../../components/footer") %>

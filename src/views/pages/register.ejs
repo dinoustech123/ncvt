@@ -1,0 +1,185 @@
+<%- include("../../components/header") %>
+
+
+  <div class="modal fade" id="exampleModal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header d-flex justify-content-center">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">SIGN UP</h1>
+          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+        </div>
+        <div class="modal-body">
+          <div class=" otp_field text-center mt-5">
+            <label for="">ENTER OTP</label>
+            <div id="inputs" class="inputs">
+              <input class="input" inputmode="numeric" name="otp" id="otp"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                type="number" maxlength="6" required />
+              <p>
+
+              </p>
+              <!-- <button value="Submit">SUBMIT</button> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <div class=" otp_field text-center mt-5">
+            <button value="Signup" id="signin">SIGN UP</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <section class="  pt-5 pb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="signup_form">
+            <form action="register" method="post" class=" form_text">
+
+
+              <div class=" login_box mb-5">SING UP OR REGISTRATION</div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <label for="">Aadhar Number</label>
+                  <div class="input-group mb-2">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-credit-card-2-front"></i></span>
+                    <input
+                      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                      type="number" maxlength="16" class="form-control form_control" name="aadhar"
+                      placeholder="Aadhar Number" aria-label="Username" aria-describedby="basic-addon1" maxlength="16"
+                      pattern="\d{16}" required>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+
+                  <label for="">Name</label>
+                  <div class="input-group mb-4">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill"></i></span>
+                    <input type="text" class="form-control form_control" name="name" placeholder="Name"
+                      aria-label="Username" aria-describedby="basic-addon1" required>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <label for="">E-Mail</label>
+                  <div class="input-group mb-4">
+                    <span class="input-group-text" id="basic-addon1">@</span>
+                    <input type="email" class="form-control form_control" name="email" placeholder="Username@gmail.com"
+                      aria-label="Username" aria-describedby="basic-addon1" required>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <label for="">Mobile Number</label>
+                  <div class="input-group mb-2">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-phone-fill"></i></span>
+                    <input type="number" class="form-control form_control" name="mobile" placeholder="Mobile"
+                      aria-label="Username" aria-describedby="basic-addon1"
+                      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                      maxlength="10" required>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <label for="">Create Password</label>
+                  <div class="input-group mb-2">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span>
+                    <input type="password" class="form-control form_control" name="password"
+                      placeholder=" Create Password" aria-label="Username" aria-describedby="basic-addon1" required>
+                  </div>
+                </div>
+
+
+
+              </div>
+
+
+
+
+
+
+
+              <div class=" row  mt-3">
+                <div class=" d-flex gap-2 check_box_text">
+                  <input type="checkbox" name="tnc" id="check-term" required>
+                  <label for="check-term">I agree with the <a href="">Privacy Policy</a> and <a href="">Terms &
+                      Conditions</a></label>
+                </div>
+                  <p>
+                    <%= message.error ? message.error[0] : "" %>
+                  </p>
+              </div>
+
+              <div class=" singup_bttn mt-5"><button type="submit" id="otpButton">SEND OTP</button></div>
+
+              <div class=" registerd_text text-center mt-5">
+                <p>Already have an Account ? <a href="login">Sign In</a></p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <script>
+    let userId;
+    document.getElementById("otpButton").addEventListener("click", async (e) => {
+      e.preventDefault();
+      const aadhar = document.getElementsByName("aadhar")[0].value
+      const name = document.getElementsByName("name")[0].value
+      const email = document.getElementsByName("email")[0].value
+      const mobile = document.getElementsByName("mobile")[0].value
+      const password = document.getElementsByName("password")[0].value
+      const tnc = document.getElementsByName("aadhar")[0].value
+      if (!name || !email || !mobile || !password || !aadhar) {
+        alert("Please fill all required fields.");
+        return;
+      }
+      await axios.post("register", {
+        aadhar,
+        name,
+        email,
+        mobile,
+        password,
+        tnc
+      })
+        .then(response => {
+          userId = response.data.user._id;
+          // Trigger the OTP modal
+          var otpModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+          return otpModal.show();
+        }).catch(error => {
+          console.error("error---->", error);
+          alert('Failed to register. Please try again.');
+        });
+    });
+
+    document.getElementById('signin').addEventListener('click', async (e) => {
+      let otp = document.getElementById('otp').value;
+      await axios.post(`verify-otp/${userId}`, { otp }).then(response => {
+        if (response.data.success) {
+          window.location.href = '/api/updatedetails';
+        } else {
+          alert('Invalid OTP');
+        }
+      });
+    });
+
+
+  </script>
+
+
+
+
+<%- include("../../components/footer") %>

@@ -1,0 +1,90 @@
+<div id="layoutSidenav_nav">
+    <nav class="sidenav shadow-right sidenav-light">
+        <div class="sidenav-menu">
+
+            <div class="nav accordion" id="accordionSidenav">
+                <div class="sidenav-menu-heading"></div>
+                <a class="nav-link" href="/">
+                    <div class="nav-link-icon"><i class="fad fa-home-heart"></i></div> Dashboard
+                </a>
+                <div class="sidenav-menu-heading">Modules</div>
+
+                <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse"
+                    data-target="#collapse-User-manager" aria-expanded="false" aria-controls="collapse-User-manager">
+                    <div class="nav-link-icon"><i class="fas fa-users"></i></div>
+                    Admission Manager
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapse-User-manager" data-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                        <a class="nav-link" href="/view_all_admission">View All
+                            Admissions</a>
+                    </nav>
+                </div>
+
+                <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse"
+                    data-target="#collapse-request-manager" aria-expanded="false" aria-controls="collapse-User-manager">
+                    <div class="nav-link-icon"><i class="fas fa-users"></i></div>
+                    Request Manager
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapse-request-manager" data-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                        <a class="nav-link" href="/view_all_franchise_requests">View All
+                            Requests</a>
+                    </nav>
+                </div>
+
+                <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse"
+                    data-target="#collapse-Branch" aria-expanded="false" aria-controls="collapse-Branch">
+                    <div class="nav-link-icon"><i class="fas fa-users"></i></div>
+                    Branch Manager
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapse-Branch" data-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                        <a class="nav-link" href="/add-branch">Add Branch</a>
+                        <a class="nav-link" href="/view_all_branch">View Branch</a>
+                    </nav>
+                </div>
+
+
+                <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse"
+                    data-target="#collapse-Courses" aria-expanded="false" aria-controls="collapse-Courses">
+                    <div class="nav-link-icon"><i class="fas fa-users"></i></div>
+                    Courses Manager
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapse-Courses" data-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                        <a class="nav-link" href="/add_courses">Add Courses</a>
+                        <a class="nav-link" href="/view_all_courses">View Courses</a>
+                    </nav>
+                </div>
+
+
+                <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse"
+                    data-target="#collapse-deposit" aria-expanded="false" aria-controls="collapse-deposit">
+                    <div class="nav-link-icon"><i class="fas fa-users"></i></div>
+                    Verify Manager
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapse-deposit" data-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                        <a class="nav-link" href="/deposit_amount">All Depost Requests</a>
+                        <a class="nav-link" href="/request_certificate">Requests Certificate</a>
+                    </nav>
+                </div>
+
+            </div>
+            <div class="sidenav-footer">
+                <div class="sidenav-footer-content w-100">
+
+                    <div class="sidenav-footer-subtitle">Logged in as:</div>
+                    <div class="sidenav-footer-title">
+                        <%= sessiondata?.name %>
+                    </div>
+                </div>
+            </div>
+    </nav>
+</div>

@@ -1,0 +1,49 @@
+<%- include("../../components/header") %>
+
+<section class="ncvt-login-section">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="ncvt-student-login_form">
+          <form action="student-login-data" method="post">    
+            <div class="ncvt-student-login-head text-center mb-4">
+              <h1>NCVT INDIA</h1>
+              <p>(Natioanl Center of Vocational Training)</p>
+            </div>
+             
+             <div class="ncvt-student-login-title mb-4 text-white d-flex align-items-center gap-2">
+              <i class="bi bi-person-plus-fill"></i>
+              <p class=" m-0">Student Login</p>
+             </div>
+            <label for="">Your Register No.</label>
+            <div class="input-group mb-4">
+              <span class="input-group-text" id="basic-addon1"><i class="bi bi-journal-richtext"></i></span>
+              <input type="text" class="form-control form_control" name="studentId" id="regster_no"
+                placeholder="Enter Your Reg. No." aria-label="branch_code" aria-describedby="basic-addon1" required>
+            </div>
+
+            <label for="">Mobile No.</label>
+            <div class="input-group mb-2">
+              <span class="input-group-text" id="basic-addon1"><i class="bi bi-phone-fill"></i></span>
+              <input type="number" class="form-control form_control" name="mobile" id="mnumber"
+              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                placeholder="Mobile No." maxlength="10" aria-label="Username" aria-describedby="basic-addon1" required>
+            </div>
+            <p><%= message ? message.error : "" %></p>
+            <div class="student-login-bttn mt-5">
+              <button  type="submit">LOG IN</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</section>
+
+
+
+
+  <%- include("../../components/footer") %>

@@ -1,0 +1,75 @@
+<%- include("../../components/header") %>
+  <section class="ncvt-login-section pt-5 pb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class=" add-payments-box">
+            <div class="add-payments-head d text-center mb-5">
+              <div class="form-query-img">
+                <!-- <img src="/image/LOGO.png" alt=""> -->
+              </div>
+              <h1>NCVT INDIA</h1>
+              <p>(National Center of Vocational Training in India)</p>
+            </div>
+
+            <div class="add-payments-inputs">
+              <div class="add-payments-label-input text-center">
+                <label for="">Enter Student Number</label>
+                <input type="text" name="studentId" placeholder="Enter studentId Number" id="studentId" required>
+              </div>
+              <div class="add-payments-bttn text-center mt-4">
+                <button id="cbtn">Check And Certificate Download </button> <br>
+                <button id="marksheet">Check And Marksheet Download </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+  <script>
+   const studentId = document.getElementById("studentId");
+const cbtn = document.getElementById("cbtn");
+const marksheet = document.getElementById("marksheet");
+
+cbtn.addEventListener('click', async () => {
+    await downloadPDF('generate_student_certificate', studentId.value, 'Certificate.pdf');
+});
+
+marksheet.addEventListener('click', async () => {
+    await downloadPDF('generate_student_marksheet', studentId.value, 'Marksheet.pdf');
+});
+
+async function downloadPDF(url, studentId, fileName) {
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ studentId })
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to generate PDF');
+        }
+
+        const blob = await response.blob();
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    } catch (error) {
+        alert("Something went wrong... Please try again later");
+    }
+}
+
+  </script>
+  <%- include("../../components/footer") %>

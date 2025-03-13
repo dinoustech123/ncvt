@@ -1,0 +1,61 @@
+<%- include("../components/header") %>
+
+<section class="  pt-5 pb-5">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="login_form">
+
+
+
+
+
+
+
+          <form action="/api/forgotPasswordOtp" method="post" class=" form_text">
+            <input type="hidden" name="mobile" value="<%= mobile %>" id="">
+            <!-- <div class="forgot_password_text text-center mb-5">
+                   <span>LOGIN OR REGISTRATION</span>
+                   <p>Sign in to your account to continue.</p>
+            </div> -->
+            <span class="modal-title-organisation text-center  fs-5" id="exampleModalLabel">BIHAR EARLY CHILDHOOD <br> CARE & EDUCATION</span>
+            <div class="verify-image">
+              <img src="/image/otp-verification.avif" alt="">
+             </div>
+            <div class=" otp_field text-center mt-2">
+              <label for="">ENTER OTP CODE</label>
+              <div id="inputs" class="inputs">
+                <input class="input" inputmode="numeric" name="otp" id="otp"
+                  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                  type="number" maxlength="4" required />
+                <p>
+  
+                </p>
+              </div>
+            </div>
+<!-- 
+            <label for="">OTP*</label>
+            <div class="input-group mb-2">
+              <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span>
+              <input type="number" class="form-control form_control" name="otp" id=""
+                placeholder="OTP" aria-label="Username" aria-describedby="basic-addon1" required>
+            </div> -->
+          
+            <div class=" forgot_sing_bttn  mt-5"><button type="submit">VERIFY</button></div>
+            <p><%= message.error ? message.error[0] : "" %> </p>
+            <div class=" registerd_text text-center mt-5">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</section>
+
+
+
+
+  <%- include("../components/footer") %>

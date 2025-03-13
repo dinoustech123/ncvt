@@ -1,0 +1,76 @@
+<%- include("../../components/header") %>
+    <section class="ncvt-login-section pt-5 pb-5">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="view-admission-table">
+                        <div class="view-admission-details text-center mb-5">
+                            <div class="form-query-img">
+                                <!-- <img src="/image/" alt=""> -->
+                            </div>
+                            <h1>NCVT INDIA</h1>
+                            <p>(National Center of Vocational Training in India)</p>
+                            <span>View All Passed Student</span>
+                        </div>
+
+                        <div class="mt-4">
+                            <table class="table table-bordered" id="admissionTable">
+                                <thead>
+                                    <tr>
+                                        <th>SR.No.</th>
+                                        <th>Admission Number</th>
+                                        <th>Student Name</th>
+                                        <th>Father Name</th>
+                                        <th>Mother Name</th>
+                                        <th>Mobile</th>
+                                        <th>DOB</th>
+                                        <th>Paid Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% admissions.forEach((element, index)=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= index + 1 %>
+                                            </td>
+                                            <td>
+                                                <%= element.studentId %>
+                                            </td>
+                                            <td>
+                                                <%= element.father_name %>
+                                            </td>
+                                            <td>
+                                                <%= element.mother_name %>
+                                            </td>
+                                            <td>
+                                                <%= element.student_name %>
+                                            </td>
+                                            <td>
+                                                <%= element.mobile %>
+                                            </td>
+                                            <td>
+                                                <%= element.dob %>
+                                            </td>
+                                            <td>
+                                                <%= element?.total_paid %>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <%- include("../../components/footer") %>
+
+
+
+    

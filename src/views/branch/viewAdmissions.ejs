@@ -1,0 +1,252 @@
+<%- include("../../components/header") %>
+    <section class="ncvt-login-section pt-5 pb-5">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="view-admission-table">
+                        <div class="view-admission-details text-center mb-5">
+                            <div class="form-query-img">
+                                <!-- <img src="/image/" alt=""> -->
+                            </div>
+                            <h1>NCVT INDIA</h1>
+                            <p>(National Center of Vocational Training in India)</p>
+                            <span>View Admission Details</span>
+                        </div>
+                        <input type="hidden" name="admission" id="admission" value="<%= JSON.stringify(admissions) %>">
+
+                        <div class="mt-4">
+                            <table class="table table-bordered" id="admissionTable">
+                                <thead>
+                                    <tr>
+                                        <th>SR.No.</th>
+                                        <th>Admission Number</th>
+                                        <th>Student Name</th>
+                                        <th>Mobile</th>
+                                        <th>DOB</th>
+                                        <th>Royalty Fees</th>
+                                        <th>Course Name</th>
+                                        <th>Course Code</th>
+                                        <th>Admission Date</th>
+                                        <th>Paid Amount</th>
+                                        <th>View/Request</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% admissions.forEach((element, index)=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= index + 1 %>
+                                            </td>
+                                            <td>
+                                                <%= element.admission_number %>
+                                            </td>
+                                            <td>
+                                                <%= element.student_name %>
+                                            </td>
+                                            <td>
+                                                <%= element.mobile %>
+                                            </td>
+                                            <td>
+                                                <%= element.dob %>
+                                            </td>
+                                            <td>
+                                                <%= element.royalti_fees %>
+                                            </td>
+                                            <td>
+                                                <%= element.course_name.toUpperCase() %>
+                                            </td>
+                                            <td>
+                                                <%= element.course_code %>
+                                            </td>
+                                            <td>
+                                                <%= element.admission_date %>
+                                            </td>
+                                            <td>
+                                                <%= element.total_paid %>
+                                            </td>
+                                            <td>
+                                                <a href="student_registration_recipt/<%= element.studentId %>"
+                                                    class="btn btn-info btn-sm "
+                                                    data-admission-number="<%= element.admission_number %>">
+                                                    View
+                                                </a>
+                                                <a href="request_certificates?student=<%= element.admission_number  %>"
+                                                    class="btn btn-info btn-sm" id="request" <%=!element?.exam_idpaid
+                                                    ? "disabled" : "" %>>Request Certificate</a>
+                                            </td>
+
+
+
+                                            <td>
+                                                <button class="btn btn-info btn-sm pay-exam-fees"
+                                                    data-admission-number="<%= element.admission_number %>"
+                                                    <%=element?.exam_idpaid ? "disabled" : "" %>>
+                                                    <%= element?.exam_idpaid ? "Already paid" : "Pay Exam Fees" %>
+                                                </button>
+                                                <button class="btn btn-info btn-sm add-number" <%=!element?.exam_idpaid
+                                                    ? "disabled" : "" %>>Add Number</button>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Exam Fee Confirmation Modal -->
+    <div class="modal fade" id="examFeeModal" tabindex="-1" aria-labelledby="examFeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="examFeeModalLabel">Confirm Payment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to pay the exam fees?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary" id="confirmPayExamFee">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="subjectModal" tabindex="-1" aria-labelledby="subjectModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="subjectModalLabel">Subject List</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Subject Name</th>
+                                <th>F.M.</th>
+                                <th>P.M.</th>
+                                <th>O.M.</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subjectList"></tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="addMarksBtn">Add Marks</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <%- include("../../components/footer") %>
+
+        <script>
+            let selectedAdmissionNumber = null;
+
+            $(document).on("click", ".pay-exam-fees", function () {
+                selectedAdmissionNumber = $(this).data("admission-number"); // Store admission number
+                $("#examFeeModal").modal("show"); // Show the confirmation modal
+            });
+
+            $("#confirmPayExamFee").on("click", function () {
+                if (selectedAdmissionNumber) {
+                    $.ajax({
+                        url: "pay-exam-fee", // Replace with your API URL
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({ admissionNumber: selectedAdmissionNumber }),
+                        success: function (response) {
+                            alert("Exam Fee Paid Successfully!");
+                            $("#examFeeModal").modal("hide"); // Hide the modal after success
+                        },
+                        error: function (error) {
+                            alert("Error in Payment. Try Again!");
+                            console.error(error);
+                        }
+                    });
+                }
+            });
+
+        </script>
+
+        <script>
+            let admission = JSON.parse(document.getElementById("admission").value);
+            let selectedAdmissionIndex = null;
+
+            $(document).on("click", ".add-number", function () {
+                $("#subjectList").html(""); // Clear previous data
+                selectedAdmissionIndex = $(this).closest("tr").index(); // Store selected row index
+                let subjects;
+                if (admission[selectedAdmissionIndex].student_subject?.length > 0) {
+                    subjects = admission[selectedAdmissionIndex].student_subject;
+                } else {
+                    subjects = admission[selectedAdmissionIndex].subjects;
+                }
+                // Get subjects for selected admission
+                subjects.forEach((subject) => {
+                    $("#subjectList").append(`
+                    <tr>
+                        <td>${subject.subjectName}</td>
+                        <td>${subject.FM}</td>
+                        <td>${subject.PM}</td>
+                        <td><input type="number" class="form-control om-marks" value="${subject?.OM}" data-subject="${subject.subjectName}" placeholder="Enter O.M."></td>
+                    </tr>
+                `);
+                });
+
+                $("#subjectModal").modal("show"); // Show the modal
+            });
+
+            $("#addMarksBtn").on("click", function () {
+                let omMarksData = [];
+                $("#subjectList tr").each(function () {
+                    let subjectName = $(this).find("td:eq(0)").text(); // Get subject name
+                    let fm = $(this).find("td:eq(1)").text(); // Get Full Marks (FM)
+                    let pm = $(this).find("td:eq(2)").text(); // Get Passing Marks (PM)
+                    let omMarks = $(this).find(".om-marks").val(); // Get Obtained Marks (OM)
+
+                    if (omMarks !== "") {
+                        omMarksData.push({
+                            subjectName: subjectName,
+                            FM: fm,
+                            PM: pm,
+                            OM: omMarks
+                        });
+                    }
+                });
+
+                if (omMarksData.length === 0) {
+                    alert("Please enter marks before submitting.");
+                    return;
+                }
+
+                let selectedAdmission = admission[selectedAdmissionIndex];
+                $.ajax({
+                    url: "add-student-marks", // Replace with your API endpoint
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        admission_number: selectedAdmission.admission_number,
+                        subjects: omMarksData
+                    }),
+                    success: function (response) {
+                        alert("Marks added successfully!");
+                        $("#subjectModal").modal("hide");
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Error: " + xhr.responseText);
+                    }
+                });
+            });
+        </script>

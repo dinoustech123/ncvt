@@ -1,0 +1,582 @@
+<%- include("../../components/head") %>
+
+<%- include("../../components/bodyStartWithNavBar/") %>
+<%- include("../../components/sideNav") %>
+<%- include("../../components/alertMsg") %>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="page-header pb-10 page-header-dark bg-info">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="page-header-content">
+                            <h1 class="page-header-title fs-md-35 fs-20">
+                                <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                <span class=" text-capitalize">
+                                    Admin Profile
+                                </span>
+                            </h1>
+                            <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                Update Admin Profile
+                            </div>
+                        </div>
+                    </div>
+                    <% if(sessiondata.role === '0') { %>
+                        <div class="col-auto mb-md-0 mb-3">
+                            <% if(sessiondata.is_active === true) { %> 
+                                <form action="/" method="post">
+                                    <button type="submit" class="btn btn-sm btn-success text-uppercase"><i class="far fa-undo mr-2"></i>Return</button>
+                                </form>
+                            <% } %>
+                            <% if(sessiondata.is_active === false) { %>
+                                <form action="/" method="post">
+                                    <button type="submit" class="btn btn-sm btn-warning text-uppercase"><i class="far fa-undo mr-2"></i>Return</button>
+                                </form>
+                            <% } %> 
+                        </div>
+                    <% } %> 
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mt-n10">
+            <div class="card">
+                <div class="card-header">Update Admin Profile</div>
+                <form method="POST" action="/admin_profile_data/<%=sessiondata._id %>" accept-charset="UTF-8"
+                    id="j-forms" class="card-body" enctype="multipart/form-data">
+
+
+                    <input type="hidden" name="typename" value="admin_image">
+
+
+                    <div class="sbp-preview">
+                        <div class="sbp-preview-content p-2">
+                            <div class="row mx-0">
+                                <div class="col-md-6">
+                                    <div class="form-group my-3">
+                                        <label for="name">Admin Name*</label>
+                                        <input class="form-control form-control-solid" id="name" type="text"
+                                            placeholder="Enter Admin Name" name="name" required
+                                            value="<%=sessiondata.name ? sessiondata.name : '' %>">
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-6">
+                                    <div class="form-group my-3">
+                                        <label for="Mobile Number*" class="control-label text-bold">Mobile
+                                            Number*</label>
+                                        <input value="<%=sessiondata.mobile ? sessiondata.mobile : '' %>" required=""
+                                            placeholder="Enter Mobile Number" class="form-control form-control-solid"
+                                            autocomplete="off" onkeypress="return isNumberKey(event)"
+                                            pattern="[789][0-9]{9}" minlength="10" maxlength="10" name="mobile"
+                                            type="text">
+                                    </div>
+                                </div> -->
+                                <div class="col-md-6">
+                                    <div class="form-group my-3">
+                                        <label for="Email Address*" class="control-label text-bold">Email
+                                            Address*</label>
+                                        <input value="<%=sessiondata.email ? sessiondata.email : '' %>" required=""
+                                            placeholder="Enter Email Address" class="form-control form-control-solid "
+                                            autocomplete="off" name="email" type="email">
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-6">
+                                    <div class="form-group my-3">
+                                        <label for="input-9">Masterpassword</label>
+                                        <input type="text" placeholder="Enter Master Password" name="masterpassword"
+                                            class="form-control form-control-solid" id="input-9"
+                                            value="<%=sessiondata.masterpassword ? sessiondata.masterpassword : '' %>"
+                                            required="">
+                                    </div>
+                                </div> -->
+                                <div class="col-12 mt-4">
+
+                                    <!-- <div class="col-md col-sm-4 col-6">
+                                        <div class="form-group">
+                                            <div class="row justify-content-center py-0">
+                                                <h1 class="fs-14 font-weight-bold text-center mt-3 col-12">Image</h1>
+                                                <div class="avatar-upload col-auto position-relative">
+                                                    <div
+                                                        class="avatar-edit position-absolute right-0px z-index-1 top-2px">
+                                                        <input type='file' name="image" id="image" accept=".png"
+                                                            class="imageUpload d-none" />
+                                                        <label
+                                                            class="d-grid w-40px h-40px mb-0 rounded-pill bg-white text-success fs-20 shadow pointer font-weight-normal align-items-center justify-content-center"
+                                                            for="image"><i class="fad fa-pencil"></i></label>
+                                                    </div>
+                                                    <div
+                                                        class="avatar-preview w-100px h-100px position-relative rounded-pill shadow">
+                                                        <% if(sessiondata.image) {%>
+                                                        <div class="w-100 h-100 rounded-pill" id="image-imagePreview"
+                                                            style="background-image: url('<%=sessiondata.image %>')">
+                                                            <% }else{ %>
+                                                            <div class="w-100 h-100 rounded-pill"
+                                                                id="image-imagePreview"
+                                                                style="background-image: url(/uploadImage/defaultImage.jpg);">
+                                                                <% } %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div> -->
+                                    <!-- <div class="col-md-12 text-right mt-4 mb-2">
+                                        <button type="submit" class="btn btn-sm btn-success text-uppercase"><i
+                                                class="far fa-check-circle"></i>&nbsp;Submit</button>
+                                        <a href="/admin-profile-page" class="btn btn-sm btn-warning text-uppercase"><i
+                                                class="far fa-undo"></i>&nbsp;Reset</a>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                </form>
+            </div>
+
+
+
+            <script>
+                $(function () {
+                    var container = $('.container'),
+                        inputFile = $('#file'),
+                        img, btn, txt = 'Browse',
+                        txtAfter = 'Browse another pic';
+
+                    if (!container.find('#upload').length) {
+                        container.find('.input').append('<input type="button" value="' + txt +
+                        '" id="upload">');
+                        btn = $('#upload');
+                        container.prepend(
+                            '<img src="" class="hidden" alt="Uploaded file" id="uploadImg" width="100">');
+                        img = $('#uploadImg');
+                    }
+
+                    btn.on('click', function () {
+                        img.animate({
+                            opacity: 0
+                        }, 300);
+                        inputFile.click();
+                    });
+
+                    inputFile.on('change', function (e) {
+                        container.find('label').html(inputFile.val());
+
+                        var i = 0;
+                        for (i; i < e.originalEvent.srcElement.files.length; i++) {
+                            var file = e.originalEvent.srcElement.files[i],
+                                reader = new FileReader();
+
+                            reader.onloadend = function () {
+                                img.attr('src', reader.result).animate({
+                                    opacity: 1
+                                }, 700);
+                            }
+                            reader.readAsDataURL(file);
+                            img.removeClass('hidden');
+                        }
+
+                        btn.val(txtAfter);
+                    });
+                });
+            </script>
+
+
+        </div>
+    </main>
+    <%- include("../../components/footer") %>
+
+
+    <script>
+        $('#b1').click(function () {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-sm btn-success',
+                    cancelButton: 'btn btn-sm btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Your imaginary file is safe :)',
+                        'error'
+                    )
+                }
+            })
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#dataTabless').DataTable({
+                'responsive': true
+            });
+            // Handle click on "Expand All" button
+            $('#btn-show-all-children').on('click', function () {
+                // Expand row details
+                table.rows(':not(.parent)').nodes().to$().find('td:first-child').trigger('click');
+            });
+            // Handle click on "Collapse All" button
+            $('#btn-hide-all-children').on('click', function () {
+                // Collapse row details
+                table.rows('.parent').nodes().to$().find('td:first-child').trigger('click');
+            });
+        });
+    </script>
+
+
+    <script>
+        $('#special').on('click', function () {
+            mySelect.find('option:selected').prop('disabled', true);
+            mySelect.selectpicker('refresh');
+        });
+        $('#special2').on('click', function () {
+            mySelect.find('option:disabled').prop('disabled', false);
+            mySelect.selectpicker('refresh');
+        });
+        $('#basic2').selectpicker({
+            liveSearch: true,
+            maxOptions: 1
+        });
+    </script>
+
+    <script>
+        $(window).on('load', function () {
+
+            $('#preloader_admin').hide();
+
+        })
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('#accordionSidenavPages a').hasClass('active')) {
+                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                // console.log(id);
+            } else {
+                $('#takeonebar').addClass('slamdown');
+            }
+        });
+    </script>
+    <script>
+        $("#sortable, #sortable2").sortable();
+    </script>
+    <script>
+        $(".alert").delay(3000).fadeOut();
+    </script>
+
+
+    <script type="text/javascript">
+        $.datetimepicker.setLocale('en');
+        $('.datetimepickerget').datetimepicker({
+            lang: 'en',
+            formatDate: 'd.m.Y',
+            step: 5,
+            startDate: new Date()
+        });
+    </script>
+    <script type="text/javascript">
+        $('.datepicker').datepicker({
+            lang: 'en',
+            formatDate: 'd.m.Y',
+            step: 5,
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#select_all').on('click', function () {
+                if (this.checked) {
+                    $('.checkbox').each(function () {
+                        this.checked = true;
+                    });
+                } else {
+                    $('.checkbox').each(function () {
+                        this.checked = false;
+                    });
+                }
+            });
+
+            $('.checkbox').on('click', function () {
+                if ($('.checkbox:checked').length == $('.checkbox').length) {
+                    $('#select_all').prop('checked', true);
+                } else {
+                    $('#select_all').prop('checked', false);
+                }
+            });
+        });
+    </script>
+    <script>
+        function isNumberKey(evt) {
+            //var e = evt || window.event;
+
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode != 46 && charCode > 31 &&
+                (charCode < 48 || charCode > 57))
+
+                return false;
+            else {
+                var itemdecimal = evt.srcElement.value.split('.');
+                if (itemdecimal.length > 1 && charCode == 46)
+                    return false;
+
+                return true;
+            }
+        }
+    </script>
+    <script>
+        var usersarry = [];
+        $("#selectusers").keyup(function () {
+            var gettypevalue = $("#selectusers").val();
+            if (gettypevalue != "") {
+                $.ajax({
+                    type: 'POST',
+                    url: '/my-admin/getusers',
+                    data: '_token=Fpml7YfBraBo0JxmazFkSp0HK4AWwmrrYdI5kMf9&gettypevalue=' +
+                        gettypevalue + '&userspresent=' + usersarry,
+                    success: function (data) {
+                        $('#item_list').removeClass('d-none');
+                        $('#boxx').removeClass('d-none');
+                        $("#item_list").html(data);
+                    }
+                });
+            }
+        });
+
+        function set_item(item) {
+            usersarry.push(item);
+            $("#uservalues").val(usersarry);
+            $("#selectusers").val('');
+            $('#item_list').addClass('d-none');
+            var gettext = $('#userid' + item).html();
+            $("#showusers").append('<div class="col-md-6" id="showuserseses">' + gettext + '</div>');
+            $('#boxx').addClass('d-none');
+        }
+
+        function deletediv(e, item) {
+            usersarry.splice(usersarry.indexOf(item), 1);
+            $("#uservalues").val(usersarry);
+            // e.parentNode.parentNode.remove(e.parentNode);
+            $('#showuserseses').remove();
+        }
+        $(function () {
+            $(document).click(function () {
+                $('#box').addClass('d-none'); //hide the button
+                //$('#boxx').hide(); //hide the button
+            });
+        });
+    </script>
+    <script>
+        function divshowhide(value) {
+            if (value == 'specific') {
+                $("#specificdiv").removeClass('d-none');
+                $("#specificdiv1").show();
+                $("#specificdiv2").show();
+            } else {
+                $("#specificdiv").addClass('d-none');
+                $("#specificdiv1").hide();
+                $("#specificdiv2").hide();
+            }
+        }
+
+        function deletediv1(e, item) {
+            $('#dsafd' + item).remove();
+        }
+    </script>
+
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#' + input.id + '-imagePreview').css('background-image', 'url(' + e.target.result + ')');
+                    $('#' + input.id + '-imagePreview').hide();
+                    $('#' + input.id + '-imagePreview').fadeIn(650);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $(".imageUpload").change(function () {
+            readURL(this);
+        });
+    </script>
+
+
+
+
+
+
+    <script>
+        // This is only for the Inputs to work dynamically
+
+        function setTheme(H, inputType) {
+            // Convert hex to RGB first
+            let r = 0,
+                g = 0,
+                b = 0;
+            if (H.length == 4) {
+                r = "0x" + H[1] + H[1];
+                g = "0x" + H[2] + H[2];
+                b = "0x" + H[3] + H[3];
+            } else if (H.length == 7) {
+                r = "0x" + H[1] + H[2];
+                g = "0x" + H[3] + H[4];
+                b = "0x" + H[5] + H[6];
+            }
+            // Then to HSL
+            r /= 255;
+            g /= 255;
+            b /= 255;
+            let cmin = Math.min(r, g, b),
+                cmax = Math.max(r, g, b),
+                delta = cmax - cmin,
+                h = 0,
+                s = 0,
+                l = 0;
+
+            if (delta == 0)
+                h = 0;
+            else if (cmax == r)
+                h = ((g - b) / delta) % 6;
+            else if (cmax == g)
+                h = (b - r) / delta + 2;
+            else
+                h = (r - g) / delta + 4;
+
+            h = Math.round(h * 60);
+
+            if (h < 0)
+                h += 360;
+
+            l = (cmax + cmin) / 2;
+            s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+            s = +(s * 100).toFixed(1);
+            l = +(l * 100).toFixed(1);
+
+            document.documentElement.style.setProperty(`--${inputType}-color-h`, h);
+            document.documentElement.style.setProperty(`--${inputType}-color-s`, s + '%');
+            document.documentElement.style.setProperty(`--${inputType}-color-l`, l + '%');
+
+            hsl = h + ' ' + s + ' ' + l + '';
+
+            // $('#'+inputType+'-color-input').val( hsl );
+
+            $('input[name="input[' + inputType + '_hsl]"').val(hsl);
+        }
+
+        const inputs = ['primary', 'secondary', 'info', 'success', 'danger', 'warning', 'muted', 'dark', 'light',
+            'black', 'white', 'blue', 'indigo', 'purple', 'pink', 'red', 'orange', 'yellow', 'green', 'teal',
+            'cyan', 'gray', 'graydark'
+        ];
+
+        inputs.forEach((inputType) => {
+            document.querySelector(`#${inputType}-color-input`)
+                .addEventListener('change', (e) => {
+                    setTheme(e.target.value, inputType);
+
+                });
+
+        });
+    </script>
+
+
+    <script>
+        /*jslint browser:true*/
+        /*global jQuery, document*/
+
+        jQuery(document).ready(function () {
+            'use strict';
+
+            jQuery(
+                    '#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date')
+                .datetimepicker();
+        });
+    </script>
+
+    <script>
+        function copyToClipboard(element, element1) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+
+            $(element1).addClass("copied_success animated bounceIn");
+            setTimeout(RemoveClass, 1000);
+
+            function RemoveClass() {
+                $(element1).removeClass("copied_success animated bounceIn");
+            }
+        }
+    </script>
+
+    <script>
+        function delete_sweet_alert(url, msg) {
+            // sweet alert
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-sm btn-success ml-2',
+                    cancelButton: 'btn btn-sm btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: msg,
+                text: "You won't be able to revert this!",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    swalWithBootstrapButtons.fire(
+                        '',
+                        'Successfully Done',
+                        'success'
+                    );
+
+                    window.location.href = url;
+
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Cancelled successfully :)',
+                        'error'
+                    );
+                    return false;
+                }
+            })
+        }
+    </script>
+
+    </body>
+
+    </html>

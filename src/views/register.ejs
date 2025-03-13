@@ -1,0 +1,333 @@
+<%- include("../components/header") %>
+
+
+  <style>
+    .disabled-btn {
+      background-color: #d3d3d3;
+      cursor: not-allowed;
+    }
+
+    button:not(.disabled-btn) {
+      background-color: #9d4e08;
+      cursor: pointer;
+    }
+
+    /* Custom Alert Styles */
+    #custom-alert {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #ffdddd;
+      border: 1px solid #f44336;
+      padding: 20px;
+      border-radius: 5px;
+      color: #f44336;
+      font-family: Arial, sans-serif;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      width: 300px;
+      text-align: center;
+    }
+
+    #custom-alert button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #f44336;
+      color: white;
+      cursor: pointer;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+
+    #custom-alert button:hover {
+      background-color: #d32f2f;
+    }
+  </style>
+  <style>
+    .error-input {
+      border-color: #f44336;
+    }
+
+    .error-message {
+      color: #f44336;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .error-message.active {
+      display: block;
+    }
+  </style>
+
+  <div id="custom-alert">
+    <p id="alert-message"></p>
+    <button onclick="closeAlert()">OK</button>
+  </div>
+  <div class="modal fade" id="exampleModal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header d-flex justify-content-center flex-column">
+          <span class="modal-title-organisation text-center fs-5" id="exampleModalLabel">BIHAR EARLY CHILDHOOD <br> CARE
+            & EDUCATION</span>
+          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+        </div>
+        <div class="modal-body">
+          <div class="verify-image">
+            <img src="/image/otp-verification.avif" alt="">
+          </div>
+          <div class=" otp_field text-center mt-2">
+            <label for="">ENTER OTP CODE</label>
+            <div id="inputs" class="inputs">
+              <input class="input" inputmode="numeric" name="otp" id="otp"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                type="number" maxlength="4" required />
+              <p>
+
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <div class=" otp_field text-center mt-5">
+            <button value="Signup" id="signin">VERIFY OTP</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="  pt-5 pb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="signup_form">
+            <form action="register" method="post" class=" form_text">
+
+
+              <div class=" login_box mb-5">SIGN UP OR REGISTRATION</div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <label for="">Aadhar Number</label>
+                  <div class="input-group mb-2">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-credit-card-2-front"></i></span>
+                    <input pattern="\d{12}"
+                      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                      type="number" class="form-control form_control" name="aadhar" placeholder="Aadhar Number"
+                      aria-label="Username" aria-describedby="basic-addon1" maxlength="12" required>
+                  </div>
+                  <p class="error-message" id="aadhar-error">Aadhar number must be 12 digits.</p>
+                </div>
+
+                <div class="col-lg-6">
+
+                  <label for="">Name</label>
+                  <div class="input-group mb-4">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill"></i></span>
+                    <input type="text" class="form-control form_control" name="name" placeholder="Name"
+                      aria-label="Username" aria-describedby="basic-addon1" required>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <label for="">E-Mail</label>
+                  <div class="input-group mb-4">
+                    <span class="input-group-text" id="basic-addon1">@</span>
+                    <input type="email" class="form-control form_control" name="email" placeholder="Username@gmail.com"
+                      aria-label="Username" aria-describedby="basic-addon1" required>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <label for="">Mobile Number</label>
+                  <div class="input-group mb-2">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-phone-fill"></i></span>
+                    <input type="number" class="form-control form_control" name="mobile" placeholder="Mobile"
+                      aria-label="Username" aria-describedby="basic-addon1"
+                      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                      maxlength="10" required>
+                  </div>
+                  <p class="error-message" id="mobile-error">Mobile number must be 10 digits.</p>
+
+                </div>
+
+                <div class="col-lg-6">
+                  <label for="">Create Password</label>
+                  <div class="input-group mb-2">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span>
+                    <input type="password" class="form-control form_control" name="password"
+                      placeholder=" Create Password" aria-label="Username" aria-describedby="basic-addon1" required>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="d-flex gap-2 check_box_text">
+                  <input type="checkbox" name="tnc" id="check-term" required>
+                  <label for="check-term">
+                    I agree with the <a href="privacy-policy">Privacy Policy</a> and <a href="terms-condition">Terms &
+                      Conditions</a>
+                  </label>
+                </div>
+                <!-- <p>
+                  <%= message.error ? message.error[0] : "" %>
+                </p> -->
+              </div>
+
+              <div class="singup_bttn mt-5">
+                <button type="submit" id="otpButton" disabled class="disabled-btn">SEND OTP</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    const aadharInput = document.getElementsByName('aadhar')[0];
+    const mobileInput = document.getElementsByName('mobile')[0];
+    const otpButtons = document.getElementById('otpButton');
+    const aadharError = document.getElementById('aadhar-error');
+    const mobileError = document.getElementById('mobile-error');
+
+    // Validate inputs and toggle button state
+    function validateInputs() {
+      let isValid = true;
+
+      // Validate Aadhar
+      if (aadharInput.value.length !== 12) {
+        aadharError.classList.add('active');
+        aadharInput.classList.add('error-input');
+        isValid = false;
+      } else {
+        aadharError.classList.remove('active');
+        aadharInput.classList.remove('error-input');
+      }
+
+      // Validate Mobile
+      if (mobileInput.value.length !== 10) {
+        mobileError.classList.add('active');
+        mobileInput.classList.add('error-input');
+        isValid = false;
+      } else {
+        mobileError.classList.remove('active');
+        mobileInput.classList.remove('error-input');
+      }
+
+      // Toggle OTP Button based on validation
+      if (isValid && checkbox.checked) {  // Ensure checkbox is checked as well
+        otpButtons.disabled = false;
+        otpButtons.classList.remove('disabled-btn');
+      } else {
+        otpButtons.disabled = true;
+        otpButtons.classList.add('disabled-btn');
+      }
+    }
+
+    // Add event listeners to inputs
+    aadharInput.addEventListener('input', validateInputs);
+    mobileInput.addEventListener('input', validateInputs);
+
+    // Initial validation on page load
+    checkbox.addEventListener('change', () => {
+      validateInputs();  // Re-validate when checkbox state changes
+    });
+    validateInputs();
+  </script>
+
+
+  <script>
+    const checkbox = document.getElementById('check-term');
+    const otpButton = document.getElementById('otpButton');
+
+    checkbox.addEventListener('change', () => {
+      if (checkbox.checked) {
+        otpButton.disabled = false;
+        otpButton.classList.remove('disabled-btn');
+      } else {
+        otpButton.disabled = true;
+        otpButton.classList.add('disabled-btn');
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    function showAlert(message) {
+      const alertBox = document.getElementById('custom-alert');
+      const alertMessage = document.getElementById('alert-message');
+      alertMessage.textContent = message;
+      alertBox.style.display = 'block';
+    }
+
+    // Function to close the alert
+    function closeAlert() {
+      const alertBox = document.getElementById('custom-alert');
+      alertBox.style.display = 'none';
+    }
+    let userId;
+    document.getElementById("otpButton").addEventListener("click", async (e) => {
+      e.preventDefault();
+      const aadhar = document.getElementsByName("aadhar")[0].value
+      const name = document.getElementsByName("name")[0].value
+      const email = document.getElementsByName("email")[0].value
+      const mobile = document.getElementsByName("mobile")[0].value
+      const password = document.getElementsByName("password")[0].value
+      const tnc = document.getElementsByName("aadhar")[0].value
+      if (!name || !email || !mobile || !password || !aadhar) {
+        alert("Please fill all required fields.");
+        return;
+      }
+      if (aadhar.length !== 12) {
+        alert("Aadhar must be exactly 12 digits.");
+        return;
+      }
+
+      // Validate mobile length (10 digits)
+      if (mobile.length !== 10) {
+        alert("Mobile number must be exactly 10 digits.");
+        return;
+      }
+      await axios.post("register", {
+        aadhar,
+        name,
+        email,
+        mobile,
+        password,
+        tnc
+      })
+        .then(response => {
+          userId = response.data.user._id;
+          // Trigger the OTP modal
+          var otpModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+          return otpModal.show();
+        }).catch(error => {
+          showAlert(error.response?.data?.message || "An error occurred");
+          // alert(error.response.data.message);
+        });
+    });
+
+    document.getElementById('signin').addEventListener('click', async (e) => {
+      try {
+        let otp = document.getElementById('otp').value;
+        let response = await axios.post(`https://biharecce.in/api/verify-otp/${userId}`, { otp });
+
+        if (response && response.data && response.data.success) {
+          window.location.href = '/api/updatedetails';
+        } else {
+          alert('Invalid OTP');
+        }
+      } catch (error) {
+        alert( (error.response?.data?.message || error.message));
+      }
+    });
+
+
+  </script>
+
+
+
+  <%- include("../components/footer") %>

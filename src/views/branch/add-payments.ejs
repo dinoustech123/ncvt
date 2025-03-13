@@ -1,0 +1,53 @@
+<%- include("../../components/header") %>
+  <section class="ncvt-login-section pt-5 pb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <% console.log(message) %>
+          <div class=" add-payments-box">
+            <form action="depostRequest" method="post">
+              <input type="hidden" name="userTransactionId" value="" id="userTransactionId">
+              <div class="add-payments-head d text-center mb-5">
+                <div class="form-query-img">
+                  <!-- <img src="/image/LOGO.png" alt=""> -->
+                </div>
+                <h1>NCVT INDIA</h1>
+                <p>(National Center of Vocational Training in India)</p>
+                <p><%= message ? message?.success :  "" %></p>
+              </div>
+              <div class="qr-imge mb-5">
+                <img src="/image/QR.png" alt="">
+              </div>
+              <div class="add-payments-inputs">
+                <div class="add-payments-label-input text-center">
+                  <label for="">Add Payment</label>
+                  <input type="number" name="amount" placeholder="Enter Amount" required>
+                </div>
+                <br>
+                <div class="add-payments-label-input text-center">
+                  <label for="">Enter UTR Number</label>
+                  <input type="number" name="utr_number" placeholder="Enter UTR Number" required>
+                </div>
+                <div class="add-payments-bttn text-center mt-4">
+                  <button type="submit">ADD</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <script>
+    let userTransactionId = document.getElementById("userTransactionId");
+    function generateTransactionId() {
+      const timestamp = Date.now(); // Current time in milliseconds
+      const randomStr = Math.random().toString(36).substring(2, 10).toUpperCase(); // Random alphanumeric
+      return `TXN-${timestamp}-${randomStr}`;
+    }
+    userTransactionId.value = generateTransactionId();
+  </script>
+
+  <%- include("../../components/footer") %>

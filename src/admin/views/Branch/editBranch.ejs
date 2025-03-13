@@ -1,0 +1,294 @@
+<%- include("../../components/head") %>
+
+    <%- include("../../components/bodyStartWithNavBar/") %>
+        <%- include("../../components/sideNav") %>
+
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="page-header pb-10 page-header-dark bg-info">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <div class="page-header-content">
+                                        <h1 class="page-header-title fs-md-35 fs-20">
+                                            <div class="page-header-icon">
+                                                <i class="fad fa-at text-white"></i>
+                                            </div>
+                                            <span class="text-capitalize"> Branch Manager </span>
+                                        </h1>
+                                        <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                            Edit Branch
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-md-0 mb-3">
+                                    <a href="/view-all-product"
+                                        class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary float-right"><i
+                                            class="fad fa-eye"></i>&nbsp; View All Branch</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid mt-n10">
+                        <div class="card">
+                            <div class="card-header">Edit Item</div>
+                            <!-- id="demo-form2" -->
+                            <form action="/edit_branch_data?id=<%=data?._id %>" method="POST" class="card-body" autocomplete="off"
+                                enctype="multipart/form-data" id="form">
+                                <input type="hidden" name="typename" value="branch" />
+                                <input type="hidden" name="diamond_quality" value="" id="diamond_quality" />
+
+
+                                <div class="sbp-preview">
+                                    <div class="sbp-preview-content">
+                                        <div class="row mx-0">
+
+                                            <!-- Name -->
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="name">Branch Name*</label>
+                                                    <input class="form-control form-control-solid" id="name" type="text"
+                                                        placeholder="Branch Name" name="branch_name" value="<%= data?.branch_name %>" />
+                                                </div>
+                                            </div>
+
+                                            <!-- Branch Code -->
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="branch_code">Branch Code *</label>
+                                                    <input class="form-control form-control-solid" id="branch_code"
+                                                        type="text" placeholder="Branch Code" name="branch_code"  value="<%= data?.branch_code%>"/>
+                                                </div>
+                                            </div>
+
+                                            <!-- Branch Code -->
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="password">Branch Password*</label>
+                                                    <input class="form-control form-control-solid" id="password"
+                                                        type="text" placeholder="please Enter New Branch Password" name="password"  />
+                                                </div>
+                                            </div>
+
+                                            <!-- Directore Name -->
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="Directore_Name">Directore Name*</label>
+                                                    <input class="form-control form-control-solid" id="Directore_Name"
+                                                        type="name" placeholder="Directore Name"
+                                                        name="directore_name" value="<%= data?.directore_name %>" />
+                                                </div>
+                                            </div>
+
+                                            <!-- Location -->
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="Location">Location*</label>
+                                                    <input class="form-control form-control-solid" id="Location"
+                                                        type="name" placeholder="Location" name="location" value="<%= data?.location %>" />
+                                                </div>
+                                            </div>
+                                            <!-- City -->
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="City">City*</label>
+                                                    <input class="form-control form-control-solid" id="City"
+                                                        type="name" placeholder="City" name="city" value="<%= data?.city %>" />
+                                                </div>
+                                            </div>
+
+
+                                            <!-- Total Number of Gems -->
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="dist">District*</label>
+                                                    <input class="form-control form-control-solid" id="dist"
+                                                        type="name" placeholder="Enter Dist" name="dist" value="<%= data?.dist %>" />
+                                                </div>
+                                            </div>
+                                            <!-- Height -->
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="state">state*</label>
+                                                    <input class="form-control form-control-solid" id="state"
+                                                        type="text" placeholder="state" name="state" value="<%= data?.state %>" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="pincode">pincode*</label>
+                                                    <input class="form-control form-control-solid" id="pincode"
+                                                        type="number" placeholder="pincode" name="pincode" value="<%= data?.pincode %>" />
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="directore_mob">directore mobile*</label>
+                                                    <input class="form-control form-control-solid" id="directore_mob"
+                                                        type="number" placeholder="Directore Mobile" name="directore_mob" value="<%= data?.directore_mob %>" />
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="Start Date" class="text-bold">Validate Date</label>
+                                                    <input value="" placeholder="Validate Date" id="START"
+                                                        class="form-control datepicker" autocomplete="off"
+                                                        name="validate_date" type="text" value="<%= data?.validate_date %>" required>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md col-sm-4 col-6">
+                                                <div class="form-group">
+                                                    <div class="row justify-content-center py-0">
+                                                        <h1 class="fs-14 font-weight-bold text-center mt-5 col-12">
+                                                            Directore Image</h1>
+                                                        <input type='file' name="images" id="image" accept=".png"
+                                                            class="imageUpload d-none" multiple />
+                                                        <div class="avatar-upload col-auto position-relative">
+                                                            <div
+                                                                class="avatar-edit position-absolute right-0px z-index-1 top-2px">
+                                                                <label
+                                                                    class="d-grid w-40px h-40px mb-0 rounded-pill bg-white text-success fs-20 shadow pointer font-weight-normal align-items-center justify-content-center"
+                                                                    for="image"><i class="fad fa-pencil"></i></label>
+                                                            </div>
+                                                            <div
+                                                                class="avatar-preview w-100px h-100px position-relative rounded-pill shadow">
+                                                                <div class="w-100 h-100 rounded-pill"
+                                                                    id="image-imagePreview"
+                                                                    style="background-image: url('/avtar1.png');">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Submit Button -->
+                                            <div class="col-md-12 text-right mt-4 mb-2">
+                                                <button class="btn btn-sm btn-success text-uppercase" type="submit">
+                                                    <i class="far fa-check-circle"></i>&nbsp;Submit
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </main>
+                <%- include("../../components/footer") %>
+
+                    <script>
+                        $(window).on("load", function () {
+                            $("#preloader_admin").hide();
+                        });
+                    </script>
+
+                    <script>
+                        $(document).ready(function () {
+                            if ($("#accordionSidenavPages a").hasClass("active")) {
+                                $("#accordionSidenavPages a.active")
+                                    .parent()
+                                    .parent()
+                                    .prev("a")
+                                    .removeClass("collapsed");
+                                $("#accordionSidenavPages a.active").parent().parent().addClass("show");
+                                // console.log(id);
+                            } else {
+                                $("#takeonebar").addClass("slamdown");
+                            }
+                        });
+                    </script>
+
+                    <script type="text/javascript">
+                        $.datetimepicker.setLocale("en");
+                        $(".datetimepickerget").datetimepicker({
+                            lang: "en",
+                            formatDate: "d.m.Y",
+                            step: 5,
+                            startDate: new Date(),
+                        });
+                    </script>
+                    <script type="text/javascript">
+                        $(".datepicker").datepicker({
+                            lang: "en",
+                            formatDate: "d.m.Y",
+                            step: 5,
+                        });
+                    </script>
+
+                    <script>
+                        function validate(evt) {
+                            var theEvent = evt || window.event;
+
+                            // Handle paste
+                            if (theEvent.type === "paste") {
+                                key = event.clipboardData.getData("text/plain");
+                            } else {
+                                // Handle key press
+                                var key = theEvent.keyCode || theEvent.which;
+                                key = String.fromCharCode(key);
+                            }
+                            var regex = /[0-9]|\./;
+                            if (!regex.test(key)) {
+                                theEvent.returnValue = false;
+                                if (theEvent.preventDefault) theEvent.preventDefault();
+                            }
+                        }
+                    </script>
+                    <script>
+                        function readURL(input) {
+                            if (input.files && input.files[0]) {
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    $("#" + input.id + "-imagePreview").css(
+                                        "background-image",
+                                        "url(" + e.target.result + ")"
+                                    );
+                                    $("#" + input.id + "-imagePreview").hide();
+                                    $("#" + input.id + "-imagePreview").fadeIn(650);
+                                };
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }
+                        $(".imageUpload").change(function () {
+                            readURL(this);
+                        });
+                    </script>
+                    <script>
+                        function isNumberKey(evt) {
+                            onkeypress = "validate(event)"; //var e = evt || window.event;
+                            var charCode = evt.which ? evt.which : evt.keyCode;
+                            if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+                                return false;
+                            else {
+                                var itemdecimal = evt.srcElement.value.split(".");
+                                if (itemdecimal.length > 1 && charCode == 46) return false;
+
+                                return true;
+                            }
+                        }
+                    </script>
+
+                    <script>
+                        /*jslint browser:true*/
+                        /*global jQuery, document*/
+
+                        jQuery(document).ready(function () {
+                            "use strict";
+
+                            jQuery(
+                                "#example-datetime-local-input, #example-datetime-local-input2, #start_date, #end_date, #dob-date, #expire_date"
+                            ).datetimepicker();
+                        });
+                    </script>
+            </div>

@@ -1,0 +1,50 @@
+<div class="col-lg-4 mt-4">
+  <div class="profile_status">
+    <div class=" profile_photo mb-2">
+      <% if(data.image){ %>
+        <img src="<%=process.env.BASE_URI%><%= data.image%>" alt="">
+        <% }else{ %>
+          <img src="/images/iconimages/owner.png" alt="">
+          <% } %>
+            <div class="edit_icon">
+              <i title="Edit" class="bi bi-pencil-fill"></i>
+            </div>
+    </div>
+    <h5 class=" text-center">
+      <%= data && data.name ? data.name.toUpperCase() : "" %>
+    </h5>
+    <div class="status_details mt-4">
+      <ul class=" p-4">
+        <li class="d-flex align-items-center justify-content-between">Profile <span class="checkmark">
+
+            <%= data && data.category && data.idMark && data.father_name && data.mother_name && data.dob && data.village
+              && data.district && data.police_station && data.pincode && data.gender ? " ✔ " : " ! " %>
+
+          </span></li>
+        <li class="d-flex align-items-center justify-content-between">Education Details <span class="checkmark">
+            <%= data && data.courses && data.courses.matrix.year !=="" && data.courses.matrix.totalMarks !=="" &&
+              data.courses.matrix.obtainedMarks !=="" && data.courses.intern.year !=="" &&
+              data.courses.intern.totalMarks !=="" && data.courses.intern.obtainedMarks !=="" && data.courses.other.year
+              !=="" && data.courses.other.totalMarks !=="" && data.courses.other.obtainedMarks !=="" &&
+              (data.courses.NTT_II_year.year==="passed" ? data.courses.NTT_II_year.year !=="" &&
+              data.courses.NTT_II_year.obtainedMarks !=="" && data.courses.NTT_II_year.totalMarks !=="" : true) ? " ✔ "
+              : " ! " %>
+          </span></li>
+        <li class=" d-flex align-items-center justify-content-between">Document Upload <span class="checkmark">
+            <%= data && data.docName && data.docName.matric !==undefined && data.docName.inter !==undefined &&
+              data.docName.NTT_certificate!==undefined && data.docName.image !==undefined && data.docName.sign
+              !==undefined ? " ✔ " : " ! " %>
+          </span></li>
+        <li class=" d-flex align-items-center justify-content-between">Payment<span class="checkmark">
+            <%= data && data.isPaid==true? " ✔ " : " ! " %>
+          </span></li>
+      </ul>
+      <% if(data.isPaid){ %>
+        <div class="registr_bttn d-flex justify-content-center mt-5">
+          <a id="" href="/api/generate-receipt">Download Recipt </a>
+        </div>
+        <% } %>
+
+    </div>
+  </div>
+</div>

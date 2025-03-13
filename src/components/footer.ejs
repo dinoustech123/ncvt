@@ -1,0 +1,73 @@
+<section class=" footer-disclaimer pt-3 pb-2">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class=" footer-disclaimer-text">
+          <h6>Disclaimer</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+  integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+  integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    function openNewPage() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        if (username === "" || password === "") {
+            alert("Please fill in both username and password.");
+        } else {
+            window.open("new-admission");
+        }
+    }
+</script>
+
+<script>
+  function myImage() {
+    var img = document.getElementById('myImage');
+    if (img.src.includes("/images/iconimages/menu_icon.png")) {
+      img.src = "/images/iconimages/menu-remove-icon.png";
+    } else {
+      img.src = "/images/iconimages/menu_icon.png";
+    }
+  }
+</script>
+
+<script>
+  $('.owl-carousel').owlCarousel({
+    loop: true,
+    margin: 10,
+    nav: false,
+    autoplay: true,
+    dots: false,
+    responsive: {
+      0: {
+        items: 2
+      },
+      600: {
+        items: 2
+      },
+      1000: {
+        items: 2
+      }
+    }
+  })
+</script>
+
+
+<script src="/css/bootstrap-5.3.3-dist/js/style.js"></script>
+<script src="/css/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.8/axios.min.js"
+  integrity="sha512-v8+bPcpk4Sj7CKB11+gK/FnsbgQ15jTwZamnBf/xDmiQDcgOIYufBo6Acu1y30vrk8gg5su4x0CG3zfPaq5Fcg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+
+</html>

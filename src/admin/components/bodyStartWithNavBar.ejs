@@ -1,0 +1,86 @@
+<body class="nav-fixed">
+
+    <!-- <div id="preloader_admin">
+    </div> -->
+
+
+    <nav class="topnav navbar navbar-expand shadow navbar-light bg-white" id="sidenavAccordion">
+        <a class="navbar-brand" href="/">
+
+
+            <span class="ml-1 d-none d-sm-inline-block">
+                BECCE
+            </span>
+            <span class="ml-1 d-inline-block d-sm-none">
+                BECCE
+
+            </span>
+
+        </a>
+
+        <button class="btn btn-sm btn-icon order-1 order-lg-0 mr-lg-2" id="sidebarToggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="18" viewBox="0 0 27.623 18" class="injectable">
+                <g transform="translate(-599 -99)">
+                    <path
+                        d="M624.811,134.423h-24A1.817,1.817,0,0,1,599,132.611h0a1.817,1.817,0,0,1,1.811-1.811h24a1.817,1.817,0,0,1,1.811,1.811h0A1.817,1.817,0,0,1,624.811,134.423Z"
+                        transform="translate(0 -24.6)" fill="#134ee6"></path>
+                    <path
+                        d="M618.019,166.123H600.811A1.817,1.817,0,0,1,599,164.311h0a1.817,1.817,0,0,1,1.811-1.811h17.208a1.817,1.817,0,0,1,1.811,1.811h0A1.817,1.817,0,0,1,618.019,166.123Z"
+                        transform="translate(0 -49.123)" fill="#134ee6"></path>
+                    <path
+                        d="M613.491,102.623H600.811A1.817,1.817,0,0,1,599,100.811h0A1.817,1.817,0,0,1,600.811,99h12.679a1.817,1.817,0,0,1,1.811,1.811h0A1.817,1.817,0,0,1,613.491,102.623Z"
+                        fill="#134ee6"></path>
+                </g>
+            </svg>
+        </button>
+        <ul class="navbar-nav align-items-center ml-auto">
+            <li class="nav-item dropdown no-caret mr-3 dropdown-user">
+                <a class="btn btn-sm btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage"
+                    href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <img class="img-fluid" src="<%=sessiondata?.image %>" onerror="this.src='/avtar1.png'" /></a>
+                <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up"
+                    aria-labelledby="navbarDropdownUserImage">
+                    <h6 class="dropdown-header d-flex align-items-center">
+                        <img class="dropdown-user-img" src="<%=sessiondata?.image %>" onerror="this.src='/avtar1.png'">
+                        <div class="dropdown-user-details">
+                            <div class="dropdown-user-details-name">
+                                <% if(sessiondata?.role==1) { %>
+                                    <%= sessiondata?.name %>
+                                        <% } %>
+                                            <% if(sessiondata?.role==0) { %>
+                                                <%= sessiondata?.name %>
+                                                    <% } %>
+                            </div>
+                            <div class="dropdown-user-details-email">
+                                <% if(sessiondata?.role==1) { %>
+                                    <%= sessiondata?.email %>
+                                        <% } %>
+                                            <% if(sessiondata?.role==0) { %>
+                                                <%= sessiondata?.email %>
+                                                    <% } %>
+                            </div>
+                        </div>
+                    </h6>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/admin_profile_page">
+                        <div class="dropdown-item-icon"><i class="fad fa-user"></i></div>
+                        Profile
+                    </a>
+                    <!-- <a class="dropdown-item" href="/change-password">
+                        <div class="dropdown-item-icon"><i class="fad fa-redo"></i></div>
+                        Change Password
+                    </a> -->
+                    <a class="dropdown-item" href="/logout"
+                        onclick="event.preventDefault();document.getElementById('logout').submit()">
+                        <div class="dropdown-item-icon"><i class="fad fa-sign-out-alt"></i></div>
+                        Logout
+                    </a>
+                    <form action="/logout" method="post" id="logout">
+                        <input type="hidden" name="_token" value="rtTuDhsIGeaIxjfKTaO7Lm1L0K7RqzyzmD28hOES">
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">

@@ -1,0 +1,195 @@
+<%- include("../components/header") %>
+
+  <style>
+    input[type="file"] {
+      display: none;
+    }
+    button:disabled {
+  background-color: #cccccc; 
+  color: #666666;           
+  cursor: not-allowed;      
+  border: 1px solid #aaaaaa; 
+  opacity: 0.6;             
+  pointer-events: none;     
+}
+    .input-group label {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .input-group label.bg-green {
+      background-color: #d4edda;
+      /* Light green */
+      color: #9d4e08;
+      /* Dark green text */
+      border-color: #c3e6cb;
+      /* Green border */
+    }
+
+    .upload-btn {
+      padding: 5px 15px;
+      border: none;
+      background-color: #9d4e08cf;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .upload-btn:hover {
+      background-color: #9d4e08;
+    }
+  </style>
+
+  <section class="pt-5 pb-5">
+    <div class="container">
+      <div class="row">
+        <%- include("../components/card") %>
+
+          <div class=" col-lg-8 mt-4">
+            <div class="login_form form_document">
+              <form action="uploadDocuments" method="post" class="form_text" enctype="multipart/form-data">
+                <div class="login_box mb-5">DOCUMENT UPLOAD</div>
+
+                <% const fields=['matric', 'inter' , 'NTT_certificate' , 'image' , 'sign' ]; %>
+                  <% fields.forEach(field=> { %>
+                    <div class="d-flex mt-4 gap-3 new_registration">
+                      <label class="document_name" for="<%= field %>">
+                        <%= field.charAt(0).toUpperCase() + field.slice(1).replace('_', ' ' ) %>
+                      </label>
+                      <div class="input-group">
+                        <!-- File Label -->
+                        <label for="<%= field %>" id="<%= field + 'Label' %>"
+                          class="<%= data && data.docName && data.docName[field] ? 'bg-green' : '' %>">
+                          <%= data && data.docName && data.docName[field] && data.docName[field] !=="" ?
+                            data.docName[field] : "Choose The File" %>
+                        </label>
+
+                        <!-- File Input -->
+                         <% if(data.isPaid){ %>
+                        <input type="file" class="form-control form_control" name="<%= field %>" accept=".pdf,.jpg"
+                          id="<%= field %>" disabled>
+                          <% }else{ %>
+                            <input type="file" class="form-control form_control" name="<%= field %>" accept=".pdf,.jpg"
+                              id="<%= field %>">
+                            <% } %>
+
+                        <!-- Upload Button -->
+                         <% if(data.isPaid){ %>
+                          <button disabled class="upload-btn" id="uploadDoc">Uploaded</button>
+                          <% }else{ %>
+                        <button type="submit" class="upload-btn" id="uploadDoc">Upload</button>
+                        <% } %>
+
+                        <!-- Status Indicator -->
+                        <span style="margin-left: 6px;" class="checkmark">
+                          <%= data && data.docName && data.docName[field] ? "✔" : "!" %>
+                        </span>
+                      </div>
+                    </div>
+                    <% }); %>
+
+                      <p>
+                        <%= message.error %>
+                      </p>
+                      <p>
+                        <%= message.success %>
+                      </p>
+
+                      <div class="registr_bttn d-flex justify-content-center mt-5">
+                        <% if (!data.isPaid) { %>
+                          <button id="payment-btn" type="submit"
+                          <%= data && data.docName && data.docName.matric !== undefined && data.docName.inter !== undefined && data.docName.NTT_certificate!== undefined && data.docName.image !== undefined && data.docName.sign !== undefined ? "" : "disabled" %>
+                           >Process Payment</button>
+                          <% } else{ %>
+                            <a id="" href="/api/generate-receipt">Download Recipt </a>
+                            <% } %>
+                      </div>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const fileInputs = document.querySelectorAll('input[type="file"]');
+
+      fileInputs.forEach((input) => {
+        input.addEventListener("change", function () {
+          const file = this.files[0];
+          const label = this.previousElementSibling; // Select the adjacent label
+          const uploadButton = this.nextElementSibling; // Select the adjacent upload button
+          const errorMessage = document.createElement("p");
+          errorMessage.style.color = "red";
+          errorMessage.style.fontSize = "14px";
+          errorMessage.classList.add("error-message");
+
+          // Remove any existing error messages
+          if (label.nextElementSibling && label.nextElementSibling.classList.contains("error-message")) {
+            label.nextElementSibling.remove();
+          }
+
+          if (file) {
+            const fileName = file.name;
+            const fileSizeMB = file.size / (1024 * 1024); // Convert size to MB
+            const allowedExtensions = /\.(jpg|pdf)$/i;
+
+            if (!allowedExtensions.test(fileName)) {
+              errorMessage.textContent = "Only JPG, and PDF files are allowed.";
+              label.after(errorMessage); // Show error message
+              label.textContent = "Choose The File"; // Reset label text
+              label.classList.remove("bg-green"); // Remove green background
+              uploadButton.disabled = true; // Disable the upload button
+              this.value = ""; // Clear the file input
+              return;
+            }
+
+            if (fileSizeMB > 5) {
+              errorMessage.textContent = "File size must not exceed 5 MB.";
+              label.after(errorMessage); // Show error message
+              label.textContent = "Choose The File"; // Reset label text
+              label.classList.remove("bg-green"); // Remove green background
+              uploadButton.disabled = true; // Disable the upload button
+              this.value = ""; // Clear the file input
+              return;
+            }
+
+            // Update label with file name and apply green background
+            label.textContent = fileName;
+            label.classList.add("bg-green");
+            uploadButton.disabled = false; // Enable the upload button
+          } else {
+            label.textContent = "Choose The File"; // Reset label text
+            label.classList.remove("bg-green"); // Remove green background
+            uploadButton.disabled = true; // Disable the upload button
+          }
+        });
+      });
+    });
+
+
+  </script>
+  <script>
+    const paymentBtn = document.getElementById("payment-btn");
+    paymentBtn.addEventListener("click", async function (e) {
+      e.preventDefault();
+      let data = await axios.get("payment")
+      window.location.href = data.data.url
+    });
+  </script>
+
+  <script>
+    const fields = ['matric', 'inter', 'NTT_certificate', 'image', 'sign'];
+    fields.forEach(field => {
+      const label = document.getElementById((field + field));
+      if (label.innerText == "Choose The File") {
+        document.getElementById("payment-btn").disabled = true;
+      }
+    });
+  </script>
+
+
+  <%- include("../components/footer") %>

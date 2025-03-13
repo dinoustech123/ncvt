@@ -1,0 +1,440 @@
+<%- include("../components/head") %>
+
+    <%- include("../components/bodyStartWithNavBar/") %>
+        <%- include("../components/sideNav") %>
+            <div id="layoutSidenav_content">
+                <main>
+                        <div class="page-header pb-10 page-header-dark bg-info">
+                            <div class="container-fluid">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <div class="page-header-content">
+                                            <h1 class="page-header-title fs-md-35 fs-20">
+
+                                                <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                                <span class=" text-capitalize">
+                                                    Dashboard
+                                                </span>
+                                            </h1>
+                                            <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto mb-md-0 mb-3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-fluid mt-n10">
+
+                            
+
+
+                            
+
+                            
+
+                           
+                           
+                            <div class="row dashboard_row_1 mt-4">
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card bg-primary text-white mb-4 p-1">
+                                        <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
+                                            <div class="card-body col-12">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="">
+                                                        <div class="text-primary small font-weight-bold">No. of user
+                                                            register</div>
+                                                        <div class="text-lg font-weight-bold mt-2 text-black">
+                                                            <%=dashData.user %>
+                                                        </div>
+                                                    </div>
+
+                                                    <i class="fad fa-user-circle fs-45 text-primary"></i>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
+                                                <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase"
+                                                    href="/view_all_users"><span>View</span><span><i
+                                                            class="fad fa-chevron-right"></i></span></a>
+                                                <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card bg-success text-white mb-4 p-1">
+                                        <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
+                                            <div class="card-body col-12">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="">
+                                                        <div class="text-success small font-weight-bold">No. of Document Register
+                                                            users</div>
+                                                        <div class="text-lg font-weight-bold mt-2 text-black">
+                                                            <%=dashData.documentCount %>
+                                                        </div>
+                                                    </div>
+
+                                                    <i class="fad fa-users fs-45 text-success"></i>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
+                                                <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase invisible"
+                                                    href="/view_all_users?status=activated"><span>View</span><span><i
+                                                            class="fad fa-chevron-right"></i></span></a>
+                                                <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="card bg-orange text-white mb-4 p-1">
+                                        <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
+                                            <div class="card-body col-12">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="">
+                                                        <div class="text-orange small font-weight-bold">Payment Received</div>
+                                                        <div class="text-lg font-weight-bold mt-2 text-black">
+                                                            <%=dashData.PendingWinnerDeclare %>
+                                                        </div>
+                                                    </div>
+
+                                                    <i class="fad fa-trophy fs-45 text-orange"></i>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
+                                                <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase"
+                                                    href="/match-result"><span>View</span><span><i
+                                                            class="fad fa-chevron-right"></i></span></a>
+                                                <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                               
+
+                            <script>
+                                $(document).ready(function () {
+                                    showGraph();
+                                    showBar();
+                                });
+
+
+                                function showGraph() {
+
+
+                                    $.post("/total_amount_received_in_week",
+                                        function (data) {
+                                            var labels = data[0];
+                                            var amounts = data[1];
+                                            let totalAmount = data[2];
+                                            $('#tReceived').replaceWith(`<span id="tReceived" class="text-primary">₹${totalAmount}</span>`)
+
+                                            var ctx = document.getElementById("myAreaChart1");
+                                            var myLineChart = new Chart(ctx, {
+                                                type: "line",
+                                                data: {
+                                                    labels: labels,
+                                                    datasets: [{
+                                                        label: "Amount Received",
+                                                        lineTension: 0.3,
+                                                        backgroundColor: "rgba(0, 97, 22, 0.05)",
+                                                        borderColor: getComputedStyle(document.documentElement)
+                                                            .getPropertyValue('--color-primary'),
+                                                        pointRadius: 3,
+                                                        pointBackgroundColor: getComputedStyle(document.documentElement)
+                                                            .getPropertyValue('--color-primary'),
+                                                        pointBorderColor: getComputedStyle(document.documentElement)
+                                                            .getPropertyValue('--color-primary'),
+                                                        pointHoverRadius: 3,
+                                                        pointHoverBackgroundColor: "rgba(0, 97, 242, 1)",
+                                                        pointHoverBorderColor: "rgba(0, 97, 242, 1)",
+                                                        pointHitRadius: 10,
+                                                        pointBorderWidth: 2,
+                                                        data: amounts,
+                                                    },],
+                                                },
+                                                options: {
+                                                    maintainAspectRatio: false,
+                                                    layout: {
+                                                        padding: {
+                                                            left: 10,
+                                                            right: 25,
+                                                            top: 25,
+                                                            bottom: 0,
+                                                        },
+                                                    },
+                                                    scales: {
+                                                        xAxes: [{
+                                                            time: {
+                                                                unit: "date",
+                                                            },
+                                                            gridLines: {
+                                                                display: false,
+                                                                drawBorder: false,
+                                                            },
+                                                            ticks: {
+                                                                maxTicksLimit: 7,
+                                                            },
+                                                        },],
+                                                        yAxes: [{
+                                                            ticks: {
+                                                                maxTicksLimit: 5,
+                                                                padding: 10,
+                                                                // Include a dollar sign in the ticks
+                                                                callback: function (value, index, values) {
+                                                                    return "" + number_format(value);
+                                                                },
+                                                            },
+                                                            gridLines: {
+                                                                color: "rgb(234, 236, 244)",
+                                                                zeroLineColor: "rgb(234, 236, 244)",
+                                                                drawBorder: false,
+                                                                borderDash: [2],
+                                                                zeroLineBorderDash: [2],
+                                                            },
+                                                        },],
+                                                    },
+                                                    legend: {
+                                                        display: false,
+                                                    },
+                                                    tooltips: {
+                                                        backgroundColor: "rgb(255,255,255)",
+                                                        bodyFontColor: "#858796",
+                                                        titleMarginBottom: 10,
+                                                        titleFontColor: "#6e707e",
+                                                        titleFontSize: 14,
+                                                        borderColor: "#dddfeb",
+                                                        borderWidth: 1,
+                                                        xPadding: 15,
+                                                        yPadding: 15,
+                                                        displayColors: false,
+                                                        intersect: false,
+                                                        mode: "index",
+                                                        caretPadding: 10,
+                                                        callbacks: {
+                                                            label: function (tooltipItem, chart) {
+                                                                var datasetLabel =
+                                                                    chart.datasets[tooltipItem.datasetIndex].label || "";
+                                                                return (
+                                                                    datasetLabel + ":" + number_format(tooltipItem.yLabel)
+                                                                );
+                                                            },
+                                                        },
+                                                    },
+                                                },
+                                            });
+                                        });
+                                }
+                            </script>
+
+                            <script>
+                                function showBar() {
+                                    // var post_data = {
+                                    //     _token: 'rtTuDhsIGeaIxjfKTaO7Lm1L0K7RqzyzmD28hOES'
+                                    // }
+
+                                    $.post("/total_amount_withdraw_in_week",
+                                        // post_data,
+                                        function (data) {
+                                            // console.log(data, "data///")
+                                            var labels = data[0];
+                                            var amounts = data[1];
+                                            let totalAmount = data[2];
+                                            $('#tWithdrawalAmount').replaceWith(`<span id="tWithdrawalAmount" class="text-primary">₹${totalAmount}</span>`)
+
+                                            // Bar Chart Example
+                                            var ctx = document.getElementById("myBarChart1");
+                                            var myBarChart = new Chart(ctx, {
+                                                type: "bar",
+                                                data: {
+                                                    labels: labels,
+                                                    datasets: [{
+                                                        label: "Withdraw Amount",
+                                                        backgroundColor: getComputedStyle(document.documentElement)
+                                                            .getPropertyValue('--color-primary'),
+                                                        hoverBackgroundColor: "rgba(0, 97, 242, 0.9)",
+                                                        borderColor: getComputedStyle(document.documentElement)
+                                                            .getPropertyValue('--color-primary'),
+                                                        data: amounts,
+                                                    }]
+                                                },
+                                                options: {
+                                                    maintainAspectRatio: false,
+                                                    layout: {
+                                                        padding: {
+                                                            left: 10,
+                                                            right: 25,
+                                                            top: 25,
+                                                            bottom: 0
+                                                        }
+                                                    },
+                                                    scales: {
+                                                        xAxes: [{
+                                                            time: {
+                                                                unit: "month"
+                                                            },
+                                                            gridLines: {
+                                                                display: false,
+                                                                drawBorder: false
+                                                            },
+                                                            ticks: {
+                                                                maxTicksLimit: 6
+                                                            },
+                                                            maxBarThickness: 25
+                                                        }],
+                                                        yAxes: [{
+                                                            ticks: {
+                                                                min: 0,
+                                                                max: totalAmount,
+                                                                maxTicksLimit: 5,
+                                                                padding: 10,
+                                                                // Include a dollar sign in the ticks
+                                                                callback: function (value, index, values) {
+                                                                    return "" + number_format(value);
+                                                                }
+                                                            },
+                                                            gridLines: {
+                                                                color: "rgb(234, 236, 244)",
+                                                                zeroLineColor: "rgb(234, 236, 244)",
+                                                                drawBorder: false,
+                                                                borderDash: [2],
+                                                                zeroLineBorderDash: [2]
+                                                            }
+                                                        }]
+                                                    },
+                                                    legend: {
+                                                        display: false
+                                                    },
+                                                    tooltips: {
+                                                        titleMarginBottom: 10,
+                                                        titleFontColor: "#6e707e",
+                                                        titleFontSize: 14,
+                                                        backgroundColor: "rgb(255,255,255)",
+                                                        bodyFontColor: "#858796",
+                                                        borderColor: "#dddfeb",
+                                                        borderWidth: 1,
+                                                        xPadding: 15,
+                                                        yPadding: 15,
+                                                        displayColors: false,
+                                                        caretPadding: 10,
+                                                        callbacks: {
+                                                            label: function (tooltipItem, chart) {
+                                                                var datasetLabel =
+                                                                    chart.datasets[tooltipItem.datasetIndex].label || "";
+                                                                return datasetLabel + ": " + number_format(tooltipItem.yLabel);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        });
+                                }
+                            </script>
+                        </div>
+
+
+                </main>
+                <%- include("../components/footer") %>
+
+                    <script>
+                        $(window).on('load', function () {
+
+                            $('#preloader_admin').hide();
+
+                        })
+                    </script>
+
+
+                    <script>
+                        $(document).ready(function () {
+
+                            if ($('#accordionSidenavPages a').hasClass('active')) {
+                                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                                // console.log(id);
+                            } else {
+                                $('#takeonebar').addClass('slamdown');
+                            }
+                        });
+                    </script>
+
+
+
+                    <script type="text/javascript">
+
+
+
+                        // function isNumberKey(evt){
+                        //    <!--Function to accept only numeric values-->
+                        //     //var e = evt || window.event;
+
+                        //    var charCode = (evt.which) ? evt.which : evt.keyCode
+                        //     if (charCode != 46 && charCode > 31
+                        //    && (charCode < 48 || charCode > 57))
+
+                        //     return false;
+                        //   else {
+                        //        var itemdecimal = evt.srcElement.value.split('.');
+                        //        if (itemdecimal.length > 1 && charCode == 46)
+                        //            return false;
+
+                        //        return true;
+                        //   }
+                        // }
+                    </script>
+
+
+
+
+
+
+                    <script>
+                        function delete_sweet_alert(url, msg) {
+                            // sweet alert
+                            const swalWithBootstrapButtons = Swal.mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-sm btn-success ml-2',
+                                    cancelButton: 'btn btn-sm btn-danger'
+                                },
+                                buttonsStyling: false
+                            })
+
+                            swalWithBootstrapButtons.fire({
+                                title: msg,
+                                text: "You won't be able to revert this!",
+                                icon: 'success',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes',
+                                cancelButtonText: 'No',
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+
+                                    swalWithBootstrapButtons.fire(
+                                        '',
+                                        'Successfully Done',
+                                        'success'
+                                    );
+
+                                    window.location.href = url;
+
+
+                                } else if (
+                                    /* Read more about handling dismissals below */
+                                    result.dismiss === Swal.DismissReason.cancel
+                                ) {
+                                    swalWithBootstrapButtons.fire(
+                                        'Cancelled',
+                                        'Cancelled successfully :)',
+                                        'error'
+                                    );
+                                    return false;
+                                }
+                            })
+                        }
+                    </script>

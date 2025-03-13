@@ -1,0 +1,657 @@
+<%- include("../components/header") %>
+<style>
+  #next {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 40px;
+  background-color: #9d4e08c2;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#next:disabled {
+  background-color: #e0e0e0;
+  color: #888;
+  cursor: not-allowed;
+}
+</style>
+  <section class="  pt-5 pb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="">
+            <form action="completeProfileDetails" method="post" id="forms" class=" form_text">
+
+              <div class="row">
+
+                <%- include("../components/card") %>
+
+
+                <div class="col-lg-8 mt-4">
+                  
+                  <div class=" profile_details">
+                    <div class=" login_box mb-5">Complete Profile</div>
+                    <div class=" complete_profile">
+                      <label for="">Post</label>
+                      <div class="input-group mb-2">
+                        <% if(data.isPaid){ %>
+                        <input type="text" class="form-control form_control" name="post" id=""
+                          value="Assistant Teacher" placeholder="Post" aria-label="Username"
+                          aria-describedby="basic-addon1" disabled>
+                          <% }else{ %>
+                            <input type="text" class="form-control form_control" name="post" id=""
+                              value="Assistant Teacher" placeholder="Post" aria-label="Username"
+                              aria-describedby="basic-addon1" readonly>
+                            <% } %>
+                      </div>
+                    </div>
+
+                      <div class=" mt-3 d-flex align-items-center gap-3">
+
+                        <div class="  complete_profile">
+                          <label for="">E-Mail</label>
+                          <div class="input-group mb-2">
+                            <!-- <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span> -->
+                            <input type="text" class="form-control form_control" name="email" id="email"
+                              value="<%= data && data.email ? data.email : "" %>" placeholder="Email"
+                              aria-label="Username" aria-describedby="basic-addon1" <%= data && data.email ? 'disabled' : '' %>>
+                          </div>
+                        </div>
+
+                        <div class=" complete_profile">
+                          <label for="">FullName</label>
+                          <div class="input-group mb-2">
+                            <!-- <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span> -->
+                            <input type="text" class="form-control form_control" name="name" id="" placeholder="Name"
+                              value="<%= data && data.name ? data.name : "" %>" aria-label="name"
+                              aria-describedby="basic-addon1" <%= data && data.name ? 'disabled' : '' %>>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class=" mt-5 d-flex align-items-center gap-3">
+                        <div class="complete_profile">
+                          <label for="nationality">Nationality</label>
+                          <div class="input-group mb-2">
+                            <% if(data.isPaid){ %>
+                              <select name="nationality" class="form-control form_control" id="nationality" disabled>
+                                <option value="Indian" <%= data && data.nationality === 'Indian' ? 'selected' : '' %>>Indian</option>
+                                <option value="Other" <%= data && data.nationality === 'Other' ? 'selected' : '' %>>Other</option>
+                              </select>
+                              <% }else{ %>
+                                <select name="nationality" class="form-control form_control" id="nationality" required>
+                                  <option value="Indian" <%= data && data.nationality === 'Indian' ? 'selected' : '' %>>Indian</option>
+                                  <option value="Other" <%= data && data.nationality === 'Other' ? 'selected' : '' %>>Other</option>
+                                </select>
+                              <% } %>
+                          </div>
+                        </div>
+
+                        <div class="complete_profile">
+                          <label for="aadhar">Identification Mark</label>
+                          <div class="input-group mb-2">
+                            <% if(data.isPaid){ %>
+                            <input type="text" class="form-control form_control" name="idMark" id="aadhar"
+                              value="<%= data && data.idMark ? data.idMark : "" %>" placeholder="Identification"
+                              aria-label="Identification" aria-describedby="basic-addon1" disabled>
+                              <% }else{ %>
+                                <input type="text" class="form-control form_control" name="idMark" id="aadhar"
+                                  value="<%= data && data.idMark ? data.idMark : "" %>" placeholder="Identification"
+                                  aria-label="Identification" aria-describedby="basic-addon1" required>
+                                <% } %>
+                          </div>
+                          </div>
+                      </div>
+                      
+
+
+                      <div class=" mt-5 d-flex align-items-center gap-3">
+                        <div class="  complete_profile">
+                          <label for="">Father Name</label>
+                          <div class="input-group mb-2">
+                            <% if(data.isPaid){ %>
+                            <input type="text" class="form-control form_control" name="father_name" id=""
+                              value="<%=  data && data.father_name ? data.father_name : "" %>" placeholder="Father"
+                              aria-label="Username" aria-describedby="basic-addon1" disabled>
+                              <% }else{ %>
+                                <input type="text" class="form-control form_control" name="father_name" id=""
+                                  value="<%=  data && data.father_name ? data.father_name : "" %>" placeholder="Father"
+                                  aria-label="Username" aria-describedby="basic-addon1" required>
+                                <% } %>
+                          </div>
+                        </div>
+                        <div class=" complete_profile">
+                          <label for="">Mother Name</label>
+                          <div class="input-group mb-2">
+                            <!-- <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span> -->
+                            <% if(data.isPaid){ %>
+                            <input type="text" class="form-control form_control" name="mother_name" id=""
+                              value="<%=data && data.mother_name ? data.mother_name : "" %>" placeholder="Mother"
+                              aria-label="Username" aria-describedby="basic-addon1" disabled>
+                              <% }else{ %>
+                                <input type="text" class="form-control form_control" name="mother_name" id=""
+                                  value="<%=data && data.mother_name ? data.mother_name : "" %>" placeholder="Mother"
+                                  aria-label="Username" aria-describedby="basic-addon1" required>
+                                <% } %>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class=" mt-3 d-flex align-items-center gap-3">
+                        <div class="  complete_profile">
+                          <label for="">Mobile Number</label>
+                          <div class="input-group mb-2">
+                            <!-- <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span> -->
+                            <input type="text" class="form-control form_control" name="mobile" id=""
+                              value="<%= data && data.mobile ? data.mobile : "" %>" placeholder="Mobile Number"
+                              aria-label="Username" aria-describedby="basic-addon1" <%= data && data.mobile ? 'disabled' : '' %>>
+                          </div>
+                        </div>
+                        <div class=" complete_profile">
+                          <label for="">Date of Birth</label>
+                          <div class="input-group mb-2">
+                            <!-- <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span> -->
+                            <% if(data.isPaid){ %>
+                            <input type="date" class="form-control form_control" name="dob" id=""
+                              value="<%=data && data.dob ? data.dob : "" %>" placeholder="Date of Birth"
+                              aria-label="Username" aria-describedby="basic-addon1" disabled>
+                              <% }else{ %>
+                            <input type="date" class="form-control form_control" name="dob" id=""
+                              value="<%=data && data.dob ? data.dob : "" %>" placeholder="Date of Birth"
+                              aria-label="Username" aria-describedby="basic-addon1" required>
+                              <% } %>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class=" mt-5 d-flex align-items-center gap-3">
+                        <div class="  complete_profile">
+                          <label for="">Village</label>
+                          <div class="input-group mb-2">
+                            <!-- <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span> -->
+                            <% if(data.isPaid){ %>
+                            <input type="text" class="form-control form_control" name="village" id=""
+                              value="<%=data && data.village ? data.village : "" %>" placeholder="Village"
+                              aria-label="Username" aria-describedby="basic-addon1" disabled>
+                              <% }else{ %>
+                                <input type="text" class="form-control form_control" name="village" id=""
+                                  value="<%=data && data.village ? data.village : "" %>" placeholder="Village"
+                                  aria-label="Username" aria-describedby="basic-addon1" required>
+                                <% } %>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <div class=" mt-3 d-flex align-items-center gap-3">
+                        <div class="  complete_profile">
+                          <label for="">State</label>
+                          <div class="input-group mb-2">
+                            <!-- <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span> -->
+                            <% if(data.isPaid){ %>
+                            <input type="text" class="form-control form_control" name="state" id=""
+                              value="<%=data && data.state ? data.state : "" %>" placeholder="State"
+                              aria-label="Username" aria-describedby="basic-addon1" disabled> 
+                              <% }else{ %>
+                                <input type="text" class="form-control form_control" name="state" id=""
+                                  value="<%=data && data.state ? data.state : "" %>" placeholder="State"
+                                  aria-label="Username" aria-describedby="basic-addon1" required> 
+                                  <% } %>
+                          </div>
+                        </div>
+                        <div class=" complete_profile">
+                          <label for="">District</label>
+                          <div class="input-group mb-2">
+                            <!-- <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span> -->
+                            <% if(data.isPaid){ %>
+                            <input type="text" class="form-control form_control" name="district" id=""
+                              value="<%=data && data.district ? data.district : "" %>" placeholder="District"
+                              aria-label="Username" aria-describedby="basic-addon1" disabled>
+                              <% }else{ %>
+                                <input type="text" class="form-control form_control" name="district" id=""
+                                  value="<%=data && data.district ? data.district : "" %>" placeholder="District"
+                                  aria-label="Username" aria-describedby="basic-addon1" required>
+                                  <% } %>
+                          </div>
+                        </div>
+                        <div class=" complete_profile">
+                          <label for="">police station</label>
+                          <div class="input-group mb-2">
+                            <!-- <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span> -->
+                            <% if(data.isPaid){ %>
+                            <input type="text" class="form-control form_control" name="police_station" id=""
+                              value="<%=data && data.police_station ? data.police_station : "" %>"
+                              placeholder="Police Station" aria-label="Username" aria-describedby="basic-addon1" disabled>
+                              <% }else{ %>
+                                <input type="text" class="form-control form_control" name="police_station" id=""
+                                  value="<%=data && data.police_station ? data.police_station : "" %>"
+                                  placeholder="Police Station" aria-label="Username" aria-describedby="basic-addon1" required>
+                                  <% } %>
+                          </div>
+                        </div>
+                        <div class=" complete_profile">
+                          <label for="">Pin Code</label>
+                          <div class="input-group mb-2">
+                            <!-- <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span> -->
+                            <% if(data.isPaid){ %>
+                            <input type="number" class="form-control form_control" name="pincode" id=""
+                              value="<%=data && data.pincode ? data.pincode : "" %>" placeholder="Pin Code"
+                              aria-label="Username" aria-describedby="basic-addon1" disabled>
+                              <% }else{ %>
+                                <input type="number" class="form-control form_control" name="pincode" id=""
+                                  value="<%=data && data.pincode ? data.pincode : "" %>" placeholder="Pin Code"
+                                  aria-label="Username" aria-describedby="basic-addon1" required>
+                                <% } %>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class=" mt-4 d-flex  justify-content-between flex-wrap select_container">
+
+                        <div class="  mt-4">
+
+                          <label for="">Gender</label>
+                          <div class=" d-flex gap-3 gender_container">
+                            <% if(data.isPaid){ %>
+                            <div class=" innergender_container">
+                              <input id="male" type="radio" name="gender" value="male" <%=data && data.gender=="male"
+                                ? "checked" : "" %> disabled>
+                              <label for="male">Male</label>
+                            </div>
+                            <div class="innergender_container">
+                              <input id="female" type="radio" name="gender" value="female" <%=data &&
+                                data.gender=="female" ? "checked" : "" %> disabled>
+                              <label for="female">Female</label>
+                            </div>
+                            <% }else{ %>
+                              <div class=" innergender_container">
+                                <input id="male" type="radio" name="gender" value="male" <%=data && data.gender=="male"
+                                  ? "checked" : "" %> >
+                                <label for="male">Male</label>
+                              </div>
+                              <div class="innergender_container">
+                                <input id="female" type="radio" name="gender" value="female" <%=data &&
+                                  data.gender=="female" ? "checked" : "" %> >
+                                <label for="female">Female</label>
+                              </div>
+                              <% } %>
+                          </div>
+                        </div>
+
+                        <div class="  mt-4">
+
+                          <label for="">Category</label>
+                          <div class=" d-flex flex-wrap gap-3 gender_container">
+                            <% if(data.isPaid){ %>
+                            <div class=" innergender_container">
+                              <input id="general" type="radio" name="category" value="general" <%=data &&
+                                data.category=="general" ? "checked" : "" %> disabled>
+                              <label for="general">General</label>
+                            </div>
+                            <div class="innergender_container">
+                              <input id="obc" type="radio" name="category" value="obc" <%=data && data.category=="obc"
+                                ? "checked" : "" %> disabled>
+                              <label for="obc">OBC</label>
+                            </div>
+                            <div class="innergender_container">
+                              <input id="sc" type="radio" name="category" value="sc" <%=data && data.category=="sc"
+                                ? "checked" : "" %> disabled>
+                              <label for="sc">SC</label>
+                            </div>
+                            <div class="innergender_container">
+                              <input id="st" type="radio" name="category" value="st" <%=data && data.category=="st"
+                                ? "checked" : "" %> disabled>
+                              <label for="st">ST</label>
+                            </div>
+                            <div class="innergender_container">
+                              <input id="ews" type="radio" name="category" value="ews" <%=data && data.category=="ews"
+                                ? "checked" : "" %> disabled>
+                              <label for="st">EWS</label>
+                            </div>
+                            <% }else{ %>
+                            <div class=" innergender_container">
+                              <input id="general" type="radio" name="category" value="general" <%=data &&
+                                data.category=="general" ? "checked" : "" %> >
+                              <label for="general">General</label>
+                            </div>
+                            <div class="innergender_container">
+                              <input id="obc" type="radio" name="category" value="obc" <%=data && data.category=="obc"
+                                ? "checked" : "" %> >
+                              <label for="obc">OBC</label>
+                            </div>
+                            <div class="innergender_container">
+                              <input id="sc" type="radio" name="category" value="sc" <%=data && data.category=="sc"
+                                ? "checked" : "" %> >
+                              <label for="sc">SC</label>
+                            </div>
+                            <div class="innergender_container">
+                              <input id="st" type="radio" name="category" value="st" <%=data && data.category=="st"
+                                ? "checked" : "" %> >
+                              <label for="st">ST</label>
+                            </div>
+                            <div class="innergender_container">
+                              <input id="ews" type="radio" name="category" value="ews" <%=data && data.category=="ews"
+                                ? "checked" : "" %> >
+                              <label for="st">EWS</label>
+                            </div>
+                            <% } %>
+                          </div>
+                          <div class="save-button mt-5 d-flex justify-content-end">
+                            <% if(data.isPaid){ %>
+                            <button value="" id="save1st" disabled>SUBMITTED</button>
+                            <% }else{ %>
+                              <button value="" id="save1st">SAVE</button>
+                              <% } %>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="row mt-5 ">
+                        <div class="col-12">
+                          <table class=" w-100 ">
+                            <tr>
+                              <th>Course</th>
+                              <th>Passing Year</th>
+                              <th>Full Mark</th>
+                              <th>OBT Mark</th>
+                            </tr>
+                            <% if(data.isPaid){ %>
+                            <tr>
+                              <td>Matric</td>
+                              <td><input disabled name="courses[matrix][year]" type="number"
+                                  value="<%=data.courses && data.courses.matrix ?data.courses.matrix.year : "" %>" required>
+                              </td>
+                              <td><input disabled name="courses[matrix][totalMarks]" type="number"
+                                  value="<%=data.courses && data.courses.matrix ?data.courses.matrix.totalMarks : "" %>" required>
+
+                              </td>
+                              <td><input disabled name="courses[matrix][obtainedMarks]" type="number"
+                                  value="<%=data.courses && data.courses.matrix ?data.courses.matrix.obtainedMarks : "" %>" required>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Inter</td>
+                              <td><input disabled name="courses[intern][year]" type="number"
+                                  value="<%=data.courses && data.courses.intern ?data.courses.intern.year : "" %>" required>
+                              </td>
+                              <td><input disabled name="courses[intern][totalMarks]" type="number"
+                                  value="<%=data.courses && data.courses.intern ?data.courses.intern.totalMarks : "" %>" required>
+                              </td>
+                              <td><input disabled name="courses[intern][obtainedMarks]" type="number"
+                                  value="<%=data.courses && data.courses.intern ?data.courses.intern.obtainedMarks : "" %>" required>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>NTT 1st year</td>
+                              <td><input disabled name="courses[other][year]" type="number"
+                                  value="<%=data.courses && data.courses.other ?data.courses.other.year : "" %>" required>
+                              </td>
+                              <td><input disabled name="courses[other][totalMarks]" type="number"
+                                  value="<%=data.courses && data.courses.other ?data.courses.other.totalMarks : "" %>" required>
+                              </td>
+                              <td><input disabled name="courses[other][obtainedMarks]" type="number"
+                                  value="<%=data.courses && data.courses.other ?data.courses.other.obtainedMarks : "" %>" required>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>NTT 2nd year</td>
+                              <td>
+                                <select name="courses[NTT_II_year][year]" id="ntt2-status" disabled >
+                                  <option value="appearing" <%= data.courses && data.courses.NTT_II_year && data.courses.NTT_II_year.year === 'appearing' ? 'selected' : '' %>>Appearing</option>
+                                  <option value="passed" <%= data.courses && data.courses.NTT_II_year && data.courses.NTT_II_year.year === 'passed' ? 'selected' : '' %>>Passed</option>
+                                </select>
+                              </td>                              
+                              <td class="ntt2-mark-fields"><input disabled name="courses[NTT_II_year][totalMarks]" type="number"
+                                  value="<%=data.courses && data.courses.NTT_II_year ?data.courses.NTT_II_year.totalMarks : "" %>" >
+                              </td>
+                              <td class="ntt2-mark-fields"><input disabled name="courses[NTT_II_year][obtainedMarks]" type="number"
+                                  value="<%=data.courses && data.courses.NTT_II_year ?data.courses.NTT_II_year.obtainedMarks : "" %>" >
+                              </td>
+                            </tr>
+                            <% }else{ %>
+                              <tr>
+                                <td>Matric</td>
+                                <td><input name="courses[matrix][year]" type="number"
+                                    value="<%=data.courses && data.courses.matrix ?data.courses.matrix.year : "" %>" required>
+                                </td>
+                                <td><input name="courses[matrix][totalMarks]" type="number"
+                                    value="<%=data.courses && data.courses.matrix ?data.courses.matrix.totalMarks : "" %>" required>
+  
+                                </td>
+                                <td><input name="courses[matrix][obtainedMarks]" type="number"
+                                    value="<%=data.courses && data.courses.matrix ?data.courses.matrix.obtainedMarks : "" %>" required>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Inter</td>
+                                <td><input name="courses[intern][year]" type="number"
+                                    value="<%=data.courses && data.courses.intern ?data.courses.intern.year : "" %>" required>
+                                </td>
+                                <td><input name="courses[intern][totalMarks]" type="number"
+                                    value="<%=data.courses && data.courses.intern ?data.courses.intern.totalMarks : "" %>" required>
+                                </td>
+                                <td><input name="courses[intern][obtainedMarks]" type="number"
+                                    value="<%=data.courses && data.courses.intern ?data.courses.intern.obtainedMarks : "" %>" required>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>NTT 1st year</td>
+                                <td><input name="courses[other][year]" type="number"
+                                    value="<%=data.courses && data.courses.other ?data.courses.other.year : "" %>" required>
+                                </td>
+                                <td><input name="courses[other][totalMarks]" type="number"
+                                    value="<%=data.courses && data.courses.other ?data.courses.other.totalMarks : "" %>" required>
+                                </td>
+                                <td><input name="courses[other][obtainedMarks]" type="number"
+                                    value="<%=data.courses && data.courses.other ?data.courses.other.obtainedMarks : "" %>" required>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>NTT 2nd year</td>
+                                <td>
+                                  <select name="courses[NTT_II_year][year]" id="ntt2-status" >
+                                    <option value="appearing" <%= data.courses && data.courses.NTT_II_year && data.courses.NTT_II_year.year === 'appearing' ? 'selected' : '' %>>Appearing</option>
+                                    <option value="passed" <%= data.courses && data.courses.NTT_II_year && data.courses.NTT_II_year.year === 'passed' ? 'selected' : '' %>>Passed</option>
+                                  </select>
+                                </td>                              
+                                <td class="ntt2-mark-fields"><input name="courses[NTT_II_year][totalMarks]" type="number"
+                                    value="<%=data.courses && data.courses.NTT_II_year ?data.courses.NTT_II_year.totalMarks : "" %>" >
+                                </td>
+                                <td class="ntt2-mark-fields"><input name="courses[NTT_II_year][obtainedMarks]" type="number"
+                                    value="<%=data.courses && data.courses.NTT_II_year ?data.courses.NTT_II_year.obtainedMarks : "" %>" >
+                                </td>
+                              </tr>
+                              <% } %>
+
+                            <% if(data.courses) {%>
+                              <% for(let i in data.courses){ %>
+                                <% if(i !="other" && i !="intern" && i !="matrix" && i !="NTT_II_year") {%>
+
+                                  <tr id="dynamic-row">
+                                    <td><input type="text" id="new-course-name" placeholder="Enter course name"
+                                        value="<%=data.courses && data.courses[i] ?[i] : "" %>">
+                                    </td>
+                                    <td><input type="number" id="new-course-year" placeholder="Year"
+                                        value="<%=data.courses && data.courses.other ?data.courses[i].year : "" %>">
+                                    </td>
+                                    <td><input type="number" id="new-course-totalMarks" placeholder="Full Mark"
+                                        value="<%=data.courses && data.courses.other ?data.courses[i].totalMarks : "" %>">
+
+                                    </td>
+                                    <td><input type="number" id="new-course-obtainedMarks" placeholder="OBT Mark"
+                                        value="<%=data.courses && data.courses.other ?data.courses[i].obtainedMarks : "" %>">
+                                    </td>
+                                  </tr>
+                                  <% } %>
+                                    <% } %>
+                                      <% } %>
+
+                                        <tr id="dynamic-row">
+                                          <td><input type="text" id="new-course-name" placeholder="Other Degree">
+                                          </td>
+                                          <td><input type="text" id="new-course-year" placeholder="Year"></td>
+                                          <td><input type="text" id="new-course-totalMarks" placeholder="Full Mark">
+                                          </td>
+                                          <td><input type="text" id="new-course-obtainedMarks" placeholder="OBT Mark">
+                                          </td>
+                                        </tr>
+                          </table>
+                        </div>
+                      </div>
+
+                      <div class="save-button mt-4 d-flex justify-content-end ">
+                        <% if(data.isPaid){ %>
+                        <button value="Save" id="save2nd" disabled>SUBMITTED</button>
+                        <% }else{ %>
+                          <button value="Save" id="save2nd">SAVE</button>
+                          <% } %>
+                      </div>
+                      <div class=" d-flex gap-3 align-items-center justify-content-end ">
+
+                        <div class=" otp_field d-flex align-items-center gap-2 mt-4 save-button">
+                          <button value="" id="next" type="submit" disabled>NEXT</button>
+                        </div>
+                        <!-- <div class=" otp_field d-flex align-items-center gap-2 mt-4">
+                          <button value="" id="submit">SUBMIT</button>
+                        </div> -->
+                      </div>
+
+                    </div>
+                  </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+   document.addEventListener("DOMContentLoaded", function () {
+  const ntt2Status = document.getElementById("ntt2-status");
+  const ntt2MarkFields = document.querySelectorAll(".ntt2-mark-fields");
+
+  // Toggle the Full Mark and Obtained Mark fields based on NTT 2nd Year selection
+  ntt2Status.addEventListener("change", function () {
+    if (this.value === "passed") {
+      ntt2MarkFields.forEach(function(field) {
+        field.classList.remove("d-none"); // Show fields if "Passed" is selected
+      });
+    } else {
+      ntt2MarkFields.forEach(function(field) {
+        field.classList.add("d-none"); // Hide fields if "Appearing" is selected
+      });
+    }
+  });
+
+  // Trigger change to handle page load state
+  ntt2Status.dispatchEvent(new Event("change"));
+});
+  </script>
+
+  <script>
+    const validateForm = () => {
+      const form = document.getElementById("forms");
+      const inputs = form.querySelectorAll("input[required]");
+      const nextButton = document.getElementById("next");
+  
+      const allFilled = Array.from(inputs).every(input => input.value.trim() !== "");
+  
+      nextButton.disabled = !allFilled;
+    };
+  
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("forms");
+      const inputs = form.querySelectorAll("input[required]");
+      
+      validateForm();
+  
+      inputs.forEach(input => {
+        input.addEventListener("input", validateForm);
+      });
+    });
+  </script>
+
+
+  <script>
+    document.getElementById('new-course-name').addEventListener('input', function () {
+      const courseName = document.getElementById('new-course-name').value;
+
+      // Only set the name attributes if there's a course name entered
+      if (courseName) {
+        // Dynamically set name attributes for the year, totalMarks, and obtainedMarks inputs
+        document.getElementById('new-course-year').setAttribute('name', `courses[${courseName}][year]`);
+        document.getElementById('new-course-totalMarks').setAttribute('name', `courses[${courseName}][totalMarks]`);
+        document.getElementById('new-course-obtainedMarks').setAttribute('name', `courses[${courseName}][obtainedMarks]`);
+      } else {
+        // If the course name is empty, remove the name attributes to prevent sending incomplete data
+        document.getElementById('new-course-year').removeAttribute('name');
+        document.getElementById('new-course-totalMarks').removeAttribute('name');
+        document.getElementById('new-course-obtainedMarks').removeAttribute('name');
+      }
+    });
+  </script>
+
+  <script>
+    const disableButtonForDuration = (button, duration) => {
+      button.disabled = true; // Disable the button
+      setTimeout(() => {
+        button.disabled = false; // Re-enable the button after the duration
+      }, duration);
+    };
+
+    async function submitData(button) {
+      const formData = new FormData(document.getElementById("forms"));
+
+      try {
+        const response = await axios.post("/api/completeProfileDetails", formData, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        disableButtonForDuration(button, 4000); // Disable the button for 4 seconds
+      } catch (error) {
+        console.error("Error saving data:", error);
+      }
+    }
+
+    document.getElementById("save1st").addEventListener("click", async (e) => {
+      e.preventDefault();
+      const button = e.target;
+      await submitData(button);
+    });
+
+    document.getElementById("save2nd").addEventListener("click", async (e) => {
+      e.preventDefault();
+      const button = e.target;
+      await submitData(button);
+    });
+
+    document.getElementById("submit").addEventListener("click", async (e) => {
+      e.preventDefault();
+      const button = e.target;
+      await submitData(button);
+      window.location.href = "/api/uploadDoc"
+    });
+
+
+
+    // document.getElementById("next").addEventListener("click", (e) => {
+    //   e.preventDefault();
+    //   window.location.href = "/api/uploadDoc"
+    // });
+  </script>
+
+
+
+
+  <%- include("../components/footer") %>

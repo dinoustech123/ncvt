@@ -1,0 +1,462 @@
+<%- include("../../components/head") %>
+
+  <%- include("../../components/bodyStartWithNavBar/") %>
+    <%- include("../../components/sideNav") %>
+      <div id="layoutSidenav_content">
+        <main>
+
+          <div class="page-header pb-10 page-header-dark bg-info">
+            <div class="container-fluid">
+              <div class="row align-items-center">
+                <div class="col">
+                  <div class="page-header-content">
+                    <h1 class="page-header-title fs-md-35 fs-20">
+
+                      <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                      <span class=" text-capitalize">
+                        Verification Manager
+                      </span>
+                    </h1>
+                    <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
+                      Deposit Requests List
+                    </div>
+                  </div>
+                </div>
+                <div class="col-auto mb-md-0 mb-3">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-fluid mt-n10">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card mb-3">
+                  <div class="card-heading p-3">
+                    <form method="get" id="formdata" action="/deposit_amount">
+                      <div class="sbp-preview position-relative">
+                        <div class="form-group">
+                          <div class="row mx-0 align-items-end">
+
+                            <div class="col-md-4">
+                              <div class="form-group my-3">
+                                <label for="Status" class="control-label text-bold ">Status</label>
+                                <% if(selectQuery) {%>
+                                  <select class="form-control form-control-solid input-sm p-1 selectpicker show-tick"
+                                    data-container="body" data-live-search="true" title="Select Status"
+                                    data-hide-disabled="true" name="status" id="status">
+                                    <option value="pending"  selected>Pending</option>
+                                    <option value="approved" <%=selectQuery=='approved' ? 'selected' : '' %> >Approved</option>
+                                    <option value="rejected" <%=selectQuery=='rejected' ? 'selected' : '' %> >Rejected</option>
+                                  </select>
+                                  <% } else{ %>
+                                    <select class="form-control form-control-solid input-sm p-1 selectpicker show-tick"
+                                      data-container="body" data-live-search="true" title="Select Status"
+                                      data-hide-disabled="true" name="status" id="status">
+                                      <option value="pending"  selected>Pending</option>
+                                    <option value="approved">Approved</option>
+                                    <option value="rejected">Rejected</option>
+                                    </select>
+                                    <% }%>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group my-3">
+                                <label for="req_date" class="">Requested Date</label>
+                                <% if(req_date) {%>
+                                  <input value="<%=req_date %>"
+                                    class="form-control form-control-solid datetimepickerget" autocomplete="off"
+                                    name='req_date' type="text" id="req_date" placeholder="Search By Requested date
+                                ">
+                                  <%}else{ %>
+                                    <input class="form-control form-control-solid datetimepickerget" autocomplete="off"
+                                      name='req_date' type="text" id="req_date" placeholder="Enter requested Date">
+                                    <% }%>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group my-3">
+                                <label for="apd_date" class="">Approved Date</label>
+                                <% if(apd_date) {%>
+                                  <input value="<%=apd_date %>"
+                                    class="form-control form-control-solid datetimepickerget" autocomplete="off"
+                                    name='apd_date' type="text" id="apd_date" placeholder="Search By Approved date
+                                ">
+                                  <%}else{ %>
+                                    <input class="form-control form-control-solid datetimepickerget" autocomplete="off"
+                                      name='apd_date' type="text" id="apd_date" placeholder="Enter Approved Date">
+                                    <% }%>
+                              </div>
+                            </div>
+                            <div class="col-md">
+                              <div class="form-group my-3">
+                                <label for="Email" class="control-label text-bold">Email</label>
+                                <% if(emailValue) {%>
+                                  <input value="<%=emailValue %>" placeholder="Search By Email" id="email"
+                                    class="form-control form-control-solid" name="email" type="text">
+                                  <%}else{ %>
+                                    <input value="" placeholder="Search By Email" id="email"
+                                      class="form-control form-control-solid" name="email" type="text">
+                                    <% }%>
+                              </div>
+                            </div>
+                            <div class="col-md">
+                              <div class="form-group my-3">
+                                <label for="Mobile" class="control-label text-bold">Mobile</label>
+
+                                <% if(mobileNo) {%>
+                                  <input value="<%=mobileNo %>" placeholder="Search By Mobile" id="mobile"
+                                    class="form-control form-control-solid" maxlength="10" name="mobile" type="number">
+                                  <%}else{ %>
+                                    <input value="" placeholder="Search By Mobile" id="mobile"
+                                      class="form-control form-control-solid" maxlength="10" name="mobile"
+                                      type="number">
+                                    <% }%>
+                              </div>
+                            </div>
+                            <div class="col-md-auto text-right mb-md-3">
+
+                              <button class="btn btn-sm btn-success text-uppercase"><i
+                                  class="far fa-check-circle"></i>&nbsp;Submit</button>
+                              <a href="/deposit_amount" class="btn btn-sm btn-warning text-uppercase"><i
+                                  class="far fa-undo"></i>&nbsp; Reset</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card mb-4">
+              <div class="card-header">
+                <div class="row w-100 align-items-center mx-0">
+                  <div class="col-md col-12 mb-md-0 mb-2 text-md-left text-center">Deposit Requests List</div>
+                  <div class="col-md-auto col-12 px-md-3 px-0 text-center">
+                    <form action="/downloadallDepositrequest" method="get">
+                      <div class="form-group" style="display: none;">
+                        <div class="row mx-0 align-items-end">
+
+                          <div class="col-md-4">
+                            <div class="form-group my-3">
+                              <label for="Status" class="control-label text-bold ">Status</label>
+                              <% if(selectQuery) {%>
+                                <select class="form-control form-control-solid input-sm p-1 selectpicker show-tick"
+                                  data-container="body" data-live-search="true" title="Select Status"
+                                  data-hide-disabled="true" name="status" id="status">
+                                  <option value="pending"  selected>Pending</option>
+                                  <option value="approved" <%=selectQuery=='approved' ? 'selected' : '' %> >Approved</option>
+                                  <option value="rejected" <%=selectQuery=='rejected' ? 'selected' : '' %> >Rejected</option>
+                                </select>
+                                <% } else{ %>
+                                  <select class="form-control form-control-solid input-sm p-1 selectpicker show-tick"
+                                    data-container="body" data-live-search="true" title="Select Status"
+                                    data-hide-disabled="true" name="status" id="status">
+                                    <option value="pending"  selected>Pending</option>
+                                  <option value="approved"> >Approved</option>
+                                  <option value="rejected"> >Rejected</option>
+                                  </select>
+                                  <% }%>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group my-3">
+                              <label for="req_date" class="">Requested Date</label>
+                              <% if(req_date) {%>
+                                <input value="<%=req_date %>" class="form-control form-control-solid datetimepickerget"
+                                  autocomplete="off" name='req_date' type="text" id="req_date" placeholder="Search By Requested date
+                              ">
+                                <%}else{ %>
+                                  <input class="form-control form-control-solid datetimepickerget" autocomplete="off"
+                                    name='req_date' type="text" id="req_date" placeholder="Enter requested Date">
+                                  <% }%>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group my-3">
+                              <label for="apd_date" class="">Approved Date</label>
+                              <% if(apd_date) {%>
+                                <input value="<%=apd_date %>" class="form-control form-control-solid datetimepickerget"
+                                  autocomplete="off" name='apd_date' type="text" id="apd_date" placeholder="Search By Approved date
+                              ">
+                                <%}else{ %>
+                                  <input class="form-control form-control-solid datetimepickerget" autocomplete="off"
+                                    name='apd_date' type="text" id="apd_date" placeholder="Enter Approved Date">
+                                  <% }%>
+                            </div>
+                          </div>
+                          <div class="col-md">
+                            <div class="form-group my-3">
+                              <label for="Email" class="control-label text-bold">Email</label>
+                              <% if(emailValue) {%>
+                                <input value="<%=emailValue %>" placeholder="Search By Email" id="email"
+                                  class="form-control form-control-solid" name="email" type="text">
+                                <%}else{ %>
+                                  <input value="" placeholder="Search By Email" id="email"
+                                    class="form-control form-control-solid" name="email" type="text">
+                                  <% }%>
+                            </div>
+                          </div>
+                          <div class="col-md">
+                            <div class="form-group my-3">
+                              <label for="Mobile" class="control-label text-bold">Mobile</label>
+
+                              <% if(mobileNo) {%>
+                                <input value="<%=mobileNo %>" placeholder="Search By Mobile" id="mobile"
+                                  class="form-control form-control-solid" maxlength="10" name="mobile" type="number">
+                                <%}else{ %>
+                                  <input value="" placeholder="Search By Mobile" id="mobile"
+                                    class="form-control form-control-solid" maxlength="10" name="mobile" type="number">
+                                  <% }%>
+                            </div>
+                          </div>
+                          <div class="col-md-auto text-right mb-md-3">
+
+                            <button class="btn btn-sm btn-success text-uppercase"><i
+                                class="far fa-check-circle"></i>&nbsp;Submit</button>
+                            <a href="/deposit_amount" class="btn btn-sm btn-warning text-uppercase"><i
+                                class="far fa-undo"></i>&nbsp; Reset</a>
+                          </div>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-secondary text-uppercase btn-sm rounded-pill" font-weight-600
+                        data-toggle="tooltip" title="Download All Users Details"><i class="fas fa-download"></i>&nbsp;
+                        Download
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+
+
+                <div class="datatable table-responsive">
+                  <table class="table table-bordered table-hover text-nowrap" id="dataTabless" width="100%"
+                    cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>S NO.</th>
+                        <th>User Name</th>
+                        <th data-toggle="tooltip" title="Request Date">Req. Date</th>
+                        <th>Image</th>
+                        <th>Email</th>
+                        <th>Amount</th>
+                        <th>TransactionId</th>
+                        <th>Ap./ Rj. Date</th>
+                        <th>Mobile</th>
+                        <th>Admin Comment</th>
+                        <th>Status</th>
+                        <th>UTR Number</th>
+                        <th>actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th>S NO.</th>
+                        <th>User Name</th>
+                        <th data-toggle="tooltip" title="Request Date">Req. Date</th>
+                        <th>Image</th>
+                        <th>Email</th>
+                        <th>Amount</th>
+                        <th>TransactionId</th>
+                        <th>Ap./ Rj. Date</th>
+                        <th>Mobile</th>
+                        <th>Admin Comment</th>
+                        <th>Status</th>
+                        <th>UTR Number</th>
+                        <th>Actions</th>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                
+              </div>
+
+            </div>
+
+            <script type="text/javascript">
+              $(document).ready(function () {
+                $.fn.dataTable.ext.errMode = 'none';
+                var req_date = document.getElementById('req_date').value;
+                var apd_date = document.getElementById('apd_date').value;
+                var email = document.getElementById('email').value;
+                var mobile = document.getElementById('mobile').value;
+                var status = document.getElementById('status').value;
+                $('#dataTabless').DataTable({
+                  searching: false,
+                  // responsive: true,
+                  language: {
+                    zeroRecords: "No records to display"
+                  },
+                  ajax: {
+                    url: `/deposit_amount_datatable?&req_date=${req_date}&email=${email}&mobile=${mobile}&status=${status}&apd_date=${apd_date}`,
+                    type: "POST",
+                  },
+                  columns: [
+                    { data: "S_NO" },
+                    { data: "user_Name" },
+                    { data: "Requested_Date" },
+                    { data: "image" },
+                    { data: "Email" },
+                    { data: "amount" },
+                    { data: "userTransactionId" },
+                    { data: "app_rej_Date" },
+                    { data: "Mobile" },
+                    { data: "Admin_Comment" },
+                    { data: "status_description" },
+                    { data: "utr_number" },
+                    { data: "actions" },
+
+                  ]
+
+                });
+
+              });
+            </script>
+            <script>
+              function confirmation(url, msg) {
+                // sweet alert
+                const swalWithBootstrapButtons = Swal.mixin({
+                  customClass: {
+                    confirmButton: 'btn btn-sm btn-success ml-2',
+                    cancelButton: 'btn btn-sm btn-danger'
+                  },
+                  buttonsStyling: false
+                })
+
+                swalWithBootstrapButtons.fire({
+                  title: msg,
+                  text: "You won't be able to revert this!",
+                  icon: 'success',
+                  showCancelButton: true,
+                  confirmButtonText: 'Yes',
+                  cancelButtonText: 'No',
+                  reverseButtons: true
+                }).then((result) => {
+                  if (result.isConfirmed) {
+
+                    swalWithBootstrapButtons.fire(
+                      '',
+                      'Successfully Done',
+                      'success'
+                    );
+
+                    window.location.href = url;
+
+
+                  } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                  ) {
+                    swalWithBootstrapButtons.fire(
+                      'Cancelled',
+                      'Cancelled successfully :)',
+                      'error'
+                    );
+                    return false;
+                  }
+                })
+              }
+            </script>
+            <script>
+              $(document).ready(function () {
+                $.ajaxSetup({
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+                });
+              });
+            </script>
+            <!--update withdraw script-->
+
+          </div>
+        </main>
+        <%- include("../../components/footer") %>
+
+          <script>
+
+            $(window).on('load', function () {
+
+              $('#preloader_admin').hide();
+
+            })
+          </script>
+
+          <script>
+            $(document).ready(function () {
+
+              if ($('#accordionSidenavPages a').hasClass('active')) {
+                $('#accordionSidenavPages a.active').parent().parent().prev('a').removeClass('collapsed');
+                $('#accordionSidenavPages a.active').parent().parent().addClass('show');
+                // console.log(id);
+              } else {
+                $('#takeonebar').addClass('slamdown');
+              }
+            });
+
+          </script>
+          <script>
+            $('#b1').click(function () {
+              const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                  confirmButton: 'btn btn-sm btn-success',
+                  cancelButton: 'btn btn-sm btn-danger'
+                },
+                buttonsStyling: false
+              })
+
+              swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  swalWithBootstrapButtons.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  )
+                } else if (
+                  /* Read more about handling dismissals below */
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your imaginary file is safe :)',
+                    'error'
+                  )
+                }
+              })
+            });
+          </script>
+
+          <script type="text/javascript">
+            $.datetimepicker.setLocale('en');
+            $('.datetimepickerget').datepicker({
+              lang: 'en',
+              dateFormat: 'yy-mm-dd',
+              startDate: new Date()
+            });
+          </script>
+          <script>
+            $('#formdata').submit(function () {
+              var id1 = $(req_date).val();
+              var id2 = $(apd_date).val();
+              if (id1 != '' && id2 != '') {
+                alert('please select only one date at a time');
+                return false;
+              }
+              else {
+                return true;
+              }
+
+            });
+          </script>
