@@ -1,0 +1,44 @@
+<%- include("../../components/header") %>
+
+  <section class="ncvt-login-section">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="ncvt-login_form">
+            <form action="associate-login-data" method="POST">
+              <div class="ncvt-login-head">
+                <span>LOGIN AS ASSOCIATE</span>
+              </div>
+              <label for="">MOBILE</label>
+              <div class="input-group mb-4">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill"></i></span>
+                <input type="number" class="form-control form_control" name="mobile" id="branch_code"
+                  placeholder="Mobile" aria-label="branch_code" aria-describedby="basic-addon1" required>
+              </div>
+
+              <label for="">PASSWORD</label>
+              <div class="input-group mb-2">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i></span>
+                <input type="password" class="form-control form_control" name="password" id="password"
+                  placeholder="Password" aria-label="Username" aria-describedby="basic-addon1" required>
+              </div>
+              <p>
+                <%= message ? message?.error : "" %>
+              </p>
+              <div class=" sing_bttn mt-5">
+                <button onclick="openNewPage()" type="submit">LOGIN</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </section>
+
+
+
+
+  <%- include("../../components/footer") %>

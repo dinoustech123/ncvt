@@ -86,6 +86,10 @@ const studentSchema = mongoose.Schema({
     certificate_issued : {
         type : Boolean,
         default: false,
+    },
+    marks_enrollment : {
+        type : Boolean,
+        default : false,
     }
 },
     {

@@ -11,92 +11,55 @@
                             </div>
                             <h1>NCVT INDIA</h1>
                             <p>(National Center of Vocational Training in India)</p>
-                            <span>View Admission Details</span>
+                            <span>View Transiction Details</span>
                         </div>
-                        <input type="hidden" name="admission" id="admission" value="<%= JSON.stringify(admissions) %>">
+                        <input type="hidden" name="admission" id="admission" value="<%= JSON.stringify(tran) %>">
 
                         <div class="mt-4 table-scroll">
                             <table class="table table-bordered" id="admissionTable">
                                 <thead>
                                     <tr>
                                         <th>SR.No.</th>
-                                        <th>Admission Number</th>
-                                        <th>Student Name</th>
-                                        <th>Mobile</th>
-                                        <th>DOB</th>
-                                        <th>Royalty Fees</th>
-                                        <th>Course Name</th>
-                                        <th>Course Code</th>
-                                        <th>Admission Date</th>
-                                        <th>Paid Amount</th>
-                                        <th>View/Request</th>
+                                        <th>type</th>
+                                        <th>transaction_id</th>
+                                        <th>amount</th>
+                                        <th>student_name</th>
+                                        <th>mobile</th>
+                                        <th>course_name</th>
+                                        <th>course_code</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% admissions.forEach((element, index)=> { %>
+                                    <% tran.forEach((element, index)=> { %>
                                         <tr>
                                             <td>
                                                 <%= index + 1 %>
                                             </td>
                                             <td>
-                                                <%= element.admission_number %>
+                                                <%= element?.type %>
+                                            </td>
+                                             
+                                            <td>
+                                                <%= element?.transaction_id %>
                                             </td>
                                             <td>
-                                                <%= element.student_name %>
+                                                <%= element?.amount %>
                                             </td>
                                             <td>
-                                                <%= element.mobile %>
+                                                <%= element?.student_name %>
                                             </td>
                                             <td>
-                                                <%= element.dob %>
+                                                <%= element?.mobile %>
                                             </td>
                                             <td>
-                                                <%= element.royalti_fees %>
+                                                <%= element?.course_name %>
                                             </td>
                                             <td>
-                                                <%= element.course_name.toUpperCase() %>
+                                                <%= element?.course_code%>
                                             </td>
-                                            <td>
-                                                <%= element.course_code %>
-                                            </td>
-                                            <td>
-                                                <%= element.admission_date %>
-                                            </td>
-                                            <td>
-                                                <%= element.total_paid %>
-                                            </td>
-                                            <td>
-                                                <a href="student_registration_recipt/<%= element.studentId %>"
-                                                    class="btn btn-info btn-sm "
-                                                    data-admission-number="<%= element.admission_number %>">
-                                                    View
-                                                </a>
-                                                <% console.log(element?.certificate_issued) %>
-                                                    <% if(!element?.exam_idpaid){ %>
-                                                        <button class="btn btn-info btn-sm pay-exam-fees"
-                                                            data-admission-number="<%= element.admission_number %>"
-                                                            <%=element?.exam_idpaid ? "disabled" : "" %>>
-                                                            <%= element?.exam_idpaid ? "Already paid" : "Pay Exam Fees"
-                                                                %>
-                                                        </button>
-                                                        <% } else if(!element?.marks_enrollment){ %>
-                                                            <button class="btn btn-info btn-sm add-number"
-                                                                <%=!element?.exam_idpaid ? "disabled" : "" %>>Add
-                                                                Number</button>
-
-                                                            <% } else if(element?.marks_enrollment &&
-                                                                element?.exam_idpaid){ %>
-                                                                <a href="request_certificates?student=<%= element.admission_number  %>"
-                                                                    class="btn btn-info btn-sm" id="request"
-                                                                    <%=!element?.exam_idpaid ? "disabled" : "" %>>
-                                                                    <%= element?.certificate_issued
-                                                                        ? "Request Certificate"
-                                                                        : "Certificate Already Issued" %>
-                                                                </a>
-                                                                <%} %>
-                                            </td>
-                                        </tr>
-                                        <% }) %>
+                                           
+                                            <% }) %>
 
 
                                 </tbody>
@@ -174,12 +137,11 @@
                         contentType: "application/json",
                         data: JSON.stringify({ admissionNumber: selectedAdmissionNumber }),
                         success: function (response) {
-                            alert(response.message); // Show success message
+                            alert("Exam Fee Paid Successfully!");
                             $("#examFeeModal").modal("hide"); // Hide the modal after success
-                            window.location.reload(); // Reload the page to reflect changes
                         },
                         error: function (error) {
-                            alert("Error in Payment. Try Again!", error.message);
+                            alert("Error in Payment. Try Again!");
                             console.error(error);
                         }
                     });

@@ -5,7 +5,7 @@ const courseSchema = mongoose.Schema({
         type: String,
     },
     course_code :{
-        type: Number,
+        type: String,
     },
     duration :{
         type: Number,

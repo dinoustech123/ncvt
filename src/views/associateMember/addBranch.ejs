@@ -1,0 +1,143 @@
+<%- include("../../components/header") %>
+
+  <section class="ncvt-login-section pt-5 pb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class=" form-query-box admsn-form">
+            <form action="add-branch-data" method="post" enctype="multipart/form-data">
+              <div class="form-query-head regstration-form-head text-center mb-5">
+                <div class="form-query-img">
+                  <!-- <img src="/image/" alt=""> -->
+                </div>
+                <h1>NCVT INDIA</h1>
+                <p>(National Center of Vocational Training in India)</p>
+                <p><%= message ? message?.success : "" %></p>
+                <p><%= message ? message?.error : "" %></p>
+                <span>BRANCH REGISTRATION FORM</span>
+              </div>
+              <div class="row registration-inputs">
+                <div class="col-12 mb-3">
+                  <div class="input-group mb-5">
+                    <label for="">Branch Name</label>
+                    <input type="text" class="registr-form-control  ms-3 mt-2" name="branch_name" placeholder="Branch Name"
+                      aria-label="Username" aria-describedby="basic-addon1" required>
+                  </div>
+                </div>
+                <div class="col-12 mb-3">
+                  <div class="input-group mb-5">
+                    <label for="">Branch Code</label>
+                    <input type="text" class="registr-form-control  ms-3 mt-2" name="branch_code" placeholder="Branch Code"
+                      aria-label="Username" aria-describedby="basic-addon1" required>
+                  </div>
+                </div>
+                <div class="col-12 mb-3">
+                  <div class="input-group mb-5">
+                    <label for="">Password</label>
+                    <input type="text" class="registr-form-control ms-3 mt-2" name="password" placeholder="Password"
+                      aria-label="Username" aria-describedby="basic-addon1" required>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-6 mb-3">
+                  <div class="input-group mb-5">
+                    <label for="">Directore Name</label>
+                    <input type="text" class="registr-form-control ms-3 mt-2" name="directore_name" placeholder="Directore Name"
+                      aria-label="Username" aria-describedby="basic-addon1" required>
+                  </div>
+                </div>
+                
+               
+                <div class="col-md-6 col-lg-6 mb-3">
+                  <div class="input-group mb-5">
+                    <label for="">City</label>
+                    <input type="text" class="registr-form-control ms-3 mt-2" name="city" placeholder="City"
+                      aria-label="Username" aria-describedby="basic-addon1" required>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-6 mb-3">
+                  <div class="input-group mb-5">
+                    <label for="">State Name</label>
+                    <input type="text" class="registr-form-control ms-3 mt-2" name="state" placeholder="State Name"
+                      aria-label="Username" aria-describedby="basic-addon1" required>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-6 mb-3">
+                  <div class="input-group mb-5">
+                    <label for="">District Name</label>
+                    <input type="text" class="registr-form-control ms-3 mt-2" name="dist" placeholder="District Name"
+                      aria-label="Username" aria-describedby="basic-addon1" required>
+                  </div>
+                </div>
+                <div class="col-12 mb-3">
+                  <div class="input-group mb-5">
+                    <label for="">Address</label>
+                    <input type="text" class="registr-form-control ms-3 mt-2" name="location" placeholder="Address"
+                      aria-label="Username" aria-describedby="basic-addon1" required>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-6 mb-3">
+                  <div class="input-group mb-5">
+                    <label for="">Pin Code</label>
+                    <input type="number" class="registr-form-control ms-3 mt-2" name="pincode" placeholder="Pin Code"
+                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                      aria-label="Username" maxlength="6" aria-describedby="basic-addon1" required>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-6 mb-3">
+                  <div class="input-group registration-field  mb-5">
+                    <label for="">Mobile Number</label>
+                    <input type="number" class="registr-form-control ms-3 mt-2" name="directore_mob" placeholder="Mobile Number"
+                      aria-label="Username" aria-describedby="basic-addon1"
+                      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                      maxlength="10" required>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-6 mb-3">
+                  <div class="input-group registration-field-photo  mb-5">
+                    <label for="">Image</label>
+                    <input type="file" class="file-choosen mt-2" id="myfile" name="branch" placeholder="" accept=".png , .jpg" required>
+                  </div>
+                </div>
+                <div class="mt-4 admsn-form-submit-bttn text-center">
+                  <button type="submit">SUBMIT</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <script>
+    let course = document.getElementById('course').value;
+    course = JSON.parse(course);
+    const courseName = document.getElementById("course_name");
+
+    let dataArr = [`<option value="" selected disabled>--Select Course--</option>`]
+    course.map((data) => {
+      dataArr.push(`<option value="${data.course_name}" >${String(data.course_name).toUpperCase()}</option>`)
+    })
+    courseName.innerHTML = dataArr.join(' ');
+    // Step 2: Get the branch code and branch name elements
+    const courseCode = document.querySelector('input[name="course_code"]');
+    const courseDuration = document.querySelector('input[name="course_duration"]');
+    const courseFees = document.querySelector('input[name="royalti_fees"]');
+
+      // Step 3: When user selects a branch code, update branch name input
+      courseName.addEventListener("change", function () {
+        const selectedCourse = course.find(course => course.course_name === this.value);
+        if (selectedCourse) {
+          courseCode.value = selectedCourse.course_code; // Correct property name
+          courseDuration.value = selectedCourse.duration; // Correct property name
+          courseFees.value = selectedCourse.admission_fees; // Correct property name
+        } else {
+          branchNameInput.value = "";
+        }
+      });
+  </script>
+
+
+  <%- include("../../components/footer") %>

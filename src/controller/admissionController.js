@@ -7,8 +7,10 @@ import studentModel from "../module/studentModel.js";
 import mongoose from "mongoose";
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import fs from 'fs';
+import randomstring from "randomstring";
 import path from 'path';
 import moment from "moment";
+import userModel from "../module/userModel.js";
 import admissionModel from "../module/admissionModel.js";
 async function getUserFromToken(token) {
     try {
@@ -43,65 +45,92 @@ export async function admission(req, res) {
 
 export async function admissionData(req, res, next) {
     try {
-        const branchData = await branchModel.findById(req.user.id, { userbalance: 1, _id: 1 });
-        if (branchData.userbalance.balance <= req.body.royalti_fees) {
+        const { id } = req.user;
+        const { royalti_fees, course_code, branch_code, course_name, admission_date, dob } = req.body;
+
+        // Fetch required data in parallel
+        const [branchData, courseData, admissionCount] = await Promise.all([
+            branchModel.findById(id, { userbalance: 1, _id: 1, referedBy: 1 }),
+            courseModel.findOne({ course_code }, { _id: 1 }),
+            AdmissionModel.countDocuments({})
+        ]);
+        // Check user balance
+        if (!branchData || branchData.userbalance.balance < royalti_fees) {
             req.flash("error", "Insufficient Balance");
             return res.redirect("admission");
         }
-        if (branchData) {
-            req.body.branchId = branchData._id;
-        }
-        const courseData = await courseModel.findOne({ course_code: req.body.course_code }, { _id: 1 });
-        const count = await AdmissionModel.countDocuments({});
-        if (courseData) {
-            req.body.courseId = courseData._id;
-        }
-        if (req.file) {
-            req.body.image = `${req.file.fieldname}/${req.file.filename}`;
-        }
-        if (typeof req.body.branch_code == "string") {
-            req.body.branch_code = req.body.branch_code.toLowerCase();
-        }
-        if (req.body.course_name == "string") {
-            req.body.course_name = req.body.course_code.toLowerCase();
-        }
-        if (req.body.admission_date) {
-            const [year, month, day] = req.body.admission_date.split('-');
-            req.body.admission_date = `${day}-${month}-${year}`
-            const admissionNumber = `${req.body.branch_code.toUpperCase()}/${req.body.course_name.toUpperCase()}/${year}/${String(count + 1).padStart(4, '0')}`;
+
+        // Prepare request body
+        req.body.branchId = branchData._id;
+        req.body.courseId = courseData?._id;
+        req.body.image = req.file ? `${req.file.fieldname}/${req.file.filename}` : undefined;
+        req.body.branch_code = typeof branch_code === "string" ? branch_code.toLowerCase() : branch_code;
+        req.body.course_name = typeof course_name === "string" ? course_code.toLowerCase() : course_name;
+
+        // Format dates
+        if (admission_date) {
+            const [year, month, day] = admission_date.split('-');
+            req.body.admission_date = `${day}-${month}-${year}`;
+            const admissionNumber = `${req.body.branch_code.toUpperCase()}/${req.body.course_name.toUpperCase()}/${year}/${String(admissionCount + 1).padStart(4, '0')}`;
             req.body.admission_number = admissionNumber;
             req.body.studentId = admissionNumber;
         }
-        if (req.body.dob) {
-            const [year, month, day] = req.body.dob.split('-');
+
+        if (dob) {
+            const [year, month, day] = dob.split('-');
             req.body.dob = `${day}-${month}-${year}`;
-
         }
 
-        if (req.body) {
-            let admission = new AdmissionModel(req.body);
-            await admission.save();
-            if (admission) {
-                req.body.admissionId = admission._id;
+        // Save Admission & Student Data
+        const admission = await new AdmissionModel(req.body).save();
+        req.body.admissionId = admission._id;
+        req.body.total_paid = Number(royalti_fees);
+
+        const student = await studentModel.create(req.body);
+
+        // Create Transaction Entry
+        const txnid = `trx-${Date.now()}${randomstring.generate({ length: 4, charset: 'alphabetic', capitalization: 'uppercase' })}`;
+        await new transactionModel({
+            userid: id,
+            admission_id: admission._id,
+            student_id: student._id,
+            transaction_id: txnid,
+            amount: royalti_fees,
+            type: "ADMISSION FEES",
+            status: "completed"
+        }).save();
+
+        // Update Branch Balance & Admission Stats
+        await branchModel.findByIdAndUpdate(id, {
+            $inc: {
+                "userbalance.balance": -royalti_fees,
+                totelAdmission: 1,
+                totelAdmissionAmount: royalti_fees
             }
-            let transaction = new transactionModel({
-                user_id: req.user.id,
+        }, { new: true });
+        if (branchData.referedBy) {
+            const referedByBranch = await userModel.findById(branchData.referedBy);
+            let commission = (royalti_fees * +referedByBranch?.percentage) / 100;
+
+            referedByBranch.userbalance.balance += commission
+            referedByBranch.userbalance.withdrawal_balance += commission
+            referedByBranch.save();
+
+            const txnid = `trx-${Date.now()}${randomstring.generate({ length: 4, charset: 'alphabetic', capitalization: 'uppercase' })}`;
+            await new transactionModel({
+                userid: referedByBranch._id,
                 admission_id: admission._id,
-                amount: req.body.royalti_fees,
-                type: "admission fee",
-                status: "completed",
-            });
-            await transaction.save();
-            req.body.total_paid = Number(req.body.royalti_fees)
-            await studentModel.create(req.body);
-            const updateUser = branchModel.findByIdAndUpdate(req.user.id, {
-                $inc: { "userbalance.balance": -req.body.royalti_fees }
-            });
-            let data = await updateUser;
-            console.log(data, "data")
-            req.flash("success", "Admission Form successfully submitted.");
-            res.redirect("admission");
+                student_id: student._id,
+                transaction_id: txnid,
+                amount: commission,
+                type: "ADMISSION COMMISSION",
+                status: "completed"
+            }).save();
+
+
         }
+        req.flash("success", "Admission Form successfully submitted.");
+        res.redirect("admission");
 
     } catch (error) {
         console.error("Error in admissionData:", error.message);
@@ -177,6 +206,8 @@ export async function viewAdmissions(req, res, next) {
                         total_paid: "$student.total_paid",
                         exam_idpaid: "$student.exam_ispaid",
                         studentId: "$student._id",
+                        marks_enrollment: "$student.marks_enrollment",
+                        certificate_issued: "$student.certificate_issued",
                         mobile: 1,
                         image: 1,
                         admission_number: 1,
@@ -206,6 +237,7 @@ export async function addStudentMark(req, res, next) {
             const student = await studentModel.findOne({ studentId: req.body.admission_number });
             if (student) {
                 student.subjects = req.body.subjects;
+                student.marks_enrollment = true;
                 await student.save();
                 res.status(200).json({
                     status: true,
@@ -233,49 +265,59 @@ export async function addStudentMark(req, res, next) {
 
 export async function payExamFee(req, res, next) {
     try {
-        if (req.body.admissionNumber) {
-            const student = await studentModel.findOne({ studentId: req.body.admissionNumber }).populate("courseId");
-            const branch = await branchModel.findById(student.branchId);
-            if (student) {
-                const examFees = Number(student.courseId.exam_fees);
-                const currentBalance = Number(branch.userbalance.balance);
-                if (currentBalance < examFees) {
-                    return res.status(400).json({
-                        status: false,
-                        message: "Insufficient balance"
-                    });
-                }
-                student.roll_no = Math.floor(1000 + Math.random() * 9000);
-                student.total_paid += Number(student.courseId.exam_fees);
-                student.exam_ispaid = true;
-                branch.userbalance.balance -= Number(student?.courseId?.exam_fees);
-                await student.save();
-                await branch.save();
-                let transaction = new transactionModel({
-                    user_id: req.user.id,
-                    student_id: student._id,
-                    amount: student.courseId.exam_fees,
-                    type: "Exam Fees",
-                    status: "completed",
-                });
-                await transaction.save();
-                res.status(200).json({
-                    status: true,
-                    message: "Exam fee paid successfully"
-                })
+        const { admissionNumber } = req.body;
+        if (!admissionNumber) return res.status(400).json({ status: false, message: "Admission number is required" });
 
-            } else {
-                res.status(404).json({
-                    status: false,
-                    message: "Student not found"
-                })
-
-            }
+        // Fetch student and branch details in parallel
+        const student = await studentModel.findOne({ studentId: admissionNumber }).populate("courseId");
+        if (!student) {
+            return res.status(404).json({ status: false, message: "Student not found" });
         }
-        return res.redirect("viewAdmissions");
+        if (student.exam_ispaid) {
+            return res.status(200).json({ status: false, message: "Exam fee already paid" });
+        }
+
+        const branch = await branchModel.findById(student.branchId);
+        if (!branch) {
+            return res.status(404).json({ status: false, message: "Branch not found" });
+        }
+
+        const examFees = Number(student.courseId?.exam_fees || 0);
+        if (branch.userbalance.balance < examFees) {
+            return res.status(400).json({ status: false, message: "Insufficient balance" });
+        }
+
+        // Update Student & Branch Balance
+        student.roll_no = Math.floor(1000 + Math.random() * 9000);
+        student.total_paid += examFees;
+        student.exam_ispaid = true;
+        branch.userbalance.balance -= examFees;
+
+        await Promise.all([student.save(), branch.save()]);
+
+        // Generate Transaction
+        const txnid = `trx-${Date.now()}${randomstring.generate({ length: 4, charset: 'alphabetic', capitalization: 'uppercase' })}`;
+        await new transactionModel({
+            userid: req.user.id,
+            student_id: student._id,
+            transaction_id: txnid,
+            amount: examFees,
+            type: "EXAM FEES",
+            status: "completed",
+        }).save();
+
+        return res.status(200).json({
+            status: true,
+            message: "Exam fee paid successfully",
+            data: {
+                admissionNumber: student.studentId,
+                examFees,
+                transactionId: txnid,
+            },
+        })
     } catch (error) {
         console.error("Error in addStudentMark:", error.message);
-        res.status(500).json({
+        return res.status(500).json({
             status: false,
             message: "Server error"
         })
@@ -531,6 +573,7 @@ export async function studentRequests(req, res, next) {
 export async function generateStudentCertificate(req, res, next) {
     try {
         let { studentId } = req.body;
+        studentId = studentId.trim()
         if (!studentId) {
             return res.status(403).json({
                 status: false,
@@ -598,13 +641,15 @@ export async function generateStudentCertificate(req, res, next) {
         let subjects = admission.subjects;
         if (admission && admission.subjects.length > 0) {
             let totalMarks = 0;
+            let subjectMark = 0;
             subjects.forEach((subject, index) => {
-                totalMarks += subject?.OM;
+                totalMarks += +subject?.OM;
+                subjectMark += +subject?.OM
             });
 
 
             // Calculate percentage and grade
-            percentage = (totalMarks / (subjects.length * 100)) * 100;
+            percentage = (totalMarks / subjectMark) * 100;
             grade = percentage >= 75 ? "A" : percentage >= 51 ? "B" : percentage >= 30 ? "C" : "Try Again";
             division = percentage >= 60 ? "First" : percentage >= 50 ? "Second" : "Third";
 
@@ -658,10 +703,16 @@ export async function generateStudentCertificate(req, res, next) {
         page.drawText(`Date Of Issue :- ${certificateData.issueDate}`, { x: 70, y: 130, size: 12, font, color: rgb(0, 0, 0) });
 
         const imagePath = `public/${admission?.image}`;
+        let imageExe = imagePath.split(".").pop();
 
         if (fs.existsSync(imagePath)) {
             const photoBytes = fs.readFileSync(imagePath);
-            const studentPhoto = await pdfDoc.embedPng(photoBytes);
+            let studentPhoto
+            if (imageExe == "png") {
+                studentPhoto = await pdfDoc.embedPng(photoBytes);
+            } else {
+                studentPhoto = await pdfDoc.embedJpg(photoBytes);
+            }
 
             // Place the image on the top-right corner
             page.drawImage(studentPhoto, {
@@ -689,6 +740,7 @@ export async function generateStudentCertificate(req, res, next) {
 export async function generateStudentMarkSheet(req, res, next) {
     try {
         let { studentId } = req.body;
+        studentId = studentId.trim()
         if (!studentId) {
             return res.status(403).json({
                 status: false,
@@ -775,13 +827,19 @@ export async function generateStudentMarkSheet(req, res, next) {
         page.drawText(`${duration}`, { x: 300, y: 502, size: 12, font });
         page.drawText(`${studyCenter}`, { x: 300, y: 475, size: 12, font });
 
+
+
         // Embed Student Photo (if uploaded)
         const imagePath = `public/${data?.image}`;
-
+        let imageExe = imagePath.split(".").pop();
         if (fs.existsSync(imagePath)) {
             const photoBytes = fs.readFileSync(imagePath);
-            const studentPhoto = await pdfDoc.embedPng(photoBytes);
-
+            let studentPhoto
+            if (imageExe == "png") {
+                studentPhoto = await pdfDoc.embedPng(photoBytes);
+            } else {
+                studentPhoto = await pdfDoc.embedJpg(photoBytes);
+            }
             // Place the image on the top-right corner
             page.drawImage(studentPhoto, {
                 x: 440, // Adjust X position
@@ -799,6 +857,7 @@ export async function generateStudentMarkSheet(req, res, next) {
             const rowHeight = Math.max(15, Math.min(25, 180 / totalSubjects)); // Dynamic row height
             let yPos = startY;
             let totalMarks = 0;
+            let subjectMarks = 0;
 
             subjects.forEach((subject, index) => {
                 page.drawText(`${index + 1}`, { x: 50, y: yPos, size: 12, font });
@@ -807,13 +866,16 @@ export async function generateStudentMarkSheet(req, res, next) {
                 page.drawText(subject?.FM, { x: 400, y: yPos, size: 12, font });
                 page.drawText(`${subject?.OM}`, { x: 500, y: yPos, size: 12, font });
 
-                totalMarks += subject?.OM;
+                totalMarks += +subject?.OM;
+                subjectMarks += +subject?.FM
+                console.log(subject?.FM, "wedfajhdjawbd")
                 yPos -= rowHeight;
             });
 
-
+            console.log("totalMarks / subjectMarks", totalMarks, "  ", subjectMarks)
             // Calculate percentage and grade
-            let percentage = (totalMarks / (subjects.length * 100)) * 100;
+            let percentage = (totalMarks / subjectMarks) * 100;
+            console.log(percentage);
             let grade = percentage >= 75 ? "A" : percentage >= 51 ? "B" : percentage >= 30 ? "C" : "Try Again";
             let division = percentage >= 60 ? "First" : percentage >= 50 ? "Second" : "Third";
             let footer = 183

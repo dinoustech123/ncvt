@@ -19,9 +19,10 @@ import {
     view_Verifusers_datatable
 } from "../controller/userController.js"
 import { view_AllFranchiseRequests, view_request_datatable } from "../controller/franchiseController.js";
-import { add_branch, add_branch_data, view_branch_datatable, view_all_branches , delete_branch, edit_branch, edit_branch_data } from "../controller/branchController.js";
-import { add_caurses , add_caurses_data, view_all_Courses, view_Courses_datatable , delete_course } from "../controller/coursesController.js";
+import { add_branch, add_branch_data, view_branch_datatable, view_all_branches, delete_branch, edit_branch, edit_branch_data } from "../controller/branchController.js";
+import { add_caurses, add_caurses_data, view_all_Courses, view_Courses_datatable, delete_course } from "../controller/coursesController.js";
 import { approve_deposit_request, approve_request_certificate, deposit_amount_datatable, depositAmount, download_certificate, reject_deposit_request, request_certificate, request_certificate_data } from "../controller/depositController.js";
+import { add_refer_member, add_refer_member_data, view_all_refer_dataTable, view_all_referMember } from "../controller/referController.js"
 const router = Router();
 
 
@@ -67,42 +68,51 @@ router.post("/logout", auth, logout);
 // router.post("/admin_profile_data/:id", auth, adminPanelController.updateProfileData);
 
 // users 
-router.get('/view_all_admission', view_AllUsers);
-router.post('/view_admission_datatable', view_users_datatable);
-router.get("/edit_admission",  edit_admission);
-router.post("/edit_admission_data",upload.single("image"),  edit_admission_data);
+router.get('/view_all_admission', auth, view_AllUsers);
+router.post('/view_admission_datatable', auth, view_users_datatable);
+router.get("/edit_admission", auth, edit_admission);
+router.post("/edit_admission_data", auth, upload.single("image"), edit_admission_data);
 
-router.get('/view_all_verifiedUser', view_AllVerifiedUsers);
-router.post('/view_Verifusers_datatable', view_Verifusers_datatable);
+router.get('/view_all_verifiedUser', auth, view_AllVerifiedUsers);
+router.post('/view_Verifusers_datatable', auth, view_Verifusers_datatable);
 
-router.get("/view_all_franchise_requests", view_AllFranchiseRequests);
-router.post("/request_datatable", view_request_datatable)
+router.get("/view_all_franchise_requests", auth, view_AllFranchiseRequests);
+router.post("/request_datatable", auth, view_request_datatable)
 
 router.get("/add-branch", auth, add_branch);
 router.post("/add_branch_data", auth, upload.single("images"), add_branch_data);
-router.get('/view_all_branch', view_all_branches);
-router.post('/view_branch_datatable', view_branch_datatable);
-router.get('/delete-branch',  delete_branch);
-router.get("/edit_branch", edit_branch);
-router.post("/edit_branch_data",upload.single("images"), edit_branch_data);
+router.get('/view_all_branch', auth, view_all_branches);
+router.post('/view_branch_datatable', auth, view_branch_datatable);
+router.get('/delete-branch', auth, delete_branch);
+router.get("/edit_branch", auth, edit_branch);
+router.post("/edit_branch_data", auth, upload.single("images"), edit_branch_data);
 
-router.get("/add_courses" ,  add_caurses)
-router.post("/add_courses_data",  add_caurses_data);
-router.get('/view_all_courses', view_all_Courses);
-router.post('/view_courses_datatable', view_Courses_datatable);
-router.get('/delete-course',  delete_course);
+router.get("/add_courses", auth, add_caurses)
+router.post("/add_courses_data", auth, add_caurses_data);
+router.get('/view_all_courses', auth, view_all_Courses);
+router.post('/view_courses_datatable', auth, view_Courses_datatable);
+router.get('/delete-course', auth, delete_course);
 
 
 //---------deposit request----//
-router.get("/deposit_amount",  depositAmount);
-router.post("/deposit_amount_datatable",  deposit_amount_datatable);
+router.get("/deposit_amount", depositAmount);
+router.post("/deposit_amount_datatable", deposit_amount_datatable);
 
 router.get("/approve-deposit-request/:id", approve_deposit_request);
 //approveend
 router.get("/reject-deposit-request/:id", reject_deposit_request);
 
-router.get("/request_certificate" , request_certificate);
-router.post("/data-request_certificate" , request_certificate_data);
-router.get("/approve_certificate_request/:id" , approve_request_certificate);
-router.get("/download-certificate" , download_certificate);
+router.get("/request_certificate", auth, request_certificate);
+router.post("/data-request_certificate", auth, request_certificate_data);
+router.get("/approve_certificate_request/:id", approve_request_certificate);
+router.get("/download-certificate", download_certificate);
+
+
+router.get("/add_refer_member", add_refer_member);
+router.post("/add_refer_member_data", upload.single("images"), add_refer_member_data)
+router.get("/view_all_refer_members", view_all_referMember)
+router.post("/view_all_refer_dataTable" , view_all_refer_dataTable)
+
+
+
 export default router

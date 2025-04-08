@@ -62,11 +62,10 @@ const userSchema = mongoose.Schema({
     dob: {
         type: String,
     },
-    isVerified: {
-        type: Boolean,
-        default: false,
-    },
     village: {
+        type: String,
+    },
+    city: {
         type: String,
     },
     post: {
@@ -115,7 +114,7 @@ const userSchema = mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ["user", "admin"],
+        enum: ["user", "admin", "associate"],
         default: "user"
     },
     image: {
@@ -132,17 +131,24 @@ const userSchema = mongoose.Schema({
     },
     documents: documents,
     docName: documentName,
-    isPaid: {
-        type: Boolean,
-        default: false
-    },
     userbalance: {
         balance: {
             type: Number,
             default: 0
         },
+        withdrawal_balance: {
+            type: Number,
+            default: 0
+        }
     },
-    
+    referedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    },
+    percentage: {
+        type: Number,
+        default: 0
+    },
     courses: {}
 }, {
     timestamps: true,

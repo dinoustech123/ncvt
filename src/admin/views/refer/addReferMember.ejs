@@ -14,17 +14,17 @@
                                             <div class="page-header-icon">
                                                 <i class="fad fa-at text-white"></i>
                                             </div>
-                                            <span class="text-capitalize"> Course Manager </span>
+                                            <span class="text-capitalize"> Refer Manager </span>
                                         </h1>
                                         <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
-                                            Add New Course
+                                            Add New User
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-md-0 mb-3">
                                     <a href="/view-all-product"
                                         class="btn btn-sm btn-light font-weight-bold text-uppercase text-primary float-right"><i
-                                            class="fad fa-eye"></i>&nbsp; View All Course</a>
+                                            class="fad fa-eye"></i>&nbsp; View All Users</a>
                                 </div>
                             </div>
                         </div>
@@ -33,9 +33,9 @@
                         <div class="card">
                             <div class="card-header">Add New Item</div>
                             <!-- id="demo-form2" -->
-                            <form action="/add_courses_data" method="post" class="card-body" autocomplete="off"
-                                id="subjectForm">
-                                <input type="hidden" name="typename" value="course" />
+                            <form action="/add_refer_member_data" method="POST" class="card-body" autocomplete="off"
+                                enctype="multipart/form-data" id="form">
+                                <input type="hidden" name="typename" value="user" />
 
 
                                 <div class="sbp-preview">
@@ -45,102 +45,122 @@
                                             <!-- Name -->
                                             <div class="col-md-6">
                                                 <div class="form-group my-3">
-                                                    <label for="name">Course Name*</label>
+                                                    <label for="name">Name*</label>
                                                     <input class="form-control form-control-solid" id="name" type="text"
-                                                        placeholder="course Name" name="course_name" />
+                                                        placeholder="Name" name="name" />
                                                 </div>
                                             </div>
 
-                                            <!-- course Code -->
+                                            <!-- Branch Code -->
                                             <div class="col-md-6">
                                                 <div class="form-group my-3">
-                                                    <label for="course_code">Course Code *</label>
-                                                    <input class="form-control form-control-solid" id="course_code"
-                                                        type="text" placeholder="course Code" name="course_code" />
+                                                    <label for="branch_code">Mobile*</label>
+                                                    <input class="form-control form-control-solid" id="branch_code"
+                                                        type="number" placeholder="Mobile" name="mobile" />
                                                 </div>
                                             </div>
 
-                                            <div class="col-6">
+                                            <!-- Branch Code -->
+                                            <div class="col-md-6">
                                                 <div class="form-group my-3">
-                                                    <label for="type"> Duration*</label>
-                                                    <select required name="duration"
-                                                        class="form-control form-control-solid " data-container="body"
-                                                        data-live-search="true" title="Select Type"
-                                                        data-hide-disabled="true" required id="duration">
-                                                        <option value="" disabled selected>Select Duration</option>
-                                                        <option value="3">3 Months</option>
-                                                        <option value="6">6 Months</option>
-                                                        <option value="12">12 Months</option>
-                                                        <option value="24">2 Years</option>
-                                                    </select>
+                                                    <label for="branch_code">Password*</label>
+                                                    <input class="form-control form-control-solid" id="branch_code"
+                                                        type="text" placeholder="Password" name="password" />
+                                                </div>
+                                            </div>
+
+                                            <!-- Branch Code -->
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="password">Email*</label>
+                                                    <input class="form-control form-control-solid" id="password"
+                                                        type="text" placeholder="Email" name="email" />
+                                                </div>
+                                            </div>
+
+                                            <input type="hidden" name="role" value="associate">
+
+
+                                            <!-- City -->
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="City">City*</label>
+                                                    <input class="form-control form-control-solid" id="City" type="name"
+                                                        placeholder="City" name="city" />
                                                 </div>
                                             </div>
 
 
-                                            <!-- course Code -->
-                                            <div class="col-12" id="2nd_year" style="display: none;">
-                                                <div class="col-md-6">
-                                                    <div class="form-group my-3">
-                                                        <label for="2nd_year_fees">2nd Registration Fees*</label>
-                                                        <input class="form-control form-control-solid"
-                                                            id="2nd_year_fees" type="number"
-                                                            placeholder="2nd Registration Fees"
-                                                            name="second_year_fees" />
+                                            <!-- Total Number of Gems -->
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="dist">District*</label>
+                                                    <input class="form-control form-control-solid" id="dist" type="name"
+                                                        placeholder="Enter Dist" name="district" />
+                                                </div>
+                                            </div>
+                                            <!-- Height -->
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="state">state*</label>
+                                                    <input class="form-control form-control-solid" id="state"
+                                                        type="text" placeholder="state" name="state" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="pincode">pincode*</label>
+                                                    <input class="form-control form-control-solid" id="pincode"
+                                                        type="number" placeholder="pincode" name="pincode" />
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="pincode">Percentage*</label>
+                                                    <input class="form-control form-control-solid" id="percentage"
+                                                        type="number" placeholder="percentage" name="percentage" />
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-6">
+                                                <div class="form-group my-3">
+                                                    <label for="Start Date" class="text-bold">dob</label>
+                                                    <input value="" placeholder="dob" id="START"
+                                                        class="form-control datepicker" autocomplete="off" name="dob"
+                                                        type="text">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md col-sm-4 col-6">
+                                                <div class="form-group">
+                                                    <div class="row justify-content-center py-0">
+                                                        <h1 class="fs-14 font-weight-bold text-center mt-5 col-12">
+                                                            Image</h1>
+                                                        <input type='file' name="images" id="image" accept=".png"
+                                                            class="imageUpload d-none" multiple />
+                                                        <div class="avatar-upload col-auto position-relative">
+                                                            <div
+                                                                class="avatar-edit position-absolute right-0px z-index-1 top-2px">
+                                                                <label
+                                                                    class="d-grid w-40px h-40px mb-0 rounded-pill bg-white text-success fs-20 shadow pointer font-weight-normal align-items-center justify-content-center"
+                                                                    for="image"><i class="fad fa-pencil"></i></label>
+                                                            </div>
+                                                            <div
+                                                                class="avatar-preview w-100px h-100px position-relative rounded-pill shadow">
+                                                                <div class="w-100 h-100 rounded-pill"
+                                                                    id="image-imagePreview"
+                                                                    style="background-image: url('/avtar1.png');">
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-
-                                                <!-- course Code -->
-                                                <div class="col-md-6">
-                                                    <div class="form-group my-3">
-                                                        <label for="2nd_year_exam_fees">2nd Exam Fees*</label>
-                                                        <input class="form-control form-control-solid"
-                                                            id="2nd_year_exam_fees" type="number"
-                                                            placeholder="2nd_year_exam_fees"
-                                                            name="second_year_exam_fees" />
-                                                    </div>
-                                                </div>
                                             </div>
-
-
-
-
-                                            <!-- course Code -->
-                                            <div class="col-md-6">
-                                                <div class="form-group my-3">
-                                                    <label for="admission_fees">Admission Fees*</label>
-                                                    <input class="form-control form-control-solid" id="admission_fees"
-                                                        type="number" placeholder="Admission Fees"
-                                                        name="admission_fees" />
-                                                </div>
-                                            </div>
-
-                                            <!-- course Code -->
-                                            <div class="col-md-6">
-                                                <div class="form-group my-3">
-                                                    <label for="exam_fees">Exam Fees*</label>
-                                                    <input class="form-control form-control-solid" id="exam_fees"
-                                                        type="number" placeholder="Exam Fees" name="exam_fees" />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <table class="table table-bordered" id="subjectTable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>S No.</th>
-                                                            <th>Subject Name</th>
-                                                            <th>F.M.</th>
-                                                            <th>P.M.</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody></tbody>
-                                                </table>
-                                            </div>
-                                            <input type="hidden" name="subjects" id="subjectData" value="" >
-                                            <div class="col-md-12">
-                                                <button class="btn btn-success btn-sm" id="addSubject">Add Subject</button>
-                                            </div>
-
 
                                             <!-- Submit Button -->
                                             <div class="col-md-12 text-right mt-4 mb-2">
@@ -159,61 +179,10 @@
                 </main>
                 <%- include("../../components/footer") %>
 
-                <script>
-                    $(document).ready(function () {
-                        let subjectCount = 0;
-                        $("#addSubject").click(function (e) {
-                            e.preventDefault();
-                            subjectCount++;
-                            $("#subjectTable tbody").append(`
-                                <tr>
-                                    <td>${subjectCount}</td>
-                                    <td><input type="text" class="form-control subject-name" placeholder="Subject Name"></td>
-                                    <td><input type="number" class="form-control subject-fm" placeholder="F.M."></td>
-                                    <td><input type="number" class="form-control subject-am" placeholder="P.M."></td>
-                                    <td><button class="btn btn-danger btn-sm removeSubject">Remove</button></td>
-                                </tr>
-                            `);
-                        });
-            
-                        $(document).on("click", ".removeSubject", function () {
-                            $(this).closest("tr").remove();
-                        });
-            
-                        $("#subjectForm").submit(function (e) {
-                            let subjects = [];
-                            $("#subjectTable tbody tr").each(function () {
-                                let subjectName = $(this).find(".subject-name").val();
-                                let fm = $(this).find(".subject-fm").val();
-                                let am = $(this).find(".subject-am").val();
-                                if (subjectName && fm && am) {
-                                    subjects.push({
-                                        subjectName: subjectName,
-                                        FM: fm,
-                                        PM: am
-                                    });
-                                }
-                            });
-                            $("#subjectData").val(JSON.stringify(subjects));
-
-                           
-                        });
-                    });
-                </script>
                     <script>
                         $(window).on("load", function () {
                             $("#preloader_admin").hide();
                         });
-                    </script>
-
-                    <script>
-                        const duration = document.getElementById("duration");
-                        duration.addEventListener("change", function () {
-                            const durationValue = this.value;
-                            if (durationValue == 24) {
-                                document.getElementById("2nd_year").style.display = "block";
-                            }
-                        })
                     </script>
 
                     <script>

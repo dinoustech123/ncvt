@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
 const BranchSchema = mongoose.Schema({
     branch_name: {
@@ -7,7 +7,7 @@ const BranchSchema = mongoose.Schema({
     branch_code: {
         type: String,
     },
-    password : {
+    password: {
         type: String,
     },
     directore_name: {
@@ -43,6 +43,18 @@ const BranchSchema = mongoose.Schema({
             default: 0
         },
     },
+    totelAdmission: {
+        type: Number,
+        default: 0
+    },
+    totelAdmissionAmount: {
+        type: Number,
+        default: 0
+    },
+    referedBy: {
+        type: mongoose.Types.ObjectId,
+        ref: 'user'
+    }
 
 },
     {

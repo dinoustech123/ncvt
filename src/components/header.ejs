@@ -39,7 +39,7 @@
               <ul class=" m-0 p-0 d-flex align-items-center gap-3">
                 <li><a href="student-login">Student Login</a></li>
                 <li><a class="bg-color" href="login">Center Login</a></li>
-                <li><a class="fr-bg-color" href="">Franchise Form</a></li>
+                <li><a class="fr-bg-color" href="associate-login">Associate Member Login</a></li>
 
               </ul>
             </div>
@@ -55,18 +55,31 @@
                   <p><a href="studentLogut">Logout</a></p>
                 </div>
                 <% }else { %>
-                  <div class=""
-                    style="display: flex;flex-direction: row; gap: 1rem; color: rgb(255, 255, 255); font-size: 1.3rem;">
-                    <p class="">
-                      <%= data.branch_name?.toUpperCase() %>
-                    </p>
-                    <p>Wallet :<%= data.userbalance?.balance %>
-                    </p>
-                    <p><a href="branch_dashboard">Dashboard</a></p>
-                    <p><a href="logoutUser">Logout</a></p>
-                  </div>
-                  <% } %>
-                    <% } %>
+                  <% if(data.role=="associate" ) { %>
+                    <div class=""
+                      style="display: flex;flex-direction: row; gap: 1rem; color: rgb(255, 255, 255); font-size: 1.3rem;">
+                      <p class="">
+                        <%= data.name?.toUpperCase() %>
+                      </p>
+                      <p>Wallet :<%= data.userbalance?.balance %>
+                      </p>
+                      <p><a href="associate-dashboard">Dashboard</a></p>
+                      <p><a href="logoutUser">Logout</a></p>
+                    </div>
+                    <% } else {%>
+                      <div class=""
+                        style="display: flex;flex-direction: row; gap: 1rem; color: rgb(255, 255, 255); font-size: 1.3rem;">
+                        <p class="">
+                          <%= data.branch_name?.toUpperCase() %>
+                        </p>
+                        <p>Wallet :<%= data.userbalance?.balance %>
+                        </p>
+                        <p><a href="branch_dashboard">Dashboard</a></p>
+                        <p><a href="logoutUser">Logout</a></p>
+                      </div>
+                      <% } %>
+                        <% } %>
+                          <% } %>
         </div>
       </div>
     </div>

@@ -43,7 +43,8 @@ import { depositRequest, getDeposit } from "../controller/depositController.js"
 import { studentportal, studentlogin, loginStudentData, studentLogout, generateStudentReceipt, studentidcard, generateIDCard, viewregistration } from "../controller/studentController.js"
 
 import auth from "../middleware/auth.js";
-import { addpayments, branch_dashboard } from "../controller/branchController.js";
+import { addpayments, branch_dashboard, viewTransictions } from "../controller/branchController.js";
+import { addBranch, addBranchData, loginAssociate, loginAssociateDashboard, loginAssociateMember, viewAllBranches, viewAssociateTransications } from "../controller/associateController.js";
 const router = Router();
 const documents = upload.fields([
   { name: "matric", maxCount: 1 },
@@ -121,15 +122,14 @@ router.post("/add-student-marks", branchAuth, addStudentMark)
 router.post("/pay-exam-fee", branchAuth, payExamFee)
 router.get("/request_certificates", branchAuth, requestCertificates)
 router.get("/view-request_certificates", branchAuth, viewRequestCertificates)
-router.get("/passed_student" , branchAuth, passStudent)
-router.get("/student_registration_recipt/:id" , branchAuth, StudentReceipt)
-router.get("/student_request", branchAuth, studentRequests )
-router.post("/generate_student_certificate", branchAuth,  generateStudentCertificate)
-router.post("/generate_student_marksheet",  generateStudentMarkSheet)
-
+router.get("/passed_student", branchAuth, passStudent)
+router.get("/student_registration_recipt/:id", branchAuth, StudentReceipt)
+router.get("/student_request", branchAuth, studentRequests)
+router.post("/generate_student_certificate", branchAuth, generateStudentCertificate)
+router.post("/generate_student_marksheet", generateStudentMarkSheet)
 router.post("/depostRequest", branchAuth, depositRequest)
 router.get("/getdeposit", branchAuth, getDeposit)
-
+router.get("/view-transictions", branchAuth, viewTransictions)
 
 //branch Dashboard
 router.get("/branch_dashboard", branchAuth, branch_dashboard);
@@ -145,5 +145,14 @@ router.get("/student-id-card", studentAuth, studentidcard);
 router.get("/student-id-card-print", studentAuth, generateIDCard)
 router.get("/student-recipt", studentAuth, generateStudentReceipt)
 router.get("/view-registration", studentAuth, viewregistration);
+
+
+router.get("/associate-login", loginAssociate)
+router.post("/associate-login-data", loginAssociateMember)
+router.get("/associate-dashboard", loginAssociateDashboard)
+router.get("/add-branch",auth, addBranch)
+router.post("/add-branch-data", auth, upload.single("branch") , addBranchData)
+router.get("/view-all-branches", auth , viewAllBranches)
+router.get("/view-associate-transications", auth , viewAssociateTransications)
 
 export default router
