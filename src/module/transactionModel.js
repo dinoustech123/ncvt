@@ -5,7 +5,7 @@ let Transaction = new Schema({
         type: mongoose.Types.ObjectId,
         ref: 'user'
     },
-    admission_id : {
+    admission_id: {
         type: mongoose.Types.ObjectId,
         ref: 'admissions'
     },
@@ -94,10 +94,14 @@ let Transaction = new Schema({
         type: String,
         default: ""
     },
-    student_id : {
+    student_id: {
         type: mongoose.Types.ObjectId,
         ref: 'students'
-    }
+    },
+    comment: {
+        type: String,
+        default: ""
+    },
 
 }, {
     timestamps: true,

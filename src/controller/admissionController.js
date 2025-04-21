@@ -179,6 +179,11 @@ export async function viewAdmissions(req, res, next) {
                     }
                 },
                 {
+                    $match: {
+                        "student.certificate_required": false,
+                    }
+                },
+                {
                     $lookup: {
                         from: "courses",
                         localField: "student.courseId",
@@ -235,9 +240,13 @@ export async function addStudentMark(req, res, next) {
     try {
         if (req.body.admission_number) {
             const student = await studentModel.findOne({ studentId: req.body.admission_number });
+            const count_sl = await studentModel.countDocuments({ sl_no: { $exists: true, $ne: "" } });
+            console.log(count_sl, "count_sl")
+            let sl_no = 1000 + count_sl + 1;
             if (student) {
                 student.subjects = req.body.subjects;
                 student.marks_enrollment = true;
+                student.sl_no = sl_no;
                 await student.save();
                 res.status(200).json({
                     status: true,
@@ -288,10 +297,10 @@ export async function payExamFee(req, res, next) {
         }
 
         // Update Student & Branch Balance
-        student.roll_no = Math.floor(1000 + Math.random() * 9000);
-        student.total_paid += examFees;
-        student.exam_ispaid = true;
-        branch.userbalance.balance -= examFees;
+        student?.roll_no = Math.floor(1000 + Math.random() * 9000);
+        student?.total_paid += examFees;
+        student?.exam_ispaid = true;
+        branch?.userbalance.balance -= examFees;
 
         await Promise.all([student.save(), branch.save()]);
 
@@ -546,7 +555,7 @@ export async function StudentReceipt(req, res, next) {
 
         page.drawText('Your registration is successful. Congratulations!', { x: 125, y: 100, font, size: 14, color: rgb(0, 0, 1) });
         const pdfBytes = await pdfDoc.save();
-        res.setHeader('Content-Disposition', `attachment; filename="${user.studentId}/registration_receipt.pdf"`);
+        res.setHeader('Content-Disposition', `inline; filename="${user.studentId}/registration_receipt.pdf"`);
         res.setHeader('Content-Type', 'application/pdf');
         res.send(Buffer.from(pdfBytes));
 
@@ -623,6 +632,7 @@ export async function generateStudentCertificate(req, res, next) {
                     image: 1,
                     subjects: 1,
                     dob: 1,
+                    sl_no: 1,
                     branch_name: "$branch.branch_name",
                     directore_name: "$branch.directore_name",
                     course_name: "$course.course_name",
@@ -665,13 +675,14 @@ export async function generateStudentCertificate(req, res, next) {
             division: division || "N/A",
             studyCenter: admission.branch_name.toUpperCase(),
             issueDate: moment().format("DD-MM-YYYY"),
+            sl_no: admission.sl_no || "N/A",
         };
 
 
 
 
         // Load the certificate template (PNG Image)
-        const templateBytes = fs.readFileSync('public/certificte.png');
+        const templateBytes = fs.readFileSync('public/certificte.jpg');
 
         // Create a new PDF document
         const pdfDoc = await PDFDocument.create();
@@ -679,7 +690,8 @@ export async function generateStudentCertificate(req, res, next) {
         const { width, height } = page.getSize();
 
         // Embed the image
-        const image = await pdfDoc.embedPng(templateBytes);
+        // const image = await pdfDoc.embedPng(templateBytes);
+        const image = await pdfDoc.embedJpg(templateBytes);
         page.drawImage(image, {
             x: 0,
             y: 0,
@@ -691,6 +703,7 @@ export async function generateStudentCertificate(req, res, next) {
         const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
         // Draw dynamic text
+        page.drawText(certificateData.sl_no, { x: 170, y: 802, size: 14, font, color: rgb(0, 0, 0) });
         page.drawText(certificateData.name, { x: 360, y: 760, size: 18, font, color: rgb(0, 0, 0) });
         page.drawText(certificateData.fatherName, { x: 250, y: 710, size: 14, font, color: rgb(0, 0, 0) });
         page.drawText(certificateData.course, { x: 230, y: 660, size: 14, font, color: rgb(0, 0, 0) });
@@ -725,7 +738,7 @@ export async function generateStudentCertificate(req, res, next) {
         // Save the PDF and send it as a response
         const pdfBytes = await pdfDoc.save();
         res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename="certificate.pdf"');
+        res.setHeader('Content-Disposition', 'inline; filename="certificate.pdf"');
         res.send(Buffer.from(pdfBytes));
 
     } catch (error) {
@@ -789,6 +802,7 @@ export async function generateStudentMarkSheet(req, res, next) {
                     studentId: 1,
                     image: 1,
                     subjects: 1,
+                    sl_no: 1,
                     branch_name: "$branch.branch_name",
                     directore_name: "$branch.directore_name",
                     course_name: "$course.course_name",
@@ -819,7 +833,9 @@ export async function generateStudentMarkSheet(req, res, next) {
         const courseName = data?.course_name.toUpperCase();
         const duration = `${data?.duration} MONTHS`;
         const studyCenter = data?.branch_name.toUpperCase();
+        const sl_no = data?.sl_no || "N/A";
 
+        page.drawText(`${sl_no}`, { x: 495, y: 653, size: 8, font });
         page.drawText(`${studentRegNo}`, { x: 300, y: 609, size: 12, font });
         page.drawText(`${studentName}`, { x: 300, y: 582, size: 12, font });
         page.drawText(`${fatherName}`, { x: 300, y: 557, size: 12, font });
@@ -858,27 +874,35 @@ export async function generateStudentMarkSheet(req, res, next) {
             let yPos = startY;
             let totalMarks = 0;
             let subjectMarks = 0;
-
+            let totalPM = 0;
+            let totalFM = 0;
+            let totalOM = 0;
             subjects.forEach((subject, index) => {
-                page.drawText(`${index + 1}`, { x: 50, y: yPos, size: 12, font });
-                page.drawText(subject?.subjectName.toUpperCase(), { x: 100, y: yPos, size: 12, font });
-                page.drawText(subject?.PM, { x: 350, y: yPos, size: 12, font });
-                page.drawText(subject?.FM, { x: 400, y: yPos, size: 12, font });
-                page.drawText(`${subject?.OM}`, { x: 500, y: yPos, size: 12, font });
+                totalPM += +subject?.PM;
+                totalFM += +subject?.FM;
+                totalOM += +subject?.OM;
+
+                page.drawText(`${index + 1}`, { x: 50, y: yPos, size: 10, font });
+                page.drawText(subject?.subjectName.toUpperCase(), { x: 90, y: yPos, size: 10, font });
+                page.drawText(subject?.PM, { x: 340, y: yPos, size: 10, font });
+                page.drawText(subject?.FM, { x: 400, y: yPos, size: 10, font });
+                page.drawText(`${subject?.OM}`, { x: 500, y: yPos, size: 10, font });
 
                 totalMarks += +subject?.OM;
                 subjectMarks += +subject?.FM
-                console.log(subject?.FM, "wedfajhdjawbd")
                 yPos -= rowHeight;
             });
 
-            console.log("totalMarks / subjectMarks", totalMarks, "  ", subjectMarks)
             // Calculate percentage and grade
             let percentage = (totalMarks / subjectMarks) * 100;
-            console.log(percentage);
             let grade = percentage >= 75 ? "A" : percentage >= 51 ? "B" : percentage >= 30 ? "C" : "Try Again";
             let division = percentage >= 60 ? "First" : percentage >= 50 ? "Second" : "Third";
             let footer = 183
+            page.drawText(`${totalPM}`, { x: 340, y: 210, size: 10, font });
+            page.drawText(`${totalFM}`, { x: 400, y: 210, size: 10, font });
+            page.drawText(`${totalOM}`, { x: 500, y: 210, size: 10, font });
+
+
             page.drawText(`${percentage.toFixed(2)}%`, { x: 120, y: footer, size: 12, font });
             page.drawText(`${grade}`, { x: 260, y: footer, size: 12, font });
             page.drawText(`${division}`, { x: 420, y: footer, size: 12, font });

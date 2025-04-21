@@ -31,45 +31,57 @@
 
 
 
-
   <script>
-   const studentId = document.getElementById("studentId");
-const cbtn = document.getElementById("cbtn");
-const marksheet = document.getElementById("marksheet");
+    const studentId = document.getElementById("studentId");
+    const cbtn = document.getElementById("cbtn");
+    const marksheet = document.getElementById("marksheet");
 
-cbtn.addEventListener('click', async () => {
-    await downloadPDF('generate_student_certificate', studentId.value, 'Certificate.pdf');
-});
+    cbtn.addEventListener('click', async () => {
+      const originalText = cbtn.innerText;
+      cbtn.disabled = true;
+      cbtn.innerText = 'Opening Certificate PDF...';
+      await downloadPDF('generate_student_certificate', studentId.value);
+      cbtn.innerText = originalText;
+      cbtn.disabled = false;
+    });
 
-marksheet.addEventListener('click', async () => {
-    await downloadPDF('generate_student_marksheet', studentId.value, 'Marksheet.pdf');
-});
+    marksheet.addEventListener('click', async () => {
+      const originalText = marksheet.innerText;
+      marksheet.disabled = true;
+      marksheet.innerText = 'Opening Marksheet PDF...';
+      await downloadPDF('generate_student_marksheet', studentId.value);
+      marksheet.innerText = originalText;
+      marksheet.disabled = false;
+    });
 
-async function downloadPDF(url, studentId, fileName) {
-    try {
+    async function downloadPDF(url, studentId) {
+      try {
         const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ studentId })
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ studentId })
         });
 
         if (!response.ok) {
-            throw new Error('Failed to generate PDF');
+          throw new Error('Failed to generate PDF');
         }
 
         const blob = await response.blob();
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    } catch (error) {
+        const blobUrl = URL.createObjectURL(blob);
+
+        // Open PDF in a new tab
+        window.open(blobUrl, '_blank');
+
+        // Optional: cleanup
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+      } catch (error) {
         alert("Something went wrong... Please try again later");
+      }
     }
-}
+  </script>
+
 
   </script>
   <%- include("../../components/footer") %>

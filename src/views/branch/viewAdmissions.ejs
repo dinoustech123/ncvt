@@ -68,6 +68,7 @@
                                             <td>
                                                 <a href="student_registration_recipt/<%= element.studentId %>"
                                                     class="btn btn-info btn-sm "
+                                                    target="_blank"
                                                     data-admission-number="<%= element.admission_number %>">
                                                     View
                                                 </a>
@@ -90,8 +91,8 @@
                                                                     class="btn btn-info btn-sm" id="request"
                                                                     <%=!element?.exam_idpaid ? "disabled" : "" %>>
                                                                     <%= element?.certificate_issued
-                                                                        ? "Request Certificate"
-                                                                        : "Certificate Already Issued" %>
+                                                                        ? "Certificate Already Issued"
+                                                                        : "Request Certificate" %>
                                                                 </a>
                                                                 <%} %>
                                             </td>
@@ -149,7 +150,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="addMarksBtn">Add Marks</button>
+                    <button type="button" class="btn btn-success" id="addMarksBtn" disabled>Add Marks</button>
                 </div>
             </div>
         </div>
@@ -197,13 +198,15 @@
                 $("#subjectList").html(""); // Clear previous data
                 selectedAdmissionIndex = $(this).closest("tr").index(); // Store selected row index
                 let subjects;
+                console.log(admission[selectedAdmissionIndex], "admission[selectedAdmissionIndex].student_subject")
                 if (admission[selectedAdmissionIndex].student_subject?.length > 0) {
                     subjects = admission[selectedAdmissionIndex].student_subject;
                 } else {
                     subjects = admission[selectedAdmissionIndex].subjects;
                 }
                 // Get subjects for selected admission
-                subjects.forEach((subject) => {
+                console.log(subjects)
+                subjects?.forEach((subject) => {
                     $("#subjectList").append(`
                     <tr>
                         <td>${subject.subjectName}</td>
@@ -217,24 +220,35 @@
                 $("#subjectModal").modal("show"); // Show the modal
 
 
-                let mark = document.querySelectorAll(".om-marks")
+                let mark = document.querySelectorAll(".om-marks");
                 for (let i = 0; i < mark.length; i++) {
-                    mark[i].addEventListener("input", function (e) {
-                        const obtainMark = +e.target.value;
-                        const parent = e.target.parentElement;
+                    mark[i].addEventListener("input", validateMarks);
+                }
+
+                function validateMarks() {
+                    let isValid = true;
+                    let allFilled = true;
+
+                    document.querySelectorAll(".om-marks").forEach(input => {
+                        const value = input.value.trim();
+                        if (value === "") {
+                            allFilled = false;
+                            isValid = false;
+                            return; // no need to validate empty fields
+                        }
+
+                        const obtainMark = +value;
+                        const parent = input.parentElement;
                         const passingMark = +parent.previousElementSibling.textContent.trim();
                         const fullMark = +parent.parentElement.children[1].textContent.trim();
 
-                        if (obtainMark <= passingMark) {
-                            document.getElementById("addMarksBtn").disabled = true
-                        }
-                        if (fullMark <= obtainMark) {
-                            document.getElementById("addMarksBtn").disabled = true
-                        }
-                        if (!(obtainMark <= passingMark) && !(fullMark <= obtainMark)) {
-                            document.getElementById("addMarksBtn").disabled = false
+                        if (obtainMark < passingMark || obtainMark > fullMark) {
+                            isValid = false;
                         }
                     });
+
+                    // Enable the button only if all are filled and all marks are valid
+                    document.getElementById("addMarksBtn").disabled = !(allFilled && isValid);
                 }
             });
 
@@ -274,6 +288,7 @@
                     success: function (response) {
                         alert("Marks added successfully!");
                         $("#subjectModal").modal("hide");
+                        location.reload();
                     },
                     error: function (xhr, status, error) {
                         alert("Error: " + xhr.responseText);

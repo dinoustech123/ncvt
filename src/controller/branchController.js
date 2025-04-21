@@ -91,6 +91,7 @@ export async function viewTransictions(req, res, next) {
                     transaction_id: 1,
                     amount: 1,
                     paymentstatus: 1,
+                    comment: 1,
                     student_name: "$student.student_name",
                     mobile: "$student.mobile",
                     studentId: "$student.studentId",

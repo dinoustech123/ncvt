@@ -4,118 +4,114 @@
         <%- include("../components/sideNav") %>
             <div id="layoutSidenav_content">
                 <main>
-                        <div class="page-header pb-10 page-header-dark bg-info">
-                            <div class="container-fluid">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <div class="page-header-content">
-                                            <h1 class="page-header-title fs-md-35 fs-20">
+                    <div class="page-header pb-10 page-header-dark bg-info">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <div class="page-header-content">
+                                        <h1 class="page-header-title fs-md-35 fs-20">
 
-                                                <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
-                                                <span class=" text-capitalize">
-                                                    Dashboard
-                                                </span>
-                                            </h1>
-                                            <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
-                                            </div>
+                                            <div class="page-header-icon"><i class="fad fa-at text-white"></i></div>
+                                            <span class=" text-capitalize">
+                                                Dashboard
+                                            </span>
+                                        </h1>
+                                        <div class="page-header-subtitle fs-md-19 fs-14 text-capitalize">
                                         </div>
                                     </div>
-                                    <div class="col-auto mb-md-0 mb-3">
-                                    </div>
+                                </div>
+                                <div class="col-auto mb-md-0 mb-3">
                                 </div>
                             </div>
                         </div>
-                        <div class="container-fluid mt-n10">
+                    </div>
+                    <div class="container-fluid mt-n10">
 
-                            
 
 
-                            
 
-                            
 
-                           
-                           
-                            <div class="row dashboard_row_1 mt-4">
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="card bg-primary text-white mb-4 p-1">
-                                        <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
-                                            <div class="card-body col-12">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="">
-                                                        <div class="text-primary small font-weight-bold">No. of user
-                                                            register</div>
-                                                        <div class="text-lg font-weight-bold mt-2 text-black">
-                                                            <%=dashData.user %>
-                                                        </div>
+
+
+
+
+
+                        <div class="row dashboard_row_1 mt-4">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card bg-primary text-white mb-4 p-1">
+                                    <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
+                                        <div class="card-body col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="">
+                                                    <div class="text-primary small font-weight-bold">View All Admission
                                                     </div>
-
-                                                    <i class="fad fa-user-circle fs-45 text-primary"></i>
                                                 </div>
+
+                                                <i class="fad fa-user-circle fs-45 text-primary"></i>
                                             </div>
-                                            <div
-                                                class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
-                                                <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase"
-                                                    href="/view_all_users"><span>View</span><span><i
-                                                            class="fad fa-chevron-right"></i></span></a>
-                                                <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
-                                            </div>
+                                        </div>
+                                        <div
+                                            class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
+                                            <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase"
+                                                href="/view_all_admission"><span>View</span><span><i
+                                                        class="fad fa-chevron-right"></i></span></a>
+                                            <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="card bg-success text-white mb-4 p-1">
-                                        <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
-                                            <div class="card-body col-12">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="">
-                                                        <div class="text-success small font-weight-bold">No. of Document Register
-                                                            users</div>
-                                                        <div class="text-lg font-weight-bold mt-2 text-black">
-                                                            <%=dashData.documentCount %>
-                                                        </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card bg-success text-white mb-4 p-1">
+                                    <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
+                                        <div class="card-body col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="">
+                                                    <div class="text-success small font-weight-bold">View All Associate
+                                                        Member</div>
+                                                    <div class="text-lg font-weight-bold mt-2 text-black">
                                                     </div>
-
-                                                    <i class="fad fa-users fs-45 text-success"></i>
                                                 </div>
+
+                                                <i class="fad fa-users fs-45 text-success"></i>
                                             </div>
-                                            <div
-                                                class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
-                                                <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase invisible"
-                                                    href="/view_all_users?status=activated"><span>View</span><span><i
-                                                            class="fad fa-chevron-right"></i></span></a>
-                                                <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
-                                            </div>
+                                        </div>
+                                        <div
+                                            class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
+                                            <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase"
+                                                href="/view_all_refer_members"><span>View</span><span><i
+                                                        class="fad fa-chevron-right"></i></span></a>
+                                            <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="card bg-orange text-white mb-4 p-1">
-                                        <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
-                                            <div class="card-body col-12">
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="">
-                                                        <div class="text-orange small font-weight-bold">Payment Received</div>
-                                                        <div class="text-lg font-weight-bold mt-2 text-black">
-                                                            <%=dashData.PendingWinnerDeclare %>
-                                                        </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="card bg-orange text-white mb-4 p-1">
+                                    <div class="row mx-0 rounded overflow-hidden bg-white position-relative">
+                                        <div class="card-body col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="">
+                                                    <div class="text-orange small font-weight-bold">View Depost Request
                                                     </div>
-
-                                                    <i class="fad fa-trophy fs-45 text-orange"></i>
+                                                    <div class="text-lg font-weight-bold mt-2 text-black">
+                                                    </div>
                                                 </div>
+
+                                                <i class="fad fa-trophy fs-45 text-orange"></i>
                                             </div>
-                                            <div
-                                                class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
-                                                <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase"
-                                                    href="/match-result"><span>View</span><span><i
-                                                            class="fad fa-chevron-right"></i></span></a>
-                                                <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
-                                            </div>
+                                        </div>
+                                        <div
+                                            class="card-footer bg-white d-flex align-items-center justify-content-between border-0 col-12 p-0">
+                                            <a class="small text-dark d-flex justify-content-between px-3 pb-3 w-100 text-decoration-none text-uppercase"
+                                                href="/deposit_amount"><span>View</span><span><i
+                                                        class="fad fa-chevron-right"></i></span></a>
+                                            <!-- <div class="small text-white"><svg class="svg-inline--fa fa-angle-right fa-w-8" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg><i class="fas fa-angle-right"></i></div> -->
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                               
+
 
                             <script>
                                 $(document).ready(function () {

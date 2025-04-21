@@ -90,6 +90,10 @@ const studentSchema = mongoose.Schema({
     marks_enrollment : {
         type : Boolean,
         default : false,
+    },
+    sl_no : {
+        type: String,
+        default : "",
     }
 },
     {

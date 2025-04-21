@@ -71,6 +71,7 @@ export async function view_users_datatable(req, res, next) {
           dob: 1,
           gender: 1,
           mobile: 1,
+          studentId: 1,
           branch_code: "$branch.branch_code",
           branch_name: "$branch.branch_name",
           course_code: "$courses.course_code",
@@ -80,8 +81,8 @@ export async function view_users_datatable(req, res, next) {
       },
     ];
 
-    const start = parseInt(req.query.start) || 0;
-    const limit1 = parseInt(req.query.limit1) || 10;
+    const start = req.query.start || 0; // Retrieve start from the request query
+    const limit1 = req.query.limit1 || 100; // Retrieve limit1 from the request query
     const sortObject = { student_name: 1 }; // Sorting by student name (modify as needed)
 
     // Count total documents
@@ -89,7 +90,7 @@ export async function view_users_datatable(req, res, next) {
     const totalFiltered = totalFilteredArray.length > 0 ? totalFilteredArray[0].total : 0;
 
     // Paginated users
-    const rows1 = await studentModel.aggregate(conditions).skip(start).limit(limit1).sort(sortObject).exec();
+    const rows1 = await studentModel.aggregate(conditions).sort(sortObject).exec();
 
     let data = [];
     let count = start + 1;
@@ -101,10 +102,7 @@ export async function view_users_datatable(req, res, next) {
         dob: index.dob,
         gender: index.gender,
         mobile: index.mobile,
-        branch_code: index.branch_code,
-        branch_name: index.branch_name,
-        course_code: index.course_code,
-        course_name: index.course_name,
+        admission_number: index.studentId,
         duration: index.duration,
         action: `<a class="btn btn-sm text-uppercase mr-2 btn-primary w-35px h-35px" title="Edit" href="/edit_admission?Id=${index._id}"> <i class="fas fa-pencil" aria-hidden="true"></i></a>`,
       });

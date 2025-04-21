@@ -71,37 +71,25 @@
                                                         <option value="3">3 Months</option>
                                                         <option value="6">6 Months</option>
                                                         <option value="12">12 Months</option>
-                                                        <option value="24">2 Years</option>
                                                     </select>
                                                 </div>
                                             </div>
 
 
-                                            <!-- course Code -->
-                                            <div class="col-12" id="2nd_year" style="display: none;">
-                                                <div class="col-md-6">
-                                                    <div class="form-group my-3">
-                                                        <label for="2nd_year_fees">2nd Registration Fees*</label>
-                                                        <input class="form-control form-control-solid"
-                                                            id="2nd_year_fees" type="number"
-                                                            placeholder="2nd Registration Fees"
-                                                            name="second_year_fees" />
-                                                    </div>
-                                                </div>
-
-                                                <!-- course Code -->
-                                                <div class="col-md-6">
-                                                    <div class="form-group my-3">
-                                                        <label for="2nd_year_exam_fees">2nd Exam Fees*</label>
-                                                        <input class="form-control form-control-solid"
-                                                            id="2nd_year_exam_fees" type="number"
-                                                            placeholder="2nd_year_exam_fees"
-                                                            name="second_year_exam_fees" />
+                                            <div class="col-6">
+                                                <div class="form-group my-3">
+                                                    <div class="form-check mb-2">
+                                                        <input class="form-check-input" type="checkbox" name="is2ndyear" 
+                                                            id="customCheck">
+                                                        <label class="form-check-label" for="customCheck">
+                                                            2nd Year Course
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
 
 
+                                           
 
 
                                             <!-- course Code -->
@@ -136,9 +124,10 @@
                                                     <tbody></tbody>
                                                 </table>
                                             </div>
-                                            <input type="hidden" name="subjects" id="subjectData" value="" >
+                                            <input type="hidden" name="subjects" id="subjectData" value="">
                                             <div class="col-md-12">
-                                                <button class="btn btn-success btn-sm" id="addSubject">Add Subject</button>
+                                                <button class="btn btn-success btn-sm" id="addSubject">Add
+                                                    Subject</button>
                                             </div>
 
 
@@ -159,13 +148,13 @@
                 </main>
                 <%- include("../../components/footer") %>
 
-                <script>
-                    $(document).ready(function () {
-                        let subjectCount = 0;
-                        $("#addSubject").click(function (e) {
-                            e.preventDefault();
-                            subjectCount++;
-                            $("#subjectTable tbody").append(`
+                    <script>
+                        $(document).ready(function () {
+                            let subjectCount = 0;
+                            $("#addSubject").click(function (e) {
+                                e.preventDefault();
+                                subjectCount++;
+                                $("#subjectTable tbody").append(`
                                 <tr>
                                     <td>${subjectCount}</td>
                                     <td><input type="text" class="form-control subject-name" placeholder="Subject Name"></td>
@@ -174,32 +163,32 @@
                                     <td><button class="btn btn-danger btn-sm removeSubject">Remove</button></td>
                                 </tr>
                             `);
-                        });
-            
-                        $(document).on("click", ".removeSubject", function () {
-                            $(this).closest("tr").remove();
-                        });
-            
-                        $("#subjectForm").submit(function (e) {
-                            let subjects = [];
-                            $("#subjectTable tbody tr").each(function () {
-                                let subjectName = $(this).find(".subject-name").val();
-                                let fm = $(this).find(".subject-fm").val();
-                                let am = $(this).find(".subject-am").val();
-                                if (subjectName && fm && am) {
-                                    subjects.push({
-                                        subjectName: subjectName,
-                                        FM: fm,
-                                        PM: am
-                                    });
-                                }
                             });
-                            $("#subjectData").val(JSON.stringify(subjects));
 
-                           
+                            $(document).on("click", ".removeSubject", function () {
+                                $(this).closest("tr").remove();
+                            });
+
+                            $("#subjectForm").submit(function (e) {
+                                let subjects = [];
+                                $("#subjectTable tbody tr").each(function () {
+                                    let subjectName = $(this).find(".subject-name").val();
+                                    let fm = $(this).find(".subject-fm").val();
+                                    let am = $(this).find(".subject-am").val();
+                                    if (subjectName && fm && am) {
+                                        subjects.push({
+                                            subjectName: subjectName,
+                                            FM: fm,
+                                            PM: am
+                                        });
+                                    }
+                                });
+                                $("#subjectData").val(JSON.stringify(subjects));
+
+
+                            });
                         });
-                    });
-                </script>
+                    </script>
                     <script>
                         $(window).on("load", function () {
                             $("#preloader_admin").hide();

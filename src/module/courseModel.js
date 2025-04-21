@@ -10,13 +10,9 @@ const courseSchema = mongoose.Schema({
     duration :{
         type: Number,
     },
-    
-    second_year_fees :{
-        type: String,
-    },
-    
-    second_year_exam_fees :{
-        type: String,
+    is2ndYear : {
+        type: Boolean,
+        default: false,
     },
     admission_fees : {
         type: String,

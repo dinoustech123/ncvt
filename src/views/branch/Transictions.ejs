@@ -21,11 +21,11 @@
                                     <tr>
                                         <th>SR.No.</th>
                                         <th>type</th>
-                                        <th>transaction_id</th>
-                                        <th>amount</th>
-                                        <th>student_name</th>
-                                        <th>mobile</th>
-                                        <th>Student Id</th>
+                                        <th>Transaction Id</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Mobile</th>
+                                        <th>Comment</th>
                                         <th>Date/Time</th>
 
                                     </tr>
@@ -47,13 +47,14 @@
                                                 <%= element?.amount %>
                                             </td>
                                             <td>
-                                                <%= element?.student_name %>
+                                                <%= element?.paymentstatus=="confirmed"  ? "SUCCESS"
+                                                    :element?.paymentstatus.toUpperCase() %>
                                             </td>
                                             <td>
                                                 <%= element?.mobile %>
                                             </td>
                                             <td>
-                                                <%= element?.studentId %>
+                                                <%= element?.comment %>
                                             </td>
                                             <td>
                                                 <%= new Date(element?.createdAt).toLocaleString('en-IN', {
@@ -61,7 +62,7 @@
                                                     hour: '2-digit' , minute: '2-digit' , second: '2-digit' , hour12:
                                                     true, // For 12-hour format, use false for 24-hour
                                                     timeZone: 'Asia/Kolkata' // Make sure it's shown in Indian time });
-                                                 }) %>
+                                                    }) %>
                                             </td>
 
 
