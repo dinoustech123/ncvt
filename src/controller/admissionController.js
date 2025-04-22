@@ -297,10 +297,10 @@ export async function payExamFee(req, res, next) {
         }
 
         // Update Student & Branch Balance
-        student?.roll_no = Math.floor(1000 + Math.random() * 9000);
-        student?.total_paid += examFees;
-        student?.exam_ispaid = true;
-        branch?.userbalance.balance -= examFees;
+        student.roll_no = Math.floor(1000 + Math.random() * 9000);
+        student.total_paid += examFees;
+        student.exam_ispaid = true;
+        branch.userbalance.balance -= examFees;
 
         await Promise.all([student.save(), branch.save()]);
 
@@ -682,7 +682,7 @@ export async function generateStudentCertificate(req, res, next) {
 
 
         // Load the certificate template (PNG Image)
-        const templateBytes = fs.readFileSync('public/certificte.jpg');
+        const templateBytes = fs.readFileSync('public/certificate.png');
 
         // Create a new PDF document
         const pdfDoc = await PDFDocument.create();
@@ -690,8 +690,8 @@ export async function generateStudentCertificate(req, res, next) {
         const { width, height } = page.getSize();
 
         // Embed the image
-        // const image = await pdfDoc.embedPng(templateBytes);
-        const image = await pdfDoc.embedJpg(templateBytes);
+        const image = await pdfDoc.embedPng(templateBytes);
+        // const image = await pdfDoc.embedJpg(templateBytes);
         page.drawImage(image, {
             x: 0,
             y: 0,
@@ -816,12 +816,13 @@ export async function generateStudentMarkSheet(req, res, next) {
         ])
         data = data[0];
         // Load marksheet background
-        const existingPdfBytes = fs.readFileSync("public/marksheet.jpg");
+        const existingPdfBytes = fs.readFileSync("public/marksheet.png");
         const pdfDoc = await PDFDocument.create();
         const page = pdfDoc.addPage([595, 842]); // A4 Size
 
         // Embed marksheet background
-        const bgImage = await pdfDoc.embedJpg(existingPdfBytes);
+        const bgImage = await pdfDoc.embedPng(existingPdfBytes);
+        // const bgImage = await pdfDoc.embedJpg(existingPdfBytes);
         page.drawImage(bgImage, { x: 0, y: 0, width: 595, height: 842 });
 
         const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
@@ -836,12 +837,12 @@ export async function generateStudentMarkSheet(req, res, next) {
         const sl_no = data?.sl_no || "N/A";
 
         page.drawText(`${sl_no}`, { x: 495, y: 653, size: 8, font });
-        page.drawText(`${studentRegNo}`, { x: 300, y: 609, size: 12, font });
-        page.drawText(`${studentName}`, { x: 300, y: 582, size: 12, font });
-        page.drawText(`${fatherName}`, { x: 300, y: 557, size: 12, font });
-        page.drawText(`${courseName}`, { x: 300, y: 530, size: 12, font });
-        page.drawText(`${duration}`, { x: 300, y: 502, size: 12, font });
-        page.drawText(`${studyCenter}`, { x: 300, y: 475, size: 12, font });
+        page.drawText(`${studentRegNo}`, { x: 300, y: 595, size: 9, font });
+        page.drawText(`${studentName}`, { x: 300, y: 571, size: 9, font });
+        page.drawText(`${fatherName}`, { x: 300, y: 547, size: 9, font });
+        page.drawText(`${courseName}`, { x: 300, y: 525, size: 9, font });
+        page.drawText(`${duration}`, { x: 300, y: 500, size: 9, font });
+        page.drawText(`${studyCenter}`, { x: 300, y: 478, size: 9, font });
 
 
 
