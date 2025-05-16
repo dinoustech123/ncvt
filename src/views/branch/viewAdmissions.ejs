@@ -143,6 +143,7 @@
                                 <th>Subject Name</th>
                                 <th>F.M.</th>
                                 <th>P.M.</th>
+                                <th>Type</th>
                                 <th>O.M.</th>
                             </tr>
                         </thead>
@@ -212,6 +213,7 @@
                         <td>${subject.subjectName}</td>
                         <td>${subject.FM}</td>
                         <td>${subject.PM}</td>
+                        <td>${subject.type}</td>
                         <td><input type="number" class="form-control om-marks" value="${subject?.OM}" data-subject="${subject.subjectName}" placeholder="Enter O.M."></td>
                     </tr>
                 `);
@@ -259,6 +261,7 @@
                     let subjectName = $(this).find("td:eq(0)").text(); // Get subject name
                     let fm = $(this).find("td:eq(1)").text(); // Get Full Marks (FM)
                     let pm = $(this).find("td:eq(2)").text(); // Get Passing Marks (PM)
+                    let type = $(this).find("td:eq(3)").text(); // Get Passing Marks (PM)
                     let omMarks = $(this).find(".om-marks").val(); // Get Obtained Marks (OM)
 
                     if (omMarks !== "") {
@@ -266,7 +269,8 @@
                             subjectName: subjectName,
                             FM: fm,
                             PM: pm,
-                            OM: omMarks
+                            OM: omMarks,
+                            type: type
                         });
                     }
                 });

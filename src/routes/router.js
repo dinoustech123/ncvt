@@ -38,7 +38,7 @@ import {
 } from "../controller/pageController.js"
 import { submitFranchiseDetail, franchiseForm } from "../controller/franchiseController.js"
 import { success, failure, generatePaymentRecipt } from "../controller/paymentController.js";
-import { addStudentMark, admission, admissionData, generateStudentCertificate, generateStudentMarkSheet, passStudent, payExamFee, requestCertificates, StudentReceipt, studentRequests, viewAdmissions, viewRequestCertificates } from "../controller/admissionController.js"
+import { addStudentMark, admission, admissionData, generateStudentCertificate, generateStudentMarkSheet, passStudent, payExamFee, requestCertificates, secondYearCertificate,  StudentReceipt, studentRequests, viewAdmissions, viewRequestCertificates } from "../controller/admissionController.js"
 import { depositRequest, getDeposit } from "../controller/depositController.js"
 import { studentportal, studentlogin, loginStudentData, studentLogout, generateStudentReceipt, studentidcard, generateIDCard, viewregistration } from "../controller/studentController.js"
 
@@ -127,6 +127,7 @@ router.get("/student_registration_recipt/:id", branchAuth, StudentReceipt)
 router.get("/student_request", branchAuth, studentRequests)
 router.post("/generate_student_certificate", branchAuth, generateStudentCertificate)
 router.post("/generate_student_marksheet", generateStudentMarkSheet)
+// router.get('/2nd-year-marksheet', secondYearCertificate);
 router.post("/depostRequest", branchAuth, depositRequest)
 router.get("/getdeposit", branchAuth, getDeposit)
 router.get("/view-transictions", branchAuth, viewTransictions)
@@ -150,9 +151,11 @@ router.get("/view-registration", studentAuth, viewregistration);
 router.get("/associate-login", loginAssociate)
 router.post("/associate-login-data", loginAssociateMember)
 router.get("/associate-dashboard", loginAssociateDashboard)
-router.get("/add-branch",auth, addBranch)
-router.post("/add-branch-data", auth, upload.single("branch") , addBranchData)
-router.get("/view-all-branches", auth , viewAllBranches)
-router.get("/view-associate-transications", auth , viewAssociateTransications)
+router.get("/add-branch", auth, addBranch)
+router.post("/add-branch-data", auth, upload.single("branch"), addBranchData)
+router.get("/view-all-branches", auth, viewAllBranches)
+router.get("/view-associate-transications", auth, viewAssociateTransications)
+
+
 
 export default router

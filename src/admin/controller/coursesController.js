@@ -27,9 +27,7 @@ export async function add_caurses_data(req, res, next) {
             req.body.subjects = JSON.parse(req.body.subjects)
         }
         console.log("Req.body------>", req.body)
-        if (req.body.is2ndyear == "on") {
-            req.body.is2ndYear = true
-        }
+        req.body.year = +req.body.year
         if (req.body) {
             let course = await courseModel.create(req.body)
             if (course) {
@@ -92,7 +90,7 @@ export async function view_Courses_datatable(req, res) {
                 duration: index.duration == 24 ? "2 Years" : index.duration,
                 admission_fees: index.admission_fees,
                 exam_fees: index.exam_fees,
-                is2ndYear: index.is2ndYear ? "Yes" : "No",
+                year: `${index.year} Year `,
                 // pincode: index.pincode,
                 // directoreMob: index.directore_mob,
                 // images: `<img src="${process.env.BASE_URL}/${index.images}" alt="Branch Image" style="width: 100px; height: 100px;">`,

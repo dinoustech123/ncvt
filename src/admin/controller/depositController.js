@@ -434,7 +434,22 @@ export async function download_certificate(req, res, next) {
                 }
             },
             {
+                $lookup: {
+                    from: "admissions",
+                    localField: "studentId",
+                    foreignField: "admission_number",
+                    as: "admission"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$admission",
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
                 $project: {
+                    roll_no: 1,
                     student_name: 1,
                     father_name: 1,
                     studentId: 1,
@@ -444,16 +459,19 @@ export async function download_certificate(req, res, next) {
                     sl_no: 1,
                     branch_name: "$branch.branch_name",
                     directore_name: "$branch.directore_name",
-                    course_name: "$course.course_name",
+                    course_name: "$course.course_code",
                     course_code: "$course.course_code",
                     duration: "$course.duration",
+                    year: "$course.year",
+                    admission_date: "$admission.admission_date"
 
                 }
             }
-
-
         ])
         admission = admission[0]
+        if (admission) {
+            if (admission.course_code == "NTT") return await secondYearCertificate(admission, res)
+        }
         let percentage
         let grade
         let division
@@ -473,6 +491,8 @@ export async function download_certificate(req, res, next) {
             division = percentage >= 60 ? "First" : percentage >= 50 ? "Second" : "Third";
 
         }
+        admission.course_name = admission.course_name == undefined ? "" : admission.course_name.toUpperCase()
+
         const certificateData = {
             name: admission.student_name.toUpperCase(),
             fatherName: admission.father_name.toUpperCase(),
@@ -559,6 +579,122 @@ export async function download_certificate(req, res, next) {
 
 
 
+export async function secondYearCertificate(data, res) {
+    try {
+        const imageBytes = fs.readFileSync('public/certificate-2.png');
+        const pdfDoc = await PDFDocument.create();
+        const page = pdfDoc.addPage([794, 1123]);
+
+        const pngImage = await pdfDoc.embedPng(imageBytes);
+        page.drawImage(pngImage, {
+            x: 0,
+            y: 0,
+            width: 794,
+            height: 1123,
+        });
+
+        const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+        const fontSize = 14;
+        const textColor = rgb(0, 0, 0);
+
+        const year = data.admission_date.split("-")[2]
+        const session = year + "-" + (+year + 1)
+
+        // Text Coordinates based on visual placement
+        page.drawText(session, { x: 400, y: 689, size: fontSize, font, color: textColor });
+        page.drawText(data.student_name, { x: 250, y: 621, size: fontSize, font, color: textColor });
+        page.drawText(data.father_name, { x: 230, y: 571, size: fontSize, font, color: textColor });
+        page.drawText(data.roll_no.toString(), { x: 130, y: 801, size: 14, font, color: textColor });
+        page.drawText(data.studentId, { x: 530, y: 801, size: 14, font, color: textColor });
+        page.drawText(data.branch_name, { x: 120, y: 444, size: fontSize, font, color: textColor });
+        page.drawText(data.course_name, { x: 120, y: 527, size: fontSize, font, color: textColor });
+
+        // page.drawText(theorySubject, { x: 160, y: 322, size: fontSize, font, color: textColor });
+        // page.drawText(practicalSubject, { x: 180, y: 240, size: fontSize, font, color: textColor });
+
+
+
+        if (data && data.subjects.length > 0) {
+            const subjects = data.subjects;
+            const totalSubjects = subjects.length;
+            let startY = 325;
+            let totalMarks = 0;
+            let subjectMarks = 0;
+            let totalFM = 0;
+            let totalOM = 0;
+
+
+            let startYP = 240;
+            let totalFMP = 0;
+            let totalOMP = 0;
+            let totalPmark = 0;
+            let totalSubjectpMark = 0
+            let count = 0
+            let innertext = ""
+            const theorySubjectArr = subjects.filter((sub) => sub.type == "theory")
+            theorySubjectArr.forEach((subject, index) => {
+                count++
+                totalFM += +subject?.FM;
+                totalOM += +subject?.OM;
+                innertext = `${innertext} * ${subject?.subjectName.toUpperCase()}`
+                if (count == 3 || index == theorySubjectArr.length - 1) {
+                    page.drawText(innertext, { x: 160, y: startY, size: 10, font });
+                    count = 0
+                    innertext = ""
+                    startY -= 15;
+                }
+                totalMarks += +subject?.OM;
+                subjectMarks += +subject?.FM
+            });
+
+            let Pcount = 0
+            let Pinnertext = ""
+            const practicalSubjectArr = subjects.filter((sub) => sub.type == "practical")
+            practicalSubjectArr.forEach((subject, index) => {
+                Pcount++
+                totalFMP += +subject?.FM;
+                totalOMP += +subject?.OM;
+                Pinnertext = `${Pinnertext} * ${subject?.subjectName.toUpperCase()}`
+                if (Pcount == 3 || index == practicalSubjectArr.length - 1) {
+                    page.drawText(Pinnertext, { x: 185, y: startYP, size: 10, font });
+                    count = 0
+                    Pinnertext = ""
+                    startYP -= 15;
+
+                }
+
+                totalPmark += +subject?.OM;
+                totalSubjectpMark += +subject?.FM
+            });
+
+            // Calculate percentage and grade
+            let Tpercentage = (totalMarks / subjectMarks) * 100;
+            let Tdivision = Tpercentage >= 60 ? "First" : Tpercentage >= 50 ? "Second" : "Third";
+            page.drawText(Tdivision, { x: 250, y: 400, size: fontSize, font, color: textColor });
+
+
+            let Ppercentage = (totalPmark / totalSubjectpMark) * 100;
+            let Pdivision = Ppercentage >= 60 ? "First" : Ppercentage >= 50 ? "Second" : "Third";
+            page.drawText(Pdivision, { x: 485, y: 400, size: fontSize, font, color: textColor });
+
+        }
+
+
+        // Date
+        page.drawText(`:- ${new Date().toLocaleDateString()}`, { x: 260, y: 82, size: fontSize, font, color: textColor });
+
+        const pdfBytes = await pdfDoc.save();
+        res.setHeader('Content-Disposition', 'inline; filename=certificate.pdf');
+        res.setHeader('Content-Type', 'application/pdf');
+        res.end(Buffer.from(pdfBytes));
+
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('Server Error');
+    }
+}
+
+
 export async function generateStudentMarkSheet(req, res, next) {
     try {
         let { studentId } = req.query;
@@ -605,7 +741,22 @@ export async function generateStudentMarkSheet(req, res, next) {
                 }
             },
             {
+                $lookup: {
+                    from: "admissions",
+                    localField: "studentId",
+                    foreignField: "admission_number",
+                    as: "admission"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$admission",
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
                 $project: {
+                    roll_no: 1,
                     student_name: 1,
                     father_name: 1,
                     studentId: 1,
@@ -613,28 +764,34 @@ export async function generateStudentMarkSheet(req, res, next) {
                     subjects: 1,
                     sl_no: 1,
                     branch_name: "$branch.branch_name",
+                    branch_code: "$branch.branch_code",
                     directore_name: "$branch.directore_name",
                     course_name: "$course.course_name",
                     course_code: "$course.course_code",
                     duration: "$course.duration",
+                    year: "$course.year",
+                    admission_date: "$admission.admission_date"
 
                 }
             }
-
-
         ])
         data = data[0];
+        if (data) {
+            if (data.course_code == "NTT") return await secondYearMarkSheet(data, res)
+        }
         // Load marksheet background
         const existingPdfBytes = fs.readFileSync("public/marksheet.png");
         const pdfDoc = await PDFDocument.create();
         const page = pdfDoc.addPage([595, 842]); // A4 Size
 
         // Embed marksheet background
-        // const bgImage = await pdfDoc.embedJpg(existingPdfBytes);
         const bgImage = await pdfDoc.embedPng(existingPdfBytes);
+        // const bgImage = await pdfDoc.embedJpg(existingPdfBytes);
         page.drawImage(bgImage, { x: 0, y: 0, width: 595, height: 842 });
 
         const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+        data.branch_name = data?.branch_name == undefined ? "" : data?.branch_name.toUpperCase()
+        data.course_name = data?.course_name == undefined ? "" : data?.course_name.toUpperCase()
 
         // Student Details (Modify these based on request data)
         const studentName = data?.student_name.toUpperCase();
@@ -721,12 +878,145 @@ export async function generateStudentMarkSheet(req, res, next) {
         // Save and send the PDF as response
         const pdfBytes = await pdfDoc.save();
         res.setHeader("Content-Type", "application/pdf");
-        res.setHeader("Content-Disposition", 'inline; filename="Marksheet.pdf"');
+        res.setHeader("Content-Disposition", 'attachment; filename="Marksheet.pdf"');
         res.end(Buffer.from(pdfBytes));
 
     } catch (error) {
         console.log(error);
         console.error("Error in indexPage:", error.message);
         return res.redirect("signup");
+    }
+}
+
+
+export async function secondYearMarkSheet(data, res) {
+    try {
+        const imageBytes = fs.readFileSync('public/marksheet-2.png');
+        const pdfDoc = await PDFDocument.create();
+        const page = pdfDoc.addPage([595, 842]);
+
+        const pngImage = await pdfDoc.embedPng(imageBytes);
+        page.drawImage(pngImage, {
+            x: 0,
+            y: 0,
+            width: 595,
+            height: 842
+        });
+        const year = data.admission_date.split("-")[2]
+        const sesson = year + "-" + (+year + 1)
+
+
+        // --- Header Fields ---
+        page.drawText(`:- ${(data.branch_code).toUpperCase()}`, { x: 210, y: 632, size: 12, color: rgb(0, 0, 0) });
+        page.drawText((data.roll_no).toString(), { x: 95, y: 586, size: 12, color: rgb(0, 0, 0) });
+        page.drawText(data.studentId, { x: 375, y: 588, size: 10, color: rgb(0, 0, 0) });
+        page.drawText(sesson, { x: 300, y: 515, size: 12, color: rgb(0, 0, 0) });
+        page.drawText(data.student_name.toUpperCase(), { x: 90, y: 485, size: 12, color: rgb(0, 0, 0) });
+        page.drawText(data.father_name, { x: 390, y: 484, size: 12, color: rgb(0, 0, 0) });
+        page.drawText(data.branch_name.toUpperCase(), { x: 150, y: 447, size: 12, color: rgb(0, 0, 0) });
+        page.drawText(data.course_name.toUpperCase(), { x: 140, y: 425, size: 12, color: rgb(0, 0, 0) });
+        page.drawText(`:- ${moment().format("DD-MM-YYYY")}`, { x: 195, y: 66, size: 12, color: rgb(0, 0, 0) });
+
+        // --- Subjects ---
+        const startY = 350;
+        const rowHeight = 15;
+        const font = 6.5;
+
+        const theorySubjects = data.subjects.filter(subject => subject?.type == "theory");
+        const totalOM = theorySubjects.reduce((acc, subject) => acc + +(subject?.OM || 0), 0);
+        const totalFM = theorySubjects.reduce((acc, subject) => acc + +(subject?.FM || 0), 0);
+        const theoryPercent = Math.floor(+totalOM / +totalFM * 100)
+        let theoryDivision;
+        let theoryGrade;
+        if (theoryPercent >= 33 && theoryPercent <= 44) {
+            theoryDivision = "C"
+            theoryGrade = "THIRD"
+        } else if (theoryPercent >= 45 && theoryPercent <= 59) {
+            theoryDivision = "B"
+            theoryGrade = "SECOND"
+        } else if (theoryPercent >= 60 && theoryPercent <= 100) {
+            theoryDivision = "A"
+            theoryGrade = "FIRST"
+        }
+        for (let i = 0; i < theoryGrade.length; i++) {
+            page.drawText(theoryGrade[i].toUpperCase(), { x: 270, y: 340 - 15 * i, size: font, color: rgb(0, 0, 0) });
+        }
+
+        theorySubjects.forEach((item, index) => {
+            const y = startY - index * rowHeight;
+            let subPercent = Math.floor(+item.OM / +item.FM * 100)
+            let devision;
+            if (subPercent >= 33 && subPercent <= 44) {
+                devision = "C"
+            } else if (subPercent >= 45 && subPercent <= 59) {
+                devision = "B"
+            } else if (subPercent >= 60 && subPercent <= 100) {
+                devision = "A"
+            }
+
+            page.drawText(String(index + 1), { x: 50, y, size: font, color: rgb(0, 0, 0) });
+            page.drawText(item.subjectName.toUpperCase(), { x: 66, y, size: font, color: rgb(0, 0, 0) });
+            page.drawText(item.FM, { x: 210, y, size: font, color: rgb(0, 0, 0) });
+            page.drawText(item.OM, { x: 240, y, size: font, color: rgb(0, 0, 0) });
+            // page.drawText(devision, { x: 270, y, size: font, color: rgb(0, 0, 0) });
+
+        });
+
+        const practicalSubjects = data.subjects.filter(subject => subject?.type == "practical");
+        const totalFMP = practicalSubjects.reduce((acc, subject) => acc + +(subject?.FM || 0), 0);
+        const totalOMP = practicalSubjects.reduce((acc, subject) => acc + +(subject?.OM || 0), 0);
+        const practicalPercent = Math.floor(+totalOMP / +totalFMP * 100)
+        let practicalDivision;
+        let practicalGrade;
+        if (practicalPercent >= 33 && practicalPercent <= 44) {
+            practicalDivision = "C"
+            practicalGrade = "THIRD"
+        } else if (practicalPercent >= 45 && practicalPercent <= 59) {
+            practicalDivision = "B"
+            practicalGrade = "SECOND"
+        } else if (practicalPercent >= 60 && practicalPercent <= 100) {
+            practicalDivision = "A"
+            practicalGrade = "FIRST"
+        }
+        for (let i = 0; i < practicalGrade.length; i++) {
+            page.drawText(practicalGrade[i].toUpperCase(), { x: 530, y: 340 - 15 * i, size: font, color: rgb(0, 0, 0) });
+        }
+
+        practicalSubjects.forEach((item, index) => {
+            const y = startY - index * rowHeight;
+            let subPercent = Math.floor(+item.OM / +item.FM * 100)
+            let devision;
+            if (subPercent >= 33 && subPercent <= 44) {
+                devision = "C"
+            } else if (subPercent >= 45 && subPercent <= 59) {
+                devision = "B"
+            } else if (subPercent >= 60 && subPercent <= 100) {
+                devision = "A"
+            }
+            page.drawText(item.subjectName.toUpperCase(), { x: 300, y, size: font, color: rgb(0, 0, 0) });
+            page.drawText(item.FM, { x: 460, y, size: font, color: rgb(0, 0, 0) });
+            page.drawText(item.OM, { x: 490, y, size: font, color: rgb(0, 0, 0) });
+            // page.drawText(devision, { x: 525, y, size: font, color: rgb(0, 0, 0) });
+        });
+
+
+
+        const totalMarksYIndex = 212;
+        page.drawText(totalFMP.toString(), { x: 460, y: totalMarksYIndex, size: font, color: rgb(0, 0, 0) });
+        page.drawText(totalOMP.toString(), { x: 490, y: totalMarksYIndex, size: font, color: rgb(0, 0, 0) });
+        page.drawText(practicalDivision, { x: 524, y: totalMarksYIndex, size: font, color: rgb(0, 0, 0) });
+        page.drawText(totalFM.toString(), { x: 210, y: totalMarksYIndex, size: font, color: rgb(0, 0, 0) });
+        page.drawText(totalOM.toString(), { x: 236, y: totalMarksYIndex, size: font, color: rgb(0, 0, 0) });
+        page.drawText(theoryDivision, { x: 270, y: totalMarksYIndex, size: font, color: rgb(0, 0, 0) });
+
+
+        const pdfBytes = await pdfDoc.save();
+        res.setHeader('Content-Disposition', 'inline; filename=marksheet.pdf');
+        res.setHeader('Content-Type', 'application/pdf');
+        res.end(Buffer.from(pdfBytes));
+
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('Server Error');
     }
 }
